@@ -1,5 +1,8 @@
 import history from '@history';
-import { setDefaultSettings, setInitialSettings } from 'app/store/actions/spacenow';
+import {
+	setDefaultSettings,
+	setInitialSettings,
+} from 'app/store/actions/spacenow';
 import _ from '@lodash';
 import store from 'app/store';
 import * as Actions from 'app/store/actions';
@@ -13,123 +16,120 @@ export const USER_LOGGED_OUT = '[USER] LOGGED OUT';
  * Set User Data
  */
 export function setUserData(user) {
+	return dispatch => {
+		const displayName = user.displayName || user.email;
+		const photoURL = user.photoURL || 'assets/images/avatars/spacenow.svg';
 
-    return (dispatch) => {
-
-        const displayName = user.displayName || user.email;
-        const photoURL = user.photoURL || 'assets/images/avatars/Velazquez.jpg';
-
-        /*
+		/*
         Set User Settings
          */
-        dispatch(setDefaultSettings({}));
+		dispatch(setDefaultSettings({}));
 
-        /*
+		/*
         Set User Data
          */
-        dispatch({
-            type: SET_USER_DATA,
-            payload: { role: user.role, data: { ...user, displayName, photoURL } }
-        })
-    }
+		dispatch({
+			type: SET_USER_DATA,
+			payload: { role: user.role, data: { ...user, displayName, photoURL } },
+		});
+	};
 }
 
 /**
  * Update User Settings
  */
 export function updateUserSettings(settings) {
-    return (dispatch, getState) => {
-        const oldUser = getState().auth.user;
-        const user = _.merge({}, oldUser, { data: { settings } });
+	return (dispatch, getState) => {
+		const oldUser = getState().auth.user;
+		const user = _.merge({}, oldUser, { data: { settings } });
 
-        updateUserData(user);
+		updateUserData(user);
 
-        return dispatch(setUserData(user));
-    }
+		return dispatch(setUserData(user));
+	};
 }
 
 /**
  * Update User Shortcuts
  */
 export function updateUserShortcuts(shortcuts) {
-    return (dispatch, getState) => {
-        const user = getState().auth.user;
-        const newUser = {
-            ...user,
-            data: {
-                ...user.data,
-                shortcuts
-            }
-        };
+	return (dispatch, getState) => {
+		const user = getState().auth.user;
+		const newUser = {
+			...user,
+			data: {
+				...user.data,
+				shortcuts,
+			},
+		};
 
-        updateUserData(newUser);
+		updateUserData(newUser);
 
-        return dispatch(setUserData(newUser));
-    }
+		return dispatch(setUserData(newUser));
+	};
 }
 
 /**
  * Remove User Data
  */
 export function removeUserData() {
-    return {
-        type: REMOVE_USER_DATA
-    }
+	return {
+		type: REMOVE_USER_DATA,
+	};
 }
 
 /**
  * Logout
  */
 export function logoutUser() {
+	return (dispatch, getState) => {
+		const user = getState().auth.user;
 
-    return (dispatch, getState) => {
+		if (!user.role || user.role.length === 0) {
+			// is guest
+			return null;
+		}
 
-        const user = getState().auth.user;
+		history.push({
+			pathname: '/login',
+		});
 
-        if (!user.role || user.role.length === 0)// is guest
-        {
-            return null;
-        }
+		switch (user.from) {
+			default: {
+				jwtService.logout();
+			}
+		}
 
-        history.push({
-            pathname: '/login'
-        });
+		dispatch(setInitialSettings());
 
-        switch (user.from) {
-            default:
-                {
-                    jwtService.logout();
-                }
-        }
-
-        dispatch(setInitialSettings());
-
-        dispatch({
-            type: USER_LOGGED_OUT
-        })
-    }
+		dispatch({
+			type: USER_LOGGED_OUT,
+		});
+	};
 }
 
 /**
  * Update User Data
  */
 function updateUserData(user) {
-    if (!user.role || user.role.length === 0)// is guest
-    {
-        return;
-    }
+	if (!user.role || user.role.length === 0) {
+		// is guest
+		return;
+	}
 
-    switch (user.from) {
-        default:
-            {
-                jwtService.updateUserData(user)
-                    .then(() => {
-                        store.dispatch(Actions.showMessage({ message: "User data saved with api" }));
-                    })
-                    .catch(error => {
-                        store.dispatch(Actions.showMessage({ message: error.message }));
-                    });
-                break;
-            }
-    }
+	switch (user.from) {
+		default: {
+			jwtService
+				.updateUserData(user)
+				.then(() => {
+					store.dispatch(
+						Actions.showMessage({ message: 'User data saved with api' }),
+					);
+				})
+				.catch(error => {
+					store.dispatch(Actions.showMessage({ message: error.message }));
+				});
+			break;
+		}
+	}
 }
