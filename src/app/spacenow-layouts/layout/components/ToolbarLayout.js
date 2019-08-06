@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppBar, Hidden, Toolbar } from '@material-ui/core';
 import { makeStyles, ThemeProvider } from '@material-ui/styles';
-import { SpacenowSearch, SpacenowShortcuts } from '@spacenow';
+import { SpacenowSearch } from '@spacenow';
 import NavbarMobileToggleButton from 'app/spacenow-layouts/shared-components/NavbarMobileToggleButton';
 import QuickPanelToggleButton from 'app/spacenow-layouts/shared-components/quickPanel/QuickPanelToggleButton';
 import UserMenu from 'app/spacenow-layouts/shared-components/UserMenu';
@@ -33,11 +33,7 @@ function ToolbarLayout(props) {
                         </Hidden>
                     )}
 
-                    <div className="flex flex-1">
-                        <Hidden mdDown>
-                            <SpacenowShortcuts className="px-16" />
-                        </Hidden>
-                    </div>
+                    <div className="flex flex-1" />
 
                     <div className="flex">
 
