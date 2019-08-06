@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
+import history from '@history';
 import { SpacenowSplashScreen } from '@spacenow';
 import { connect } from 'react-redux';
 import * as userActions from 'app/auth/store/actions';
 import { bindActionCreators } from 'redux';
 import * as Actions from 'app/store/actions';
 import jwtService from 'app/auth/store/services/jwtService';
+
+// const Auth2 = () => {
+//     useEffect(() => {
+
+//     }, [])
+// }
 
 class Auth extends Component {
 
@@ -37,6 +44,8 @@ class Auth extends Component {
                     resolve();
 
                     this.props.showMessage({ message: 'Logged in with JWT' });
+
+                    history.push({ pathname: '/' });
                 })
                 .catch(error => {
 

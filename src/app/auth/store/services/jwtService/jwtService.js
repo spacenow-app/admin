@@ -68,7 +68,6 @@ class jwtService extends SpacenowUtils.EventEmitter {
                 variables: { email, password }
             })
                 .then(response => {
-                    console.log(response)
                     if (response.data.loginAdmin.token) {
                         this.setSession(response.data.loginAdmin.token);
                         this.signInWithToken()
