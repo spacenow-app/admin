@@ -7,12 +7,6 @@ import { bindActionCreators } from 'redux';
 import * as Actions from 'app/store/actions';
 import jwtService from 'app/auth/store/services/jwtService';
 
-// const Auth2 = () => {
-//     useEffect(() => {
-
-//     }, [])
-// }
-
 class Auth extends Component {
 
     state = {

@@ -2,10 +2,14 @@ import * as Actions from '../actions';
 
 const initialState = {
 	role: [],
-	data: {},
+	data: {
+		displayName: '',
+		photoURL: '',
+		email: ''
+	}
 };
 
-const user = function(state = initialState, action) {
+const user = function (state = initialState, action) {
 	switch (action.type) {
 		case Actions.SET_USER_DATA: {
 			return {
