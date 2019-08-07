@@ -1,140 +1,141 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import SpacenowUtils from '@spacenow/SpacenowUtils';
-import { getClient } from "@graphql/apolloClient"
+import { getClient } from '@graphql/apolloClient';
 import * as authQL from '../../graphql/auth';
 
 class jwtService extends SpacenowUtils.EventEmitter {
+	init() {
+		// this.setInterceptors();
+		this.handleAuthentication();
+	}
 
-    init() {
-        // this.setInterceptors();
-        this.handleAuthentication();
-    }
+	setInterceptors = () => {
+		axios.interceptors.response.use(
+			response => {
+				return response;
+			},
+			err => {
+				return new Promise((resolve, reject) => {
+					if (
+						err.response.status === 401 &&
+						err.config &&
+						!err.config.__isRetryRequest
+					) {
+						// if you ever get an unauthorized response, logout the user
+						this.emit('onAutoLogout', 'Invalid access_token');
+						this.setSession(null);
+					}
+					throw err;
+				});
+			},
+		);
+	};
 
-    setInterceptors = () => {
-        axios.interceptors.response.use(response => {
-            return response;
-        }, err => {
-            return new Promise((resolve, reject) => {
-                if (err.response.status === 401 && err.config && !err.config.__isRetryRequest) {
-                    // if you ever get an unauthorized response, logout the user
-                    this.emit('onAutoLogout', 'Invalid access_token');
-                    this.setSession(null);
-                }
-                throw err;
-            });
-        });
-    };
+	handleAuthentication = () => {
+		let access_token = this.getAccessToken();
 
-    handleAuthentication = () => {
+		if (!access_token) {
+			this.emit('onNoAccessToken');
+			return;
+		}
 
-        let access_token = this.getAccessToken();
+		if (this.isAuthTokenValid(access_token)) {
+			this.setSession(access_token);
+			this.emit('onAutoLogin', true);
+		} else {
+			this.setSession(null);
+			this.emit('onAutoLogout', 'access_token expired');
+		}
+	};
 
-        if (!access_token) {
-            this.emit('onNoAccessToken');
+	// createUser = (data) => {
+	//     return new Promise((resolve, reject) => {
+	//         axios.post('/api/auth/register', data)
+	//             .then(response => {
+	//                 if (response.data.user) {
+	//                     this.setSession(response.data.access_token);
+	//                     resolve(response.data.user);
+	//                 }
+	//                 else {
+	//                     reject(response.data.error);
+	//                 }
+	//             });
+	//     });
+	// };
 
-            return;
-        }
+	signInWithEmailAndPassword = (email, password) => {
+		return new Promise((resolve, reject) => {
+			getClient()
+				.mutate({
+					mutation: authQL.mutationLoginAdmin,
+					variables: { email, password },
+				})
+				.then(response => {
+					if (response.data.loginAdmin.token) {
+						this.setSession(response.data.loginAdmin.token);
+						this.signInWithToken();
+					} else {
+						reject(response.data.error);
+					}
+				});
+		});
+	};
 
-        if (this.isAuthTokenValid(access_token)) {
-            this.setSession(access_token);
-            this.emit('onAutoLogin', true);
-        }
-        else {
-            this.setSession(null);
-            this.emit('onAutoLogout', 'access_token expired');
-        }
-    };
+	signInWithToken = () => {
+		return new Promise((resolve, reject) => {
+			getClient()
+				.mutate({
+					mutation: authQL.mutationTokenAdminValidate,
+					variables: { token: this.getAccessToken() },
+				})
+				.then(response => {
+					if (response.data.tokenAdminValidate.admin) {
+						resolve(response.data.tokenAdminValidate.admin);
+					} else {
+						reject(response.data.error);
+					}
+				});
+		});
+	};
 
-    // createUser = (data) => {
-    //     return new Promise((resolve, reject) => {
-    //         axios.post('/api/auth/register', data)
-    //             .then(response => {
-    //                 if (response.data.user) {
-    //                     this.setSession(response.data.access_token);
-    //                     resolve(response.data.user);
-    //                 }
-    //                 else {
-    //                     reject(response.data.error);
-    //                 }
-    //             });
-    //     });
-    // };
+	updateUserData = user => {
+		return axios.post('/api/auth/user/update', {
+			user: user,
+		});
+	};
 
-    signInWithEmailAndPassword = (email, password) => {
-        return new Promise((resolve, reject) => {
-            getClient().mutate({
-                mutation: authQL.mutationLoginAdmin,
-                variables: { email, password }
-            })
-                .then(response => {
-                    if (response.data.loginAdmin.token) {
-                        this.setSession(response.data.loginAdmin.token);
-                        this.signInWithToken()
-                    }
-                    else {
-                        reject(response.data.error);
-                    }
-                });
-        });
-    };
+	setSession = access_token => {
+		if (access_token) {
+			localStorage.setItem('jwt_access_token', access_token);
+			// axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
+		} else {
+			localStorage.removeItem('jwt_access_token');
+			// delete axios.defaults.headers.common['Authorization'];
+		}
+	};
 
-    signInWithToken = () => {
-        return new Promise((resolve, reject) => {
-            getClient().mutate({
-                mutation: authQL.mutationTokenAdminValidate,
-                variables: { token: this.getAccessToken() }
-            })
-                .then(response => {
-                    if (response.data.tokenAdminValidate.admin) {
-                        resolve(response.data.tokenAdminValidate.admin);
-                    }
-                    else {
-                        reject(response.data.error);
-                    }
-                });
-        });
-    };
+	logout = () => {
+		this.setSession(null);
+	};
 
-    updateUserData = (user) => {
-        return axios.post('/api/auth/user/update', {
-            user: user
-        });
-    };
+	isAuthTokenValid = access_token => {
+		if (!access_token) {
+			return false;
+		}
+		const decoded = jwtDecode(access_token);
+		const currentTime = Date.now() / 1000;
+		if (decoded.exp < currentTime) {
+			console.warn('access token expired');
+			return false;
+		} else {
+			return true;
+		}
+	};
 
-    setSession = access_token => {
-        if (access_token) {
-            localStorage.setItem('jwt_access_token', access_token);
-            // axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
-        }
-        else {
-            localStorage.removeItem('jwt_access_token');
-            // delete axios.defaults.headers.common['Authorization'];
-        }
-    };
-
-    logout = () => {
-        this.setSession(null);
-    };
-
-    isAuthTokenValid = access_token => {
-        if (!access_token) {
-            return false;
-        }
-        const decoded = jwtDecode(access_token);
-        const currentTime = Date.now() / 1000;
-        if (decoded.exp < currentTime) {
-            console.warn('access token expired');
-            return false;
-        }
-        else {
-            return true;
-        }
-    };
-
-    getAccessToken = () => {
-        return window.localStorage.getItem('jwt_access_token');
-    };
+	getAccessToken = () => {
+		return window.localStorage.getItem('jwt_access_token');
+	};
 }
 
 const instance = new jwtService();
