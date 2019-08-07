@@ -12,6 +12,20 @@ const navigationConfig = [
 				icon: 'dashboard',
 				url: '/apps/dashboard',
 			},
+			{
+				id: 'managment',
+				title: 'Managment',
+				type: 'collapse',
+				icon: 'dashboard',
+				children: [
+					{
+						id: 'users',
+						title: 'Users',
+						type: 'item',
+						url: '/apps/managment'
+					},
+				],
+			},
 		],
 	},
 ];
