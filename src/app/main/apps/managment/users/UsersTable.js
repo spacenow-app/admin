@@ -9,10 +9,7 @@ import {
 	TableBody,
 	TableCell,
 	TablePagination,
-    TableRow,
-    FormControl,
-    Select,
-    MenuItem
+    TableRow
 } from '@material-ui/core';
 import moment from 'moment';
 import { SpacenowScrollbars } from '@spacenow';
