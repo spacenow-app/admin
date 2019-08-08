@@ -1,0 +1,234 @@
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:10.16.0
+version: 2
+jobs:
+  checkout_code:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          keys:
+            - source-{{ .Branch }}-{{ .Revision }}
+            - source-{{ .Branch }}-
+            - source-
+
+      - checkout
+
+      - save_cache:
+          key: source-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - "~/repo"
+  install:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          key: source-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: "Yarn install"
+          command: yarn
+      - save_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+  build:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          key: source-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: "Build app"
+          command:
+            REACT_APP_ENV=production REACT_APP_GOOGLE_MAPS_KEY=${SANDPIT_REACT_APP_GOOGLE_MAPS_KEY}
+            GENERATE_SOURCEMAP=false INLINE_RUNTIME_CHUNK=false REACT_APP_GRAPH_HOST=${SANDPIT_REACT_APP_GRAPH_HOST} yarn build
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - build
+            - scripts
+            - package.json
+  deploy:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: "INSTALL PIP"
+          command: |
+            sudo apt-get update && sudo apt-get install -y python-dev
+            sudo curl -O https://bootstrap.pypa.io/get-pip.py
+            sudo python get-pip.py
+      - run:
+          name: "INSTALL AWS CLI"
+          command: |
+            sudo pip install awscli --upgrade
+            aws --version
+      - run:
+          name: "SETUP ACCOUNT"
+          command: |
+            export ACCOUNT_ID=159220020591
+            chmod +x scripts/assume-role.sh
+            source scripts/assume-role.sh
+      - run:
+          name: "Deploy to S3 DEV"
+          command: |
+            aws s3 ls
+            aws s3 sync build/ s3://${SANDPIT_AWS_BUCKET} --delete --region $AWS_REGION
+            aws cloudfront create-invalidation --distribution-id "E38R9CBL117AET" --paths /index.html
+  build-qa:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          key: source-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: "Build app"
+          command:
+            REACT_APP_ENV=production REACT_APP_GOOGLE_MAPS_KEY=${NONPROD_REACT_APP_GOOGLE_MAPS_KEY}
+            GENERATE_SOURCEMAP=false INLINE_RUNTIME_CHUNK=false REACT_APP_GRAPH_HOST=${NONPROD_REACT_APP_GRAPH_HOST} yarn build
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - build
+            - scripts
+            - package.json
+  deploy-qa:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: "INSTALL PIP"
+          command: |
+            sudo apt-get update && sudo apt-get install -y python-dev
+            sudo curl -O https://bootstrap.pypa.io/get-pip.py
+            sudo python get-pip.py
+      - run:
+          name: "INSTALL AWS CLI"
+          command: |
+            sudo pip install awscli --upgrade
+            aws --version
+      - run:
+          name: "SETUP ACCOUNT"
+          command: |
+            export ACCOUNT_ID=211853473677
+            source scripts/assume-role.sh
+      - run:
+          name: "Deploy to S3 QA"
+          command: |
+            aws s3 ls
+            aws s3 sync build/ s3://${NONPROD_AWS_BUCKET} --delete --region $AWS_REGION
+            aws cloudfront create-invalidation --distribution-id "E8T1Z3NYNLEPU" --paths /index.html
+  build-prod:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          key: source-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: "Build app"
+          command:
+            REACT_APP_ENV=production REACT_APP_GOOGLE_MAPS_KEY=${PROD_REACT_APP_GOOGLE_MAPS_KEY}
+            GENERATE_SOURCEMAP=false INLINE_RUNTIME_CHUNK=false REACT_APP_GRAPH_HOST=${PROD_REACT_APP_GRAPH_HOST} yarn build
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - build
+            - scripts
+            - package.json
+  deploy-prod:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: "INSTALL PIP"
+          command: |
+            sudo apt-get update && sudo apt-get install -y python-dev
+            sudo curl -O https://bootstrap.pypa.io/get-pip.py
+            sudo python get-pip.py
+      - run:
+          name: "INSTALL AWS CLI"
+          command: |
+            sudo pip install awscli --upgrade
+            aws --version
+      - run:
+          name: "SETUP ACCOUNT"
+          command: |
+            export ACCOUNT_ID=985566274543
+            source scripts/assume-role.sh
+      - run:
+          name: "Deploy to S3 PROD"
+          command: |
+            aws s3 ls
+            aws s3 sync build/ s3://${PROD_AWS_BUCKET} --delete --region $AWS_REGION
+            aws cloudfront create-invalidation --distribution-id "E2YJX6D1PVADY" --paths /index.html
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - checkout_code
+      - install:
+          requires:
+            - checkout_code
+      - build:
+          requires:
+            - install
+      - deploy:
+          requires:
+            - build
+      - qa-approval:
+          type: approval
+          requires:
+            - deploy
+          filters:
+            branches:
+              only:
+                - master
+      - build-qa:
+          requires:
+            - qa-approval
+      - deploy-qa:
+          requires:
+            - build-qa
+          filters:
+            branches:
+              only:
+                - master
+      - prod-approval:
+          type: approval
+          requires:
+            - deploy-qa
+          filters:
+            branches:
+              only:
+                - master
+      - build-prod:
+          requires:
+            - prod-approval
+      - deploy-prod:
+          requires:
+            - build-prod
+          filters:
+            branches:
+              only:
+                - master

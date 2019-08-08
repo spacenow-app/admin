@@ -1,87 +1,42 @@
-import React, { Component } from 'react';
-import history from '@history';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { SpacenowSplashScreen } from '@spacenow';
-import { connect } from 'react-redux';
-import * as userActions from 'app/auth/store/actions';
-import { bindActionCreators } from 'redux';
-import * as Actions from 'app/store/actions';
 import jwtService from 'app/auth/store/services/jwtService';
+import * as Actions from 'app/store/actions';
+import * as userActions from 'app/auth/store/actions';
 
-class Auth extends Component {
+const Auth = props => {
+	const dispatch = useDispatch();
+	const [waitAuthCheck, setWaitAuthCheck] = useState(true);
 
-    state = {
-        waitAuthCheck: true
-    }
+	useEffect(() => {
+		jwtService.init();
+	}, []);
 
-    componentDidMount() {
-        return Promise.all([
-            this.jwtCheck()
-        ]).then(() => {
-            this.setState({ waitAuthCheck: false })
-        })
-    }
+	jwtService.on('onAutoLogin', async () => {
+		try {
+			const user = await jwtService.signInWithToken();
+			dispatch(userActions.setUserData(user));
+			setWaitAuthCheck(false);
+		} catch (error) {
+			dispatch(Actions.showMessage({ message: error }));
+			setWaitAuthCheck(false);
+		}
+	});
 
-    jwtCheck = () => new Promise(resolve => {
+	jwtService.on('onAutoLogout', message => {
+		if (message) dispatch(Actions.showMessage({ message }));
+		dispatch(userActions.logoutUser());
+		setWaitAuthCheck(false);
+	});
 
-        jwtService.on('onAutoLogin', () => {
+	jwtService.on('onNoAccessToken', () => setWaitAuthCheck(false));
 
-            this.props.showMessage({ message: 'Logging in with JWT' });
+	return waitAuthCheck ? (
+		<SpacenowSplashScreen />
+	) : (
+			<React.Fragment children={props.children} />
+		);
+};
 
-            /**
-             * Sign in and retrieve user data from Api
-             */
-            jwtService.signInWithToken()
-                .then(user => {
-
-                    this.props.setUserData(user);
-
-                    resolve();
-
-                    this.props.showMessage({ message: 'Logged in with JWT' });
-
-                })
-                .catch(error => {
-
-                    this.props.showMessage({ message: error });
-
-                    resolve();
-                })
-        });
-
-        jwtService.on('onAutoLogout', (message) => {
-
-            if (message) {
-                this.props.showMessage({ message });
-            }
-
-            this.props.logout();
-
-            resolve();
-        });
-
-        jwtService.on('onNoAccessToken', () => {
-
-            resolve();
-        });
-
-        jwtService.init();
-
-        return Promise.resolve();
-    })
-
-    render() {
-        return this.state.waitAuthCheck ? <SpacenowSplashScreen /> : <React.Fragment children={this.props.children} />;
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        logout: userActions.logoutUser,
-        setUserData: userActions.setUserData,
-        showMessage: Actions.showMessage,
-        hideMessage: Actions.hideMessage
-    },
-        dispatch);
-}
-
-export default connect(null, mapDispatchToProps)(Auth);
+export default Auth;

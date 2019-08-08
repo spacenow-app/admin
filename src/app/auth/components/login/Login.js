@@ -10,7 +10,7 @@ import * as authActions from 'app/auth/store/actions';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        background: 'radial-gradient(' + darken(theme.palette.primary.dark, 0.5) + ' 0%, ' + theme.palette.primary.dark + ' 80%)',
+        background: 'radial-gradient(' + darken(theme.palette.primary.main, 0.5) + ' 0%, ' + theme.palette.primary.main + ' 80%)',
         color: theme.palette.primary.contrastText
     }
 }));
