@@ -6,7 +6,10 @@ import {
 	TableBody,
 	TableCell,
 	TablePagination,
-	TableRow,
+    TableRow,
+    FormControl,
+    Select,
+    MenuItem
 } from '@material-ui/core';
 import moment from 'moment';
 import { SpacenowScrollbars } from '@spacenow';
@@ -147,10 +150,7 @@ function UsersTable(props) {
 												moment(n.profile.createdAt).format(
 													moment.HTML5_FMT.DATE,
 												)}
-										</TableCell>
-										<TableCell component='th' scope='row'>
-											{n.id}
-										</TableCell>
+										</TableCell>										
 										<TableCell component="th" scope="row">                                        
                                             <FormControl>
                                                 <Select
