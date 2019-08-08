@@ -6,8 +6,15 @@ export const queryGetAllUsersLegacy = gql`
     getAllUsersLegacy {
       id
       email
-      password
       emailConfirmed
+      profile {
+        profileId
+        firstName
+        lastName
+        phoneNumber
+        createdAt
+        picture
+      }
     }
   }
 `
