@@ -12,27 +12,12 @@ const rows = [
     //     sort          : false
     // },
     {
-        id            : 'profileId',
+        id            : 'id',
         align         : 'left',
         disablePadding: false,
-        label         : 'Profile id',
+        label         : 'Id',
         sort          : true
     },
-    {
-        id            : 'firstName',
-        align         : 'left',
-        disablePadding: false,
-        label         : 'First name',
-        sort          : true
-    },
-    {
-        id            : 'lastName',
-        align         : 'left',
-        disablePadding: false,
-        label         : 'Last name',
-        sort          : true
-    },
-    
     {
         id            : 'email',
         align         : 'left',
@@ -40,41 +25,11 @@ const rows = [
         label         : 'Email',
         sort          : true
     },
-    
     {
-        id            : 'phoneNumber',
+        id            : 'password',
         align         : 'left',
         disablePadding: false,
-        label         : 'Phone number',
-        sort          : true
-    },
-    {
-        id            : 'createdDate',
-        align         : 'left',
-        disablePadding: false,
-        label         : 'Created Date',
-        sort          : true
-    },
-    // {
-    //     id            : 'password',
-    //     align         : 'left',
-    //     disablePadding: false,
-    //     label         : 'Password',
-    //     sort          : true
-    // },
-  
-    {
-        id            : 'view',
-        align         : 'left',
-        disablePadding: false,
-        label         : 'View',
-        sort          : true
-    },
-    {
-        id            : 'action',
-        align         : 'left',
-        disablePadding: false,
-        label         : 'Action',
+        label         : 'Password',
         sort          : true
     },
     {

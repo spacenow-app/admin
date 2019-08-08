@@ -150,29 +150,13 @@ function UsersTable(props) {
                                         <TableCell component="th" scope="row">
                                             {n.id}
                                         </TableCell>
-                                        <TableCell component="th" scope="row">
-                                            {n.id}
-                                        </TableCell>
-                                        <TableCell component="th" scope="row">
-                                            {n.id}
-                                        </TableCell>
 
                                         <TableCell className="truncate" component="th" scope="row">
                                             {n.email}
                                         </TableCell>
-                                        <TableCell component="th" scope="row">
-                                            {n.id}
-                                        </TableCell>
-                                        <TableCell component="th" scope="row">
-                                            {n.id}
-                                        </TableCell>
-                                        <TableCell component="th" scope="row">
-                                            {n.id}
-                                        </TableCell>
 
                                         <TableCell component="th" scope="row">
-                                            {/* {n.password} */}
-                                            action
+                                            {n.password}
                                         </TableCell>
 
                                         {/* <TableCell component="th" scope="row" align="right">
