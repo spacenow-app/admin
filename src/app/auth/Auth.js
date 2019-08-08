@@ -20,23 +20,23 @@ const Auth = props => {
 			setWaitAuthCheck(false);
 		} catch (error) {
 			dispatch(Actions.showMessage({ message: error }));
+			setWaitAuthCheck(false);
 		}
 	});
 
 	jwtService.on('onAutoLogout', message => {
 		if (message) dispatch(Actions.showMessage({ message }));
 		dispatch(userActions.logoutUser());
+		setWaitAuthCheck(false);
 	});
 
-	jwtService.on('onNoAccessToken', () =>
-		dispatch(Actions.showMessage({ message: 'No access token' })),
-	);
+	jwtService.on('onNoAccessToken', () => setWaitAuthCheck(false));
 
 	return waitAuthCheck ? (
 		<SpacenowSplashScreen />
 	) : (
-		<React.Fragment children={props.children} />
-	);
+			<React.Fragment children={props.children} />
+		);
 };
 
 export default Auth;
