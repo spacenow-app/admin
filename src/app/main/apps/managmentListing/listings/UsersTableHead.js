@@ -19,26 +19,89 @@ const rows = [
         sort          : true
     },
     {
-        id            : 'email',
+        id            : 'title',
         align         : 'left',
         disablePadding: false,
-        label         : 'Email',
+        label         : 'Title',
         sort          : true
     },
     {
-        id            : 'password',
+        id            : 'status',
         align         : 'left',
         disablePadding: false,
-        label         : 'Password',
+        label         : 'Status',
         sort          : true
     },
     {
-        id            : 'emailConfirmed',
-        align         : 'right',
+        id            : 'ownerName',
+        align         : 'left',
         disablePadding: false,
-        label         : 'Email Confirmed',
+        label         : 'Owner Name',
         sort          : true
     },
+    // {
+    //     id            : 'ownerEmail',
+    //     align         : 'left',
+    //     disablePadding: false,
+    //     label         : 'Owner Email',
+    //     sort          : true
+    // },
+    // {
+    //     id            : 'city',
+    //     align         : 'left',
+    //     disablePadding: false,
+    //     label         : 'City',
+    //     sort          : true
+    // },
+    // {
+    //     id            : 'state',
+    //     align         : 'left',
+    //     disablePadding: false,
+    //     label         : 'State',
+    //     sort          : true
+    // },
+    // {
+    //     id            : 'country',
+    //     align         : 'right',
+    //     disablePadding: false,
+    //     label         : 'Country',
+    //     sort          : true
+    // },
+    // {
+    //     id            : 'createdDate',
+    //     align         : 'left',
+    //     disablePadding: false,
+    //     label         : 'Created Date',
+    //     sort          : true
+    // },
+    // {
+    //     id            : 'ready',
+    //     align         : 'left',
+    //     disablePadding: false,
+    //     label         : 'Ready',
+    //     sort          : true
+    // },
+    // {
+    //     id            : 'publish',
+    //     align         : 'left',
+    //     disablePadding: false,
+    //     label         : 'Publish',
+    //     sort          : true
+    // },
+    // {
+    //     id            : 'edit',
+    //     align         : 'right',
+    //     disablePadding: false,
+    //     label         : 'Edit',
+    //     sort          : true
+    // },
+    // {
+    //     id            : 'delete',
+    //     align         : 'right',
+    //     disablePadding: false,
+    //     label         : 'Delete',
+    //     sort          : true
+    // },
     // {
     //     id            : 'active',
     //     align         : 'right',

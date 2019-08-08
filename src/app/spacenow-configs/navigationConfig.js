@@ -42,30 +42,38 @@ const navigationConfig = [
 					}
 				],
 			},
-			{
-				id: 'managmentListing',
-				title: 'Manage Listing',
-				type: 'collapse',
-				icon: 'dashboard',
-				//url: '/apps/managmentListing/users',
-				children: [
-					{
-						id: 'Listings',
-						title: 'Listings',
-						type: 'item',
-						url: '/apps/managmentListing/listings',
-						exact: true
-					},
-					// {
-					// 	id: 'newUsers',
-					// 	title: 'New User',
-					// 	type: 'item',
-					// 	url: '/apps/managment/users/new',
-					// 	exact: true
+			// {
+			// 	id: 'managmentListing',
+			// 	title: 'Manage Listing',
+			// 	type: 'collapse',
+			// 	icon: 'dashboard',
+			// 	//url: '/apps/managmentListing/users',
+			// 	children: [
+			// 		{
+			// 			id: 'Listings',
+			// 			title: 'Listings',
+			// 			type: 'item',
+			// 			url: '/apps/managmentListing/listings',
+			// 			exact: true
+			// 		},
+			// 		// {
+			// 		// 	id: 'newUsers',
+			// 		// 	title: 'New User',
+			// 		// 	type: 'item',
+			// 		// 	url: '/apps/managment/users/new',
+			// 		// 	exact: true
 						
-					// }
-				],
-			},
+			// 		// }
+			// 	],
+			// },
+			{
+							id: 'Listings',
+							title: 'Listings',
+							type: 'item',
+							icon: 'dashboard',
+							url: '/apps/managmentListing/listings',
+							exact: true
+						},
 		],
 	},
 ];
