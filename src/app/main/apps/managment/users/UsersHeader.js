@@ -1,9 +1,8 @@
 import React from 'react';
-import { Paper, Button, Input, Icon, Typography } from '@material-ui/core';
+import { Paper, Input, Icon, Typography } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import { SpacenowAnimate } from '@spacenow';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import * as Actions from '../store/actions';
 
 function UsersHeader(props) {
@@ -16,7 +15,7 @@ function UsersHeader(props) {
 
             <div className="flex items-center">
                 <SpacenowAnimate animation="transition.expandIn" delay={300}>
-                    <Icon className="text-32 mr-0 sm:mr-12">shopping_basket</Icon>
+                    <Icon className="text-32 mr-0 sm:mr-12">person</Icon>
                 </SpacenowAnimate>
                 <SpacenowAnimate animation="transition.slideLeftIn" delay={300}>
                     <Typography className="hidden sm:flex" variant="h6">Users</Typography>
@@ -47,12 +46,6 @@ function UsersHeader(props) {
                 </ThemeProvider>
 
             </div>
-            <SpacenowAnimate animation="transition.slideRightIn" delay={300}>
-                <Button component={Link} to="/apps/managment/users/new" className="whitespace-no-wrap" variant="contained">
-                    <span className="hidden sm:flex">Add New Product</span>
-                    <span className="flex sm:hidden">New</span>
-                </Button>
-            </SpacenowAnimate>
         </div>
     );
 }

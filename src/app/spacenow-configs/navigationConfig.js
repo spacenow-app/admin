@@ -16,32 +16,33 @@ const navigationConfig = [
 				id: 'managmentFee',
 				title: 'Managment Fee',
 				type: 'item',
-				icon: 'dashboard',
+				icon: 'credit_card',
 				url: '/apps/managmentFee',
 			},
-			{
-				id: 'managment',
-				title: 'Managment',
-				type: 'collapse',
-				icon: 'dashboard',
-				children: [
+			// {
+			// 	id: 'managment',
+			// 	title: 'Managment',
+			// 	type: 'collapse',
+			// 	icon: 'dashboard',
+			// 	children: [
 					{
 						id: 'users',
 						title: 'Users',
 						type: 'item',
+						icon: 'person',
 						url: '/apps/managment/users',
 						exact: true
 					},
-					{
-						id: 'newUsers',
-						title: 'New User',
-						type: 'item',
-						url: '/apps/managment/users/new',
-						exact: true
+					// {
+					// 	id: 'newUsers',
+					// 	title: 'New User',
+					// 	type: 'item',
+					// 	url: '/apps/managment/users/new',
+					// 	exact: true
 						
-					}
-				],
-			},
+					// }
+				//],
+			//},
 			// {
 			// 	id: 'managmentListing',
 			// 	title: 'Manage Listing',
@@ -70,7 +71,7 @@ const navigationConfig = [
 							id: 'Listings',
 							title: 'Listings',
 							type: 'item',
-							icon: 'dashboard',
+							icon: 'list',
 							url: '/apps/managmentListing/listings',
 							exact: true
 						},

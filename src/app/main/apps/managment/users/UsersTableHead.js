@@ -63,13 +63,13 @@ const rows = [
     //     sort          : true
     // },
   
-    {
-        id            : 'view',
-        align         : 'left',
-        disablePadding: false,
-        label         : 'View',
-        sort          : true
-    },
+    // {
+    //     id            : 'view',
+    //     align         : 'left',
+    //     disablePadding: false,
+    //     label         : 'View',
+    //     sort          : true
+    // },
     {
         id            : 'action',
         align         : 'left',
