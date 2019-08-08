@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import {
 	Avatar,
+	FormControl,
 	Icon,
+	MenuItem,
+	Select,
 	Table,
 	TableBody,
 	TableCell,
@@ -151,20 +154,17 @@ function UsersTable(props) {
 										<TableCell component='th' scope='row'>
 											{n.id}
 										</TableCell>
-										<TableCell component="th" scope="row">                                        
-                                            <FormControl>
-                                                <Select
-                                                value={"value"}
-                                                name="userBan"
-                                                >
-                                                <MenuItem value="">
-                                                    <em>Select</em>
-                                                </MenuItem>
-                                                <MenuItem value={10}>UnBan</MenuItem>
-                                                <MenuItem value={20}>Ban</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                        </TableCell>
+										<TableCell component="th" scope="row">
+											<FormControl>
+												<Select value={"value"} name="userBan" >
+													<MenuItem value="">
+														<em>Select</em>
+													</MenuItem>
+													<MenuItem value={10}>UnBan</MenuItem>
+													<MenuItem value={20}>Ban</MenuItem>
+												</Select>
+											</FormControl>
+										</TableCell>
 										<TableCell component='th' scope='row' align='right'>
 											{n.emailConfirmed ? (
 												<Icon className='text-green text-20'>check_circle</Icon>
