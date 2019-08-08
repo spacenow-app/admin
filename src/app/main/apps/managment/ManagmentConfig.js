@@ -7,10 +7,6 @@ export const ManagmentConfig = {
     },
     routes: [
         {
-            path: '/apps/managment/users/:id',
-            component: React.lazy(() => import('./user/User'))
-        },
-        {
             path: '/apps/managment/users',
             component: React.lazy(() => import('./users/Users'))
         },
