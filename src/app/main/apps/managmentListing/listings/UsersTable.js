@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Icon, Table, TableBody, TableCell, TablePagination, TableRow, Checkbox } from '@material-ui/core';
 import { SpacenowScrollbars } from '@spacenow';
 import { withRouter } from 'react-router-dom';
-import clsx from 'clsx';
 import _ from '@lodash';
 import UsersTableHead from './UsersTableHead';
 import * as Actions from '../store/actions';
