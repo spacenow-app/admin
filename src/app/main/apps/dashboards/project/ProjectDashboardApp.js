@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
-import { Typography } from '@material-ui/core';
+// import { Typography } from '@material-ui/core';
 import { SpacenowAnimateGroup, SpacenowPageSimple } from '@spacenow';
 import withReducer from 'app/store/withReducer';
 import * as Actions from './store/actions';
