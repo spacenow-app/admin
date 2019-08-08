@@ -11,7 +11,6 @@ import {
 import moment from 'moment';
 import { SpacenowScrollbars } from '@spacenow';
 import { withRouter } from 'react-router-dom';
-// import clsx from 'clsx';
 import _ from '@lodash';
 import UsersTableHead from './UsersTableHead';
 import * as Actions from '../store/actions';
@@ -40,8 +39,8 @@ function UsersTable(props) {
 			searchText.length === 0
 				? users
 				: _.filter(users, item =>
-						item.email.toLowerCase().includes(searchText.toLowerCase()),
-				  ),
+					item.email.toLowerCase().includes(searchText.toLowerCase()),
+				),
 		);
 	}, [users, searchText]);
 
@@ -71,26 +70,6 @@ function UsersTable(props) {
 		props.history.push('/apps/managment/users/' + item.id);
 	}
 
-	// function handleCheck(event, id) {
-	// 	const selectedIndex = selected.indexOf(id);
-	// 	let newSelected = [];
-
-	// 	if (selectedIndex === -1) {
-	// 		newSelected = newSelected.concat(selected, id);
-	// 	} else if (selectedIndex === 0) {
-	// 		newSelected = newSelected.concat(selected.slice(1));
-	// 	} else if (selectedIndex === selected.length - 1) {
-	// 		newSelected = newSelected.concat(selected.slice(0, -1));
-	// 	} else if (selectedIndex > 0) {
-	// 		newSelected = newSelected.concat(
-	// 			selected.slice(0, selectedIndex),
-	// 			selected.slice(selectedIndex + 1),
-	// 		);
-	// 	}
-
-	// 	setSelected(newSelected);
-	// }
-
 	function handleChangePage(event, page) {
 		setPage(page);
 	}
@@ -110,7 +89,6 @@ function UsersTable(props) {
 						onRequestSort={handleRequestSort}
 						rowCount={data.length}
 					/>
-
 					<TableBody>
 						{_.orderBy(
 							data,
@@ -146,10 +124,9 @@ function UsersTable(props) {
 											{n.profile && n.profile.picture ? (
 												<Avatar src={n.profile.picture} />
 											) : (
-												<Avatar src='assets/images/avatars/spacenow.svg' />
-											)}
+													<Avatar src='assets/images/avatars/spacenow.svg' />
+												)}
 										</TableCell>
-
 										<TableCell component='th' scope='row'>
 											{n.profile && n.profile.profileId}
 										</TableCell>
@@ -174,23 +151,15 @@ function UsersTable(props) {
 										<TableCell component='th' scope='row'>
 											{n.id}
 										</TableCell>
-
 										<TableCell component='th' scope='row'>
-											{/* {n.password} */}
 											action
 										</TableCell>
-
-										{/* <TableCell component="th" scope="row" align="right">
-                                            {n.quantity}
-                                            <i className={clsx("inline-block w-8 h-8 rounded ml-8", n.quantity <= 5 && "bg-red", n.quantity > 5 && n.quantity <= 25 && "bg-orange", n.quantity > 25 && "bg-green")} />
-                                        </TableCell> */}
-
 										<TableCell component='th' scope='row' align='right'>
 											{n.emailConfirmed ? (
 												<Icon className='text-green text-20'>check_circle</Icon>
 											) : (
-												<Icon className='text-red text-20'>remove_circle</Icon>
-											)}
+													<Icon className='text-red text-20'>remove_circle</Icon>
+												)}
 										</TableCell>
 									</TableRow>
 								);
