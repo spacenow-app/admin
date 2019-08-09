@@ -162,6 +162,17 @@ function UsersTable(props) {
 												</Select>
 											</FormControl>
 										</TableCell>
+                                        <TableCell component="th" scope="row">
+											<FormControl>
+												<Select value={"value"} name="userProvider" >
+													<MenuItem value="">
+														<em>Select</em>
+													</MenuItem>
+													<MenuItem value={10}>WeWork</MenuItem>
+													<MenuItem value={20}>Spacenow</MenuItem>
+												</Select>
+											</FormControl>
+										</TableCell>
 										<TableCell component='th' scope='row' align='right'>
 											{n.emailConfirmed ? (
 												<Icon className='text-green text-20'>check_circle</Icon>
