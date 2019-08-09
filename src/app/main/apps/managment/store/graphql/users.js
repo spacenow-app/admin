@@ -7,6 +7,8 @@ export const queryGetAllUsersLegacy = gql`
       id
       email
       emailConfirmed
+      userBanStatus
+      provider
       profile {
         profileId
         firstName

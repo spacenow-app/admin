@@ -9,7 +9,8 @@ import {
 	TableBody,
 	TableCell,
 	TablePagination,
-    TableRow
+	TableRow,
+	makeStyles
 } from '@material-ui/core';
 import moment from 'moment';
 import { SpacenowScrollbars } from '@spacenow';
@@ -19,8 +20,15 @@ import UsersTableHead from './UsersTableHead';
 import * as Actions from '../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
+const useStyles = makeStyles(() => ({
+	selectNoBorder: {
+		border: 'none !important'
+	}
+}))
+
 function UsersTable(props) {
 	const dispatch = useDispatch();
+	const classes = useStyles(props.theme);
 	const users = useSelector(({ managment }) => managment.users.data);
 	const searchText = useSelector(({ managment }) => managment.users.searchText);
 
@@ -150,30 +158,30 @@ function UsersTable(props) {
 												moment(n.profile.createdAt).format(
 													moment.HTML5_FMT.DATE,
 												)}
-										</TableCell>										
+										</TableCell>
 										<TableCell component="th" scope="row">
 											<FormControl>
-												<Select value={"value"} name="userBan" >
+												<Select value={n.userBanStatus} name="userBan" >
 													<MenuItem value="">
 														<em>Select</em>
 													</MenuItem>
-													<MenuItem value={10}>UnBan</MenuItem>
-													<MenuItem value={20}>Ban</MenuItem>
+													<MenuItem value={0}>UnBan</MenuItem>
+													<MenuItem value={1}>Ban</MenuItem>
 												</Select>
 											</FormControl>
 										</TableCell>
-                                        <TableCell component="th" scope="row">
+										<TableCell component="th" scope="row">
 											<FormControl>
-												<Select value={"value"} name="userProvider" >
+												<Select value={n.provider} name="userProvider" className="w-full">
 													<MenuItem value="">
 														<em>Select</em>
 													</MenuItem>
-													<MenuItem value={10}>WeWork</MenuItem>
-													<MenuItem value={20}>Spacenow</MenuItem>
+													<MenuItem value={"wework"}>WeWork</MenuItem>
+													<MenuItem value={"spacenow"}>Spacenow</MenuItem>
 												</Select>
 											</FormControl>
 										</TableCell>
-										<TableCell component='th' scope='row' align='right'>
+										<TableCell component='th' scope='row' align='center'>
 											{n.emailConfirmed ? (
 												<Icon className='text-green text-20'>check_circle</Icon>
 											) : (
