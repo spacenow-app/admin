@@ -65,6 +65,13 @@ const rows = [
 		disablePadding: false,
 		label: 'Action',
 		sort: true,
+    },
+    {
+		id: 'provider',
+		align: 'left',
+		disablePadding: false,
+		label: 'Provider',
+		sort: true,
 	},
 	{
 		id: 'emailConfirmed',

@@ -12,13 +12,13 @@ const navigationConfig = [
 				icon: 'dashboard',
 				url: '/apps/dashboard',
 			},
-			{
-				id: 'managmentFee',
-				title: 'Managment Fee',
-				type: 'item',
-				icon: 'credit_card',
-				url: '/apps/managmentFee',
-			},
+			// {
+			// 	id: 'managmentFee',
+			// 	title: 'Managment Fee',
+			// 	type: 'item',
+			// 	icon: 'credit_card',
+			// 	url: '/apps/managmentFee',
+			// },
 			// {
 			// 	id: 'managment',
 			// 	title: 'Managment',
