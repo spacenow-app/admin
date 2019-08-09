@@ -9,8 +9,7 @@ import {
 	TableBody,
 	TableCell,
 	TablePagination,
-	TableRow,
-	makeStyles
+	TableRow
 } from '@material-ui/core';
 import moment from 'moment';
 import { SpacenowScrollbars } from '@spacenow';
@@ -20,15 +19,8 @@ import UsersTableHead from './UsersTableHead';
 import * as Actions from '../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
-const useStyles = makeStyles(() => ({
-	selectNoBorder: {
-		border: 'none !important'
-	}
-}))
-
 function UsersTable(props) {
 	const dispatch = useDispatch();
-	const classes = useStyles(props.theme);
 	const users = useSelector(({ managment }) => managment.users.data);
 	const searchText = useSelector(({ managment }) => managment.users.searchText);
 
