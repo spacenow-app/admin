@@ -81,6 +81,10 @@ function UsersTable(props) {
 		setRowsPerPage(event.target.value);
 	}
 
+	function handleChangeUserData(event, item) {
+		dispatch(Actions.updateUser({ ...item, [event.target.name]: event.target.value, }));
+	}
+
 	return (
 		<div className='w-full flex flex-col'>
 			<SpacenowScrollbars className='flex-grow overflow-x-auto'>
@@ -153,7 +157,7 @@ function UsersTable(props) {
 										</TableCell>
 										<TableCell component="th" scope="row">
 											<FormControl>
-												<Select value={n.userBanStatus} name="userBan" >
+												<Select value={n.userBanStatus} name="userBanStatus" className="w-full" onChange={(event) => handleChangeUserData(event, n)}>
 													<MenuItem value="">
 														<em>Select</em>
 													</MenuItem>
@@ -164,7 +168,7 @@ function UsersTable(props) {
 										</TableCell>
 										<TableCell component="th" scope="row">
 											<FormControl>
-												<Select value={n.provider} name="userProvider" className="w-full">
+												<Select value={n.provider} name="provider" className="w-full" onChange={(event) => handleChangeUserData(event, n)}>
 													<MenuItem value="">
 														<em>Select</em>
 													</MenuItem>

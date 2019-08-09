@@ -2,6 +2,7 @@ import * as Actions from '../actions';
 
 const initialState = {
     data: [],
+    error: null,
     searchText: ''
 };
 
@@ -12,6 +13,20 @@ const usersReducer = function (state = initialState, action) {
                 return {
                     ...state,
                     data: action.payload
+                };
+            }
+        case Actions.SET_USER_SUCCESS:
+            {
+                return {
+                    ...state,
+                    data: action.payload
+                };
+            }
+        case Actions.SET_USER_ERROR:
+            {
+                return {
+                    ...state,
+                    error: action.payload
                 };
             }
         case Actions.SET_USERS_SEARCH_TEXT:

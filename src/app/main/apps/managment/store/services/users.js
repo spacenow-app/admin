@@ -4,8 +4,7 @@ import * as usersQL from '../graphql/users';
 
 class usersService extends SpacenowUtils.EventEmitter {
 
-    init() {
-    }
+    init = () => { }
 
     getUsers = () => {
         return new Promise((resolve, reject) => {
@@ -22,6 +21,24 @@ class usersService extends SpacenowUtils.EventEmitter {
                 });
         });
     };
+
+    updateUser = (input) => {
+        return new Promise((resolve, reject) => {
+            getClientWithAuth().mutate({
+                mutation: usersQL.mutationUpdateUserLegacy,
+                variables: { input },
+            })
+                .then(response => {
+                    if (response.data.mutationUpdateUserLegacy) {
+                        resolve(response.data.mutationUpdateUserLegacy)
+                    }
+                    else {
+                        reject(response.data.error);
+                    }
+                });
+        });
+    };
+
 }
 
 const instance = new usersService();

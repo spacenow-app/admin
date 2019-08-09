@@ -20,3 +20,22 @@ export const queryGetAllUsersLegacy = gql`
     }
   }
 `
+
+export const mutationUpdateUserLegacy = gql`
+  mutation UpdateUserLegacy($input: UserInput) {
+    updateUserLegacy (
+      input: $input
+    ) {
+      code
+      success
+      message
+      user {
+        id
+        email
+        emailConfirmed
+        userBanStatus
+        provider
+      }
+    }
+  }
+`
