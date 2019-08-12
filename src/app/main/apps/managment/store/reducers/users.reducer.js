@@ -1,5 +1,4 @@
 import * as Actions from "../actions";
-import user from "app/auth/store/reducers/user.reducer";
 
 const initialState = {
   data: [],
