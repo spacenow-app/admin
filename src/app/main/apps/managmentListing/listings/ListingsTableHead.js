@@ -39,69 +39,69 @@ const rows = [
         label         : 'Owner Name',
         sort          : true
     },
-    // {
-    //     id            : 'ownerEmail',
-    //     align         : 'left',
-    //     disablePadding: false,
-    //     label         : 'Owner Email',
-    //     sort          : true
-    // },
-    // {
-    //     id            : 'city',
-    //     align         : 'left',
-    //     disablePadding: false,
-    //     label         : 'City',
-    //     sort          : true
-    // },
-    // {
-    //     id            : 'state',
-    //     align         : 'left',
-    //     disablePadding: false,
-    //     label         : 'State',
-    //     sort          : true
-    // },
-    // {
-    //     id            : 'country',
-    //     align         : 'right',
-    //     disablePadding: false,
-    //     label         : 'Country',
-    //     sort          : true
-    // },
-    // {
-    //     id            : 'createdDate',
-    //     align         : 'left',
-    //     disablePadding: false,
-    //     label         : 'Created Date',
-    //     sort          : true
-    // },
-    // {
-    //     id            : 'ready',
-    //     align         : 'left',
-    //     disablePadding: false,
-    //     label         : 'Ready',
-    //     sort          : true
-    // },
-    // {
-    //     id            : 'publish',
-    //     align         : 'left',
-    //     disablePadding: false,
-    //     label         : 'Publish',
-    //     sort          : true
-    // },
-    // {
-    //     id            : 'edit',
-    //     align         : 'right',
-    //     disablePadding: false,
-    //     label         : 'Edit',
-    //     sort          : true
-    // },
-    // {
-    //     id            : 'delete',
-    //     align         : 'right',
-    //     disablePadding: false,
-    //     label         : 'Delete',
-    //     sort          : true
-    // },
+    {
+        id            : 'ownerEmail',
+        align         : 'left',
+        disablePadding: false,
+        label         : 'Owner Email',
+        sort          : true
+    },
+    {
+        id            : 'city',
+        align         : 'left',
+        disablePadding: false,
+        label         : 'City',
+        sort          : true
+    },
+    {
+        id            : 'state',
+        align         : 'left',
+        disablePadding: false,
+        label         : 'State',
+        sort          : true
+    },
+    {
+        id            : 'country',
+        align         : 'left',
+        disablePadding: false,
+        label         : 'Country',
+        sort          : true
+    },
+    {
+        id            : 'createdDate',
+        align         : 'left',
+        disablePadding: false,
+        label         : 'Created Date',
+        sort          : true
+    },
+    {
+        id            : 'ready',
+        align         : 'left',
+        disablePadding: false,
+        label         : 'Ready',
+        sort          : true
+    },
+    {
+        id            : 'publish',
+        align         : 'left',
+        disablePadding: false,
+        label         : 'Publish',
+        sort          : true
+    },
+    {
+        id            : 'edit',
+        align         : 'left',
+        disablePadding: false,
+        label         : 'Edit',
+        sort          : true
+    },
+    {
+        id            : 'delete',
+        align         : 'left',
+        disablePadding: false,
+        label         : 'Delete',
+        sort          : true
+    },
     // {
     //     id            : 'active',
     //     align         : 'right',
@@ -117,7 +117,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function UsersTableHead(props)
+function ListingsTableHead(props)
 {
     const classes = useStyles(props);
     const [selectedUsersMenu, setSelectedUsersMenu] = useState(null);
@@ -140,11 +140,11 @@ function UsersTableHead(props)
         <TableHead>
             <TableRow className="h-64">
                 <TableCell padding="checkbox" className="relative pl-4 sm:pl-12">
-                    <Checkbox
+                    {/* <Checkbox
                         indeterminate={props.numSelected > 0 && props.numSelected < props.rowCount}
                         checked={props.numSelected === props.rowCount}
                         onChange={props.onSelectAllClick}
-                    />
+                    /> */}
                     {props.numSelected > 0 && (
                         <div className={clsx("flex items-center justify-center absolute w-64 top-0 left-0 ml-68 h-64 z-10", classes.actionsButtonWrapper)}>
                             <IconButton
@@ -207,4 +207,4 @@ function UsersTableHead(props)
     );
 }
 
-export default UsersTableHead;
+export default ListingsTableHead;

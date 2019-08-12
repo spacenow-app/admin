@@ -29,7 +29,7 @@ function UsersHeader(props) {
                     <SpacenowAnimate animation="transition.slideDownIn" delay={300}>
                         <Paper className="flex items-center w-full max-w-512 px-8 py-4 rounded-8" elevation={1}>
 
-                            <Icon className="mr-8" color="action">search</Icon>
+                            <Icon className="mr-8" color="action">list</Icon>
 
                             <Input
                                 placeholder="Search"
@@ -47,12 +47,12 @@ function UsersHeader(props) {
                 </ThemeProvider>
 
             </div>
-            <SpacenowAnimate animation="transition.slideRightIn" delay={300}>
+            {/* <SpacenowAnimate animation="transition.slideRightIn" delay={300}>
                 <Button component={Link} to="/apps/managment/users/new" className="whitespace-no-wrap" variant="contained">
                     <span className="hidden sm:flex">Add New Product</span>
                     <span className="flex sm:hidden">New</span>
                 </Button>
-            </SpacenowAnimate>
+            </SpacenowAnimate> */}
         </div>
     );
 }
