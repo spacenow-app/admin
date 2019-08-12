@@ -2,6 +2,7 @@ import * as Actions from "../actions";
 
 const initialState = {
   data: [],
+  count: 0,
   error: null,
   searchText: ""
 };
@@ -11,13 +12,14 @@ const usersReducer = function(state = initialState, action) {
     case Actions.GET_USERS: {
       return {
         ...state,
-        data: action.payload
+        data: action.payload.rows,
+        count: action.payload.count
       };
     }
     case Actions.SET_USER_SUCCESS: {
       return {
         ...state,
-        data: state.data.map(item => {
+        data: state.data.rows.map(item => {
           if (item.id === action.payload.id) return action.payload;
           return item;
         })
