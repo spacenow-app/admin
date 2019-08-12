@@ -123,7 +123,7 @@ function UsersTable(props) {
 										selected={isSelected}
 										onClick={() => handleClick(n)}
 									>
-										<TableCell className='w-48 px-2 sm:px-8'>
+										<TableCell className='rt-td justify-center'>
 											{n.profile && n.profile.picture ? (
 												<Avatar src={n.profile.picture} />
 											) : (
@@ -163,8 +163,11 @@ function UsersTable(props) {
 											</FormControl>
 										</TableCell>
                                         <TableCell component="th" scope="row">
-											<FormControl>
-												<Select value={"value"} name="userProvider" >
+											<FormControl>                                           
+												<Select
+                                                    value={"value"}
+                                                    name="userProvider"
+                                                     >
 													<MenuItem value="">
 														<em>Select</em>
 													</MenuItem>
@@ -173,7 +176,7 @@ function UsersTable(props) {
 												</Select>
 											</FormControl>
 										</TableCell>
-										<TableCell component='th' scope='row' align='right'>
+										<TableCell component='th' scope='row' align='center'>
 											{n.emailConfirmed ? (
 												<Icon className='text-green text-20'>check_circle</Icon>
 											) : (

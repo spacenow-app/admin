@@ -75,7 +75,7 @@ const rows = [
 	},
 	{
 		id: 'emailConfirmed',
-		align: 'right',
+		align: 'center',
 		disablePadding: false,
 		label: 'Email Confirmed',
 		sort: true,
