@@ -9,7 +9,7 @@ import {
 	TableBody,
 	TableCell,
 	TablePagination,
-    TableRow
+	TableRow
 } from '@material-ui/core';
 import moment from 'moment';
 import { SpacenowScrollbars } from '@spacenow';
@@ -81,6 +81,10 @@ function UsersTable(props) {
 		setRowsPerPage(event.target.value);
 	}
 
+	function handleChangeUserData(event, item) {
+		dispatch(Actions.updateUser({ ...item, [event.target.name]: event.target.value, }));
+	}
+
 	return (
 		<div className='w-full flex flex-col'>
 			<SpacenowScrollbars className='flex-grow overflow-x-auto'>
@@ -150,29 +154,26 @@ function UsersTable(props) {
 												moment(n.profile.createdAt).format(
 													moment.HTML5_FMT.DATE,
 												)}
-										</TableCell>										
+										</TableCell>
 										<TableCell component="th" scope="row">
 											<FormControl>
-												<Select value={"value"} name="userBan" >
+												<Select value={n.userBanStatus} name="userBanStatus" className="w-full" onChange={(event) => handleChangeUserData(event, n)}>
 													<MenuItem value="">
 														<em>Select</em>
 													</MenuItem>
-													<MenuItem value={10}>UnBan</MenuItem>
-													<MenuItem value={20}>Ban</MenuItem>
+													<MenuItem value={0}>UnBan</MenuItem>
+													<MenuItem value={1}>Ban</MenuItem>
 												</Select>
 											</FormControl>
 										</TableCell>
-                                        <TableCell component="th" scope="row">
-											<FormControl>                                           
-												<Select
-                                                    value={"value"}
-                                                    name="userProvider"
-                                                     >
+										<TableCell component="th" scope="row">
+											<FormControl>
+												<Select value={n.provider} name="provider" className="w-full" onChange={(event) => handleChangeUserData(event, n)}>
 													<MenuItem value="">
 														<em>Select</em>
 													</MenuItem>
-													<MenuItem value={10}>WeWork</MenuItem>
-													<MenuItem value={20}>Spacenow</MenuItem>
+													<MenuItem value={"wework"}>WeWork</MenuItem>
+													<MenuItem value={"spacenow"}>Spacenow</MenuItem>
 												</Select>
 											</FormControl>
 										</TableCell>

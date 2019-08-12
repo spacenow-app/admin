@@ -133,7 +133,7 @@ jobs:
           command: |
             aws s3 ls
             aws s3 sync build/ s3://${NONPROD_AWS_BUCKET} --delete --region $AWS_REGION
-            aws cloudfront create-invalidation --distribution-id "E8T1Z3NYNLEPU" --paths /index.html
+            aws cloudfront create-invalidation --distribution-id "E2PH044Z59L61F" --paths /index.html
   build-prod:
     <<: *defaults
     steps:
@@ -180,7 +180,7 @@ jobs:
           command: |
             aws s3 ls
             aws s3 sync build/ s3://${PROD_AWS_BUCKET} --delete --region $AWS_REGION
-            aws cloudfront create-invalidation --distribution-id "E2YJX6D1PVADY" --paths /index.html
+            aws cloudfront create-invalidation --distribution-id "E2Z53407YRL063" --paths /index.html
 
 workflows:
   version: 2
@@ -196,6 +196,10 @@ workflows:
       - deploy:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - master
       - qa-approval:
           type: approval
           requires:

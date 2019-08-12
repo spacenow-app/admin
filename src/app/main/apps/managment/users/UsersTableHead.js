@@ -65,8 +65,8 @@ const rows = [
 		disablePadding: false,
 		label: 'Action',
 		sort: true,
-    },
-    {
+	},
+	{
 		id: 'provider',
 		align: 'left',
 		disablePadding: false,
@@ -83,7 +83,7 @@ const rows = [
 ];
 
 function UsersTableHead(props) {
-	
+
 	const createSortHandler = property => event => {
 		props.onRequestSort(event, property);
 	};
