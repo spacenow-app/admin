@@ -1,4 +1,5 @@
 import * as Actions from "../actions";
+import user from "app/auth/store/reducers/user.reducer";
 
 const initialState = {
   data: [],
@@ -16,7 +17,11 @@ const usersReducer = function(state = initialState, action) {
     }
     case Actions.SET_USER_SUCCESS: {
       return {
-        ...state
+        ...state,
+        data: state.data.map(item => {
+          if (item.id === action.payload.id) return action.payload;
+          return item;
+        })
       };
     }
     case Actions.SET_USER_ERROR: {

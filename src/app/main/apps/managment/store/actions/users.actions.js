@@ -22,11 +22,11 @@ export function updateUser(user) {
   const request = usersService.updateUser(user);
   return dispatch =>
     request
-      .then(response => {
-        Actions.showMessage("User updated");
+      .then(() => {
+        dispatch(Actions.showMessage({ message: "User updated" }));
         dispatch({
           type: SET_USER_SUCCESS,
-          payload: response
+          payload: user
         });
       })
       .catch(error => {
