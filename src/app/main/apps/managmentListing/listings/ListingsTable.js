@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {
   Avatar,
-  Badge,
   Button,
-  Fab,
-  Icon,
-  NavigationIcon,
   Table,
   TableBody,
   TableCell,
   TablePagination,
-  TableRow,
-
-  Checkbox
+  TableRow
 } from "@material-ui/core";
 import { SpacenowScrollbars } from "@spacenow";
 import { withRouter } from "react-router-dom";
@@ -75,26 +69,6 @@ function ListingsTable(props) {
     props.history.push("/apps/managment/users/" + item.id);
   }
 
-  function handleCheck(event, id) {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
-  }
-
   function handleChangePage(event, page) {
     setPage(page);
   }
@@ -146,14 +120,6 @@ function ListingsTable(props) {
                     selected={isSelected}
                     onClick={event => handleClick(n)}
                   >
-                    {/* <TableCell className="w-48 px-4 sm:px-12" padding="checkbox">
-                                            <Checkbox
-                                                checked={isSelected}
-                                                onClick={event => event.stopPropagation()}
-                                                onChange={event => handleCheck(event, n.id)}
-                                            />
-                                        </TableCell> */}
-
                     <TableCell className="rt-td justify-center">
                       {n.profile && n.profile.picture ? (
                         <Avatar src={n.profile.picture} />
@@ -166,16 +132,14 @@ function ListingsTable(props) {
                       {n.id}
                     </TableCell>
 
-                    <TableCell
-                      className="truncate"
-                      component="th"
-                      scope="row"
-                    >
+                    <TableCell className="truncate" component="th" scope="row">
                       {n.email}
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {n.id}
-                      <Button size="small" variant="text" color="primary" >Status</Button>
+                      <Button size="small" variant="text" color="primary">
+                        Status
+                      </Button>
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {n.id}
@@ -200,38 +164,26 @@ function ListingsTable(props) {
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {n.id}
-                      <Button size="small" variant="contained" color="primary" >Yes</Button>
+                      <Button size="small" variant="contained" color="primary">
+                        Yes
+                      </Button>
                     </TableCell>
 
-                    <TableCell
-                      component="th"
-                      scope="row"
-                      align="center"
-                    >
-                       <Button size="small" variant="text" color="primary" >Edit</Button>
-                      {/* <Fab
-                        variant="extended"
-                        aria-label="delete"
-                        size="small" 
-                        //className={classes.fab}
+                    <TableCell component="th" scope="row" align="center">
+                      <Button size="small" variant="text" color="primary">
+                        Edit
+                      </Button>
+                    </TableCell>
+
+                    <TableCell component="th" scope="row">
+                      <Button
+                        href="#"
+                        size="small"
+                        variant="text"
+                        color="primary"
                       >
-                       
-                        yes
-                      </Fab> */}
-                    </TableCell>
-
-                    <TableCell component="th" scope="row">
-                    <Button  href="#"  size="small" variant="text" color="primary" >Delete</Button>
-                      
-                      {/* {n.emailConfirmed ? (
-                        <Icon className="text-green text-20">
-                          check_circle
-                        </Icon>
-                      ) : (
-                        <Icon className="text-red text-20">
-                          remove_circle
-                        </Icon>
-                      )} */}
+                        Delete
+                      </Button>
                     </TableCell>
                   </TableRow>
                 );
