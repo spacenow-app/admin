@@ -24,7 +24,7 @@ function UsersTable(props) {
   const users = useSelector(({ managment }) => managment.users.data);
   const searchText = useSelector(({ managment }) => managment.users.searchText);
 
-  const [selected, setSelected] = useState([]);
+  const [selected] = useState([]);
   const [data, setData] = useState(users);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);

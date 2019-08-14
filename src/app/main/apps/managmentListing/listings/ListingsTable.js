@@ -9,7 +9,6 @@ import {
   TableCell,
   TablePagination,
   TableRow,
-  Dialog,
   DialogTitle,
   DialogContent,
   DialogContentText,
@@ -18,7 +17,7 @@ import {
 
 import BookingsStatus from "../../manageBookings/booking/BookingsStatus";
 
-import { SpacenowScrollbars, SpacenowDialog } from "@spacenow";
+import { SpacenowScrollbars } from "@spacenow";
 import { withRouter } from "react-router-dom";
 import _ from "@lodash";
 import ListingsTableHead from "./ListingsTableHead";
@@ -34,7 +33,7 @@ function ListingsTable(props) {
     ({ managmentListing }) => managmentListing.listings.searchText
   );
 
-  const [selected, setSelected] = useState([]);
+  const [selected] = useState([]);
   const [data, setData] = useState(listings);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -71,25 +70,10 @@ function ListingsTable(props) {
     });
   }
 
-  function handleSelectAllClick(event) {
-    if (event.target.checked) {
-      setSelected(data.map(n => n.id));
-      return;
-    }
-    setSelected([]);
-  }
-
   function editListingHandleClick(item) {
     props.history.push("/apps/managment/users");
   }
-  function handleDeleteListingData(event, item) {
-    console.log("testv  dell");
-    dispatch(
-      Actions.updateUser({ ...item, [event.target.name]: event.target.value })
-    );
-    dispatch(Actions.getListings());
-    dispatch(Actions.closeDialog());
-  }
+
   function handleChangePublishListingData(event, item) {
     console.log("testv  change");
     dispatch(
@@ -97,26 +81,6 @@ function ListingsTable(props) {
     );
     dispatch(Actions.getListings());
     dispatch(Actions.closeDialog());
-  }
- 
-  function handleCheck(event, id) {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
   }
 
   function handleChangePage(event, page) {
@@ -220,14 +184,16 @@ function ListingsTable(props) {
                         variant="contained"
                         color={n.publish ? "primary" : "secondary"}
                       >
-                        {n.publish
-                          ? "Publish"
-                          : "Unpublished"}
-                         
+                        {n.publish ? "Publish" : "Unpublished"}
                       </Button>
                     </TableCell>
                     <TableCell component="th" scope="row" align="center">
-                      <Button size="small" variant="text" color="primary" onClick={event => editListingHandleClick(n)}>
+                      <Button
+                        size="small"
+                        variant="text"
+                        color="primary"
+                        onClick={event => editListingHandleClick(n)}
+                      >
                         Edit
                       </Button>
                     </TableCell>
@@ -249,7 +215,8 @@ function ListingsTable(props) {
                                   </DialogContent>
                                   <DialogActions>
                                     <Button
-                                      onClick={() => dispatch(Actions.closeDialog())
+                                      onClick={() =>
+                                        dispatch(Actions.closeDialog())
                                       }
                                       size="small"
                                       color="primary"
@@ -257,7 +224,8 @@ function ListingsTable(props) {
                                       Cancel
                                     </Button>
                                     <Button
-                                      onClick={event => handleChangePublishListingData(event, n)
+                                      onClick={event =>
+                                        handleChangePublishListingData(event, n)
                                       }
                                       //onChange={event => handleChangeUserData(event, n)}
                                       size="small"
