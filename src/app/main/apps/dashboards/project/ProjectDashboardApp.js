@@ -30,7 +30,7 @@ const ProjectDashboardApp = (props) => {
     if (!widgets) {
         return null;
     }
-
+console.log("widgets", widgets);
     return (
         <SpacenowPageSimple
             classes={{
@@ -48,7 +48,7 @@ const ProjectDashboardApp = (props) => {
                         }}
                     >
                         <div className="widget flex w-full sm:w-1/2 md:w-1/4 p-12">
-                            <Widget4 widget={widgets.widget4} />
+                            <Widget4 widget={widgets} />
                         </div>
                         <div className="widget flex w-full sm:w-1/2 md:w-1/4 p-12">
                             <Widget4 widget={widgets.widget4} />

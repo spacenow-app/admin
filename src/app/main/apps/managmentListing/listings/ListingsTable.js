@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
 import {
   Avatar,
-  Badge,
   Button,
-  Fab,
   Icon,
-  NavigationIcon,
+  IconButton,
   Table,
   TableBody,
   TableCell,
   TablePagination,
   TableRow,
-
-  Checkbox
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions
 } from "@material-ui/core";
-import { SpacenowScrollbars } from "@spacenow";
+import BookingsStatus from "../../manageBookings/booking/BookingsStatus";
+
+import { SpacenowScrollbars, SpacenowDialog } from "@spacenow";
 import { withRouter } from "react-router-dom";
 import _ from "@lodash";
 import ListingsTableHead from "./ListingsTableHead";
@@ -71,9 +74,56 @@ function ListingsTable(props) {
     setSelected([]);
   }
 
-  function handleClick(item) {
-    props.history.push("/apps/managment/users/" + item.id);
+  function editListingHandleClick(item) {
+    props.history.push("/apps/managment/users");
   }
+  function handleDeleteListingData(event, item) {
+    console.log("testv  dell");
+    dispatch(
+      Actions.updateUser({ ...item, [event.target.name]: event.target.value })
+    );
+    dispatch(Actions.getUsers());
+    dispatch(Actions.closeDialog());
+  }
+  function handleChangeListingData(event, item) {
+    console.log("testv  change");
+    dispatch(
+      Actions.updateUser({ ...item, [event.target.name]: event.target.value })
+    );
+    dispatch(Actions.getUsers());
+    dispatch(Actions.closeDialog());
+  }
+  //  function openEditContactDialog()
+  // {
+  //   console.log("teste")
+
+  //     children: (
+  //     <SpacenowDialog > sdasd</SpacenowDialog>
+  //     )
+
+  // //    return (
+  // //     <div>adasdsad</div>
+  // // );
+  //   //  return (
+  //   //   <Dialog>
+  //   //       <DialogTitle id="alert-dialog-title">Use Google's location service?</DialogTitle>
+  //   //       <DialogContent>
+  //   //           <DialogContentText id="alert-dialog-description">
+  //   //               Let Google help apps determine location. This means sending anonymous location data to
+  //   //               Google, even when no apps are running.
+  //   //           </DialogContentText>
+  //   //       </DialogContent>
+  //   //       <DialogActions>
+  //   //           {/* <Button onClick={()=> dispatch(Actions.closeDialog())} color="primary">
+  //   //               Disagree
+  //   //           </Button>
+  //   //           <Button onClick={()=> dispatch(Actions.closeDialog())} color="primary" autoFocus>
+  //   //               Agree
+  //   //           </Button> */}
+  //   //       </DialogActions>
+  //   //   </Dialog>
+  //   //    );
+  // }
 
   function handleCheck(event, id) {
     const selectedIndex = selected.indexOf(id);
@@ -144,21 +194,18 @@ function ListingsTable(props) {
                     tabIndex={-1}
                     key={n.id}
                     selected={isSelected}
-                    onClick={event => handleClick(n)}
+                    // onClick={event => handleClick(n)}
                   >
-                    {/* <TableCell className="w-48 px-4 sm:px-12" padding="checkbox">
-                                            <Checkbox
-                                                checked={isSelected}
-                                                onClick={event => event.stopPropagation()}
-                                                onChange={event => handleCheck(event, n.id)}
-                                            />
-                                        </TableCell> */}
-
                     <TableCell className="rt-td justify-center">
                       {n.profile && n.profile.picture ? (
+                        //<img className="w-full block rounded" src={n.profile.picture} alt={n.name}/>
                         <Avatar src={n.profile.picture} />
                       ) : (
-                        <Avatar src="assets/images/avatars/spacenow.svg" />
+                        <img
+                          className="w-full block rounded"
+                          src="assets/images/avatars/spacenow.svg"
+                          alt={n.name}
+                        />
                       )}
                     </TableCell>
 
@@ -166,16 +213,11 @@ function ListingsTable(props) {
                       {n.id}
                     </TableCell>
 
-                    <TableCell
-                      className="truncate"
-                      component="th"
-                      scope="row"
-                    >
+                    <TableCell className="truncate" component="th" scope="row">
                       {n.email}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.id}
-                      <Button size="small" variant="text" color="primary" >Status</Button>
+                      <BookingsStatus name={"pending"} />
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {n.id}
@@ -199,39 +241,69 @@ function ListingsTable(props) {
                       {n.id}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.id}
-                      <Button size="small" variant="contained" color="primary" >Yes</Button>
-                    </TableCell>
-
-                    <TableCell
-                      component="th"
-                      scope="row"
-                      align="center"
-                    >
-                       <Button size="small" variant="text" color="primary" >Edit</Button>
-                      {/* <Fab
-                        variant="extended"
-                        aria-label="delete"
-                        size="small" 
-                        //className={classes.fab}
+                      <Button
+                        onClick={event => handleChangeListingData(n)}
+                        size="small"
+                        variant="contained"
+                        color={n.profile.phoneNumber ? "primary" : "secondary"}
                       >
-                       
-                        yes
-                      </Fab> */}
+                        {n.profile.phoneNumber
+                          ? n.profile.phoneNumber
+                          : "Unpublished"}
+                      </Button>
+                    </TableCell>
+                    <TableCell component="th" scope="row" align="center">
+                      <Button size="small" variant="text" color="primary" onClick={event => editListingHandleClick(n)}>
+                        Edit
+                      </Button>
                     </TableCell>
 
                     <TableCell component="th" scope="row">
-                    <Button  href="#"  size="small" variant="text" color="primary" >Delete</Button>
-                      
-                      {/* {n.emailConfirmed ? (
-                        <Icon className="text-green text-20">
-                          check_circle
-                        </Icon>
-                      ) : (
-                        <Icon className="text-red text-20">
-                          remove_circle
-                        </Icon>
-                      )} */}
+                      <IconButton
+                        onClick={() =>
+                          dispatch(
+                            Actions.openDialog({
+                              children: (
+                                <React.Fragment>
+                                  <DialogTitle id="alert-dialog-title">
+                                    Deleting Listing
+                                  </DialogTitle>
+                                  <DialogContent>
+                                    <DialogContentText id="alert-dialog-description">
+                                      Are you sure you want to delete this?
+                                    </DialogContentText>
+                                  </DialogContent>
+                                  <DialogActions>
+                                    <Button
+                                      onClick={() => dispatch(Actions.closeDialog())
+                                      }
+                                      size="small"
+                                      color="primary"
+                                    >
+                                      Cancel
+                                    </Button>
+                                    <Button
+                                      onClick={event => handleDeleteListingData(event, n)
+                                      }
+                                      //onChange={event => handleChangeUserData(event, n)}
+                                      size="small"
+                                      variant="contained"
+                                      color="danger"
+                                      autoFocus
+                                    >
+                                      Confirm Delete
+                                    </Button>
+                                  </DialogActions>
+                                </React.Fragment>
+                              )
+                            })
+                          )
+                        }
+                        variant="contained"
+                        color="primary"
+                      >
+                        <Icon>delete</Icon>
+                      </IconButton>
                     </TableCell>
                   </TableRow>
                 );

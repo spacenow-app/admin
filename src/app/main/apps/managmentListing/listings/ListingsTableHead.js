@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {TableHead, TableSortLabel, TableCell, TableRow, Checkbox, Tooltip, IconButton, Icon, Menu, MenuList, MenuItem, ListItemIcon, ListItemText,} from '@material-ui/core';
+import {TableHead, TableSortLabel, TableCell, TableRow, Tooltip, IconButton, Icon, Menu, MenuList, MenuItem, ListItemIcon, ListItemText,} from '@material-ui/core';
 import clsx from 'clsx';
 import {makeStyles} from '@material-ui/styles';
 

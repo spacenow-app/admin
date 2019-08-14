@@ -68,10 +68,10 @@ function UsersTable(props) {
     }
     setSelected([]);
   }
-
-  function handleClick(item) {
-    props.history.push("/apps/managment/users/" + item.id);
-  }
+// ********** it is commented because it was affecting the select click *****
+  // function handleClick(item) {
+  //   props.history.push("/apps/managment/users/" + item.id);
+  // }
 
   function handleChangePage(event, page) {
     setPage(page);
@@ -128,7 +128,7 @@ function UsersTable(props) {
                     tabIndex={-1}
                     key={n.id}
                     selected={isSelected}
-                    onClick={() => handleClick(n)}
+                    //onClick={() => handleClick(n)}  it is commented because it was affecting the select click
                   >
                     <TableCell className="w-48 px-2 sm:px-8">
                       {n.profile && n.profile.picture ? (

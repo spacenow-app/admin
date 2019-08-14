@@ -2,12 +2,24 @@
 import { gql } from 'apollo-boost'
 
 export const queryGetAllUsersLegacy = gql`
-  query GetAllUsersLegacy {
-    getAllUsersLegacy {
+query GetAllUsersLegacy {
+  getAllUsersLegacy {
+    rows {
       id
       email
-      password
       emailConfirmed
+      userBanStatus
+      provider
+      profile {
+        profileId
+        firstName
+        lastName
+        phoneNumber
+        createdAt
+        picture
+      }
     }
+    count
   }
-`
+}
+`;
