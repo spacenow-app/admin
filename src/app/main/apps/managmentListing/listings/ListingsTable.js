@@ -15,6 +15,7 @@ import {
   DialogContentText,
   DialogActions
 } from "@material-ui/core";
+
 import BookingsStatus from "../../manageBookings/booking/BookingsStatus";
 
 import { SpacenowScrollbars, SpacenowDialog } from "@spacenow";
@@ -26,11 +27,15 @@ import { useDispatch, useSelector } from "react-redux";
 
 function ListingsTable(props) {
   const dispatch = useDispatch();
-  const users = useSelector(({ managment }) => managment.users.data);
-  const searchText = useSelector(({ managment }) => managment.users.searchText);
+  const listings = useSelector(
+    ({ managmentListing }) => managmentListing.listings.data
+  );
+  const searchText = useSelector(
+    ({ managmentListing }) => managmentListing.listings.searchText
+  );
 
   const [selected, setSelected] = useState([]);
-  const [data, setData] = useState(users);
+  const [data, setData] = useState(listings);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState({
@@ -39,18 +44,18 @@ function ListingsTable(props) {
   });
 
   useEffect(() => {
-    dispatch(Actions.getUsers());
+    dispatch(Actions.getListings());
   }, [dispatch]);
 
   useEffect(() => {
     setData(
       searchText.length === 0
-        ? users
-        : _.filter(users, item =>
-            item.email.toLowerCase().includes(searchText.toLowerCase())
+        ? listings
+        : _.filter(listings, item =>
+            item.id.toLowerCase().includes(searchText.toLowerCase())
           )
     );
-  }, [users, searchText]);
+  }, [listings, searchText]);
 
   function handleRequestSort(event, property) {
     const id = property;
@@ -160,7 +165,6 @@ function ListingsTable(props) {
           <ListingsTableHead
             numSelected={selected.length}
             order={order}
-            onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
             rowCount={data.length}
           />

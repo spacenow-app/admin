@@ -1,22 +1,22 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
+import React from "react";
+import { Redirect } from "react-router-dom";
 
 export const ManagmentListingConfig = {
-    settings: {
-        layout: {}
+  settings: {
+    layout: {}
+  },
+  routes: [
+    {
+      path: "/apps/managmentListing/listings/:id",
+      component: React.lazy(() => import("./listings/Listings"))
     },
-    routes: [
-        {
-            path: '/apps/managmentListing/users/:id',
-            component: React.lazy(() => import('./listings/Listings'))
-        },
-        {
-            path: '/apps/managmentListing/listings',
-            component: React.lazy(() => import('./listings/Listings'))
-        },
-        {
-            path: '/apps/managmentListing',
-            component: () => <Redirect to="/apps/managmentListing/listings" />
-        },
-    ]
+    {
+      path: "/apps/managmentListing/listings",
+      component: React.lazy(() => import("./listings/Listings"))
+    },
+    {
+      path: "/apps/managmentListing",
+      component: () => <Redirect to="/apps/managmentListing/listings" />
+    }
+  ]
 };

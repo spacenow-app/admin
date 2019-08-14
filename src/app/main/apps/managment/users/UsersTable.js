@@ -12,7 +12,7 @@ import {
   TableRow
 } from "@material-ui/core";
 import moment from "moment";
-import { SpacenowScrollbars } from "@spacenow";
+import { SpacenowScrollbars, SpacenowUtils } from "@spacenow";
 import { withRouter } from "react-router-dom";
 import _ from "@lodash";
 import UsersTableHead from "./UsersTableHead";
@@ -41,9 +41,7 @@ function UsersTable(props) {
     setData(
       searchText.length === 0
         ? users
-        : _.filter(users, item =>
-            item.email.toLowerCase().includes(searchText.toLowerCase())
-          )
+        : SpacenowUtils.filterArrayByString(users, searchText)
     );
   }, [users, searchText]);
 
@@ -61,6 +59,7 @@ function UsersTable(props) {
     });
   }
 
+<<<<<<< HEAD
   function handleSelectAllClick(event) {
     if (event.target.checked) {
       setSelected(data.map(n => n.id));
@@ -73,6 +72,8 @@ function UsersTable(props) {
   //   props.history.push("/apps/managment/users/" + item.id);
   // }
 
+=======
+>>>>>>> 0f3fcf3883708be73c69ea96616d0b1ee5c29e36
   function handleChangePage(event, page) {
     setPage(page);
   }
@@ -95,7 +96,6 @@ function UsersTable(props) {
           <UsersTableHead
             numSelected={selected.length}
             order={order}
-            onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
             rowCount={data.length}
           />
@@ -128,7 +128,7 @@ function UsersTable(props) {
                     tabIndex={-1}
                     key={n.id}
                     selected={isSelected}
-                    //onClick={() => handleClick(n)}  it is commented because it was affecting the select click
+                    // onClick={() => handleClick(n)}
                   >
                     <TableCell className="w-48 px-2 sm:px-8">
                       {n.profile && n.profile.picture ? (
