@@ -3,6 +3,7 @@ import { SpacenowPageCarded } from "@spacenow";
 import withReducer from "app/store/withReducer";
 import ListingsTable from "./ListingsTable";
 import ListingsHeader from "./ListingsHeader";
+import reducer from "../store/reducers";
 
 function Listings() {
   return (
@@ -18,4 +19,4 @@ function Listings() {
   );
 }
 
-export default withReducer("managmentListing")(Listings);
+export default withReducer("managmentListing", reducer)(Listings);

@@ -12,7 +12,7 @@ import {
   TableRow
 } from "@material-ui/core";
 import moment from "moment";
-import { SpacenowScrollbars } from "@spacenow";
+import { SpacenowScrollbars, SpacenowUtils } from "@spacenow";
 import { withRouter } from "react-router-dom";
 import _ from "@lodash";
 import UsersTableHead from "./UsersTableHead";
@@ -41,9 +41,7 @@ function UsersTable(props) {
     setData(
       searchText.length === 0
         ? users
-        : _.filter(users, item =>
-            item.email.toLowerCase().includes(searchText.toLowerCase())
-          )
+        : SpacenowUtils.filterArrayByString(users, searchText)
     );
   }, [users, searchText]);
 
@@ -59,18 +57,6 @@ function UsersTable(props) {
       direction,
       id
     });
-  }
-
-  function handleSelectAllClick(event) {
-    if (event.target.checked) {
-      setSelected(data.map(n => n.id));
-      return;
-    }
-    setSelected([]);
-  }
-
-  function handleClick(item) {
-    props.history.push("/apps/managment/users/" + item.id);
   }
 
   function handleChangePage(event, page) {
@@ -95,7 +81,6 @@ function UsersTable(props) {
           <UsersTableHead
             numSelected={selected.length}
             order={order}
-            onSelectAllClick={handleSelectAllClick}
             onRequestSort={handleRequestSort}
             rowCount={data.length}
           />
@@ -128,7 +113,7 @@ function UsersTable(props) {
                     tabIndex={-1}
                     key={n.id}
                     selected={isSelected}
-                    onClick={() => handleClick(n)}
+                    // onClick={() => handleClick(n)}
                   >
                     <TableCell className="w-48 px-2 sm:px-8">
                       {n.profile && n.profile.picture ? (

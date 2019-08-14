@@ -7,7 +7,9 @@ import * as Actions from "../store/actions";
 
 function ListingsHeader(props) {
   const dispatch = useDispatch();
-  const searchText = useSelector(({ managment }) => managment.users.searchText);
+  const searchText = useSelector(
+    ({ managmentListing }) => managmentListing.listings.searchText
+  );
   const mainTheme = useSelector(({ spacenow }) => spacenow.settings.mainTheme);
 
   return (
@@ -18,7 +20,7 @@ function ListingsHeader(props) {
         </SpacenowAnimate>
         <SpacenowAnimate animation="transition.slideLeftIn" delay={300}>
           <Typography className="hidden sm:flex" variant="h6">
-            Users
+            Listings
           </Typography>
         </SpacenowAnimate>
       </div>
@@ -43,7 +45,7 @@ function ListingsHeader(props) {
                 inputProps={{
                   "aria-label": "Search"
                 }}
-                onChange={ev => dispatch(Actions.setUsersSearchText(ev))}
+                onChange={ev => dispatch(Actions.setListingsSearchText(ev))}
               />
             </Paper>
           </SpacenowAnimate>
