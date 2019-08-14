@@ -59,21 +59,6 @@ function UsersTable(props) {
     });
   }
 
-<<<<<<< HEAD
-  function handleSelectAllClick(event) {
-    if (event.target.checked) {
-      setSelected(data.map(n => n.id));
-      return;
-    }
-    setSelected([]);
-  }
-// ********** it is commented because it was affecting the select click *****
-  // function handleClick(item) {
-  //   props.history.push("/apps/managment/users/" + item.id);
-  // }
-
-=======
->>>>>>> 0f3fcf3883708be73c69ea96616d0b1ee5c29e36
   function handleChangePage(event, page) {
     setPage(page);
   }

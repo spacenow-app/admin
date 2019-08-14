@@ -87,49 +87,18 @@ function ListingsTable(props) {
     dispatch(
       Actions.updateUser({ ...item, [event.target.name]: event.target.value })
     );
-    dispatch(Actions.getUsers());
+    dispatch(Actions.getListings());
     dispatch(Actions.closeDialog());
   }
-  function handleChangeListingData(event, item) {
+  function handleChangePublishListingData(event, item) {
     console.log("testv  change");
     dispatch(
       Actions.updateUser({ ...item, [event.target.name]: event.target.value })
     );
-    dispatch(Actions.getUsers());
+    dispatch(Actions.getListings());
     dispatch(Actions.closeDialog());
   }
-  //  function openEditContactDialog()
-  // {
-  //   console.log("teste")
-
-  //     children: (
-  //     <SpacenowDialog > sdasd</SpacenowDialog>
-  //     )
-
-  // //    return (
-  // //     <div>adasdsad</div>
-  // // );
-  //   //  return (
-  //   //   <Dialog>
-  //   //       <DialogTitle id="alert-dialog-title">Use Google's location service?</DialogTitle>
-  //   //       <DialogContent>
-  //   //           <DialogContentText id="alert-dialog-description">
-  //   //               Let Google help apps determine location. This means sending anonymous location data to
-  //   //               Google, even when no apps are running.
-  //   //           </DialogContentText>
-  //   //       </DialogContent>
-  //   //       <DialogActions>
-  //   //           {/* <Button onClick={()=> dispatch(Actions.closeDialog())} color="primary">
-  //   //               Disagree
-  //   //           </Button>
-  //   //           <Button onClick={()=> dispatch(Actions.closeDialog())} color="primary" autoFocus>
-  //   //               Agree
-  //   //           </Button> */}
-  //   //       </DialogActions>
-  //   //   </Dialog>
-  //   //    );
-  // }
-
+ 
   function handleCheck(event, id) {
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
@@ -218,42 +187,43 @@ function ListingsTable(props) {
                     </TableCell>
 
                     <TableCell className="truncate" component="th" scope="row">
-                      {n.email}
+                      {n.title}
                     </TableCell>
                     <TableCell component="th" scope="row">
                       <BookingsStatus name={"pending"} />
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.id}
+                      {n.ownerName}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.id}
+                      {n.ownerEmail}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.id}
+                      {n.city}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.id}
+                      {n.state}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.id}
+                      {n.country}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.id}
+                      {n.createdDate}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.id}
+                      {n.ready ? "YES" : "NO"}
                     </TableCell>
                     <TableCell component="th" scope="row">
                       <Button
-                        onClick={event => handleChangeListingData(n)}
+                        onClick={event => handleChangePublishListingData(n)}
                         size="small"
                         variant="contained"
-                        color={n.profile.phoneNumber ? "primary" : "secondary"}
+                        color={n.publish ? "primary" : "secondary"}
                       >
-                        {n.profile.phoneNumber
-                          ? n.profile.phoneNumber
+                        {n.publish
+                          ? "Publish"
                           : "Unpublished"}
+                         
                       </Button>
                     </TableCell>
                     <TableCell component="th" scope="row" align="center">
@@ -287,7 +257,7 @@ function ListingsTable(props) {
                                       Cancel
                                     </Button>
                                     <Button
-                                      onClick={event => handleDeleteListingData(event, n)
+                                      onClick={event => handleChangePublishListingData(event, n)
                                       }
                                       //onChange={event => handleChangeUserData(event, n)}
                                       size="small"
