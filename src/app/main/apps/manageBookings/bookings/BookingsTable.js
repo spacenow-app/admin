@@ -13,6 +13,7 @@ import BookingsTableHead from "./BookingsTableHead";
 import BookingsStatus from "../booking/BookingsStatus";
 import * as Actions from "../store/actions";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 
 function BookingsTable(props) {
   const dispatch = useDispatch();
@@ -156,10 +157,16 @@ function BookingsTable(props) {
                       {n.chargeId}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.checkIn}
+                      {n.checkIn &&
+                        moment(n.checkIn).format(
+                          "DD-MM-YYYY",moment.HTML5_FMT.DATE
+                        )}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.checkOut}
+                      {n.checkOut &&
+                        moment(n.checkOut).format(
+                          "DD-MM-YYYY",moment.HTML5_FMT.DATE
+                        )}
                     </TableCell>
                     {/* <TableCell
                       component="th"
