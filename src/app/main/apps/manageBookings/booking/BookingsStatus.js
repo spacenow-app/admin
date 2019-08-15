@@ -31,7 +31,7 @@ export const bookingStatuses = [
     id: 5,
     name: "Delivered",
     slug: "delivered",
-    color: "bg-green-700 text-white"
+    color: "bg-green text-white"
   },
   {
     id: 6,

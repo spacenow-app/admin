@@ -11,18 +11,20 @@ import {
   DialogTitle,
   DialogContent,
   DialogContentText,
-  DialogActions
+  DialogActions,
+  Typography
 } from "@material-ui/core";
 
-import Status from "../../manageBookings/booking/BookingsStatus";
+import Status from "../../manageBookings/booking/Status";
 import moment from "moment";
 
-import { SpacenowScrollbars} from "@spacenow";
+import { SpacenowScrollbars } from "@spacenow";
 import { withRouter } from "react-router-dom";
 import _ from "@lodash";
 import ListingsTableHead from "./ListingsTableHead";
 import * as Actions from "../store/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { width, maxWidth } from "@material-ui/system";
 
 function ListingsTable(props) {
   const dispatch = useDispatch();
@@ -70,18 +72,10 @@ function ListingsTable(props) {
     });
   }
 
-
   function editListingHandleClick(item) {
     props.history.push("/apps/managment/users");
   }
-  function handleDeleteListingData(event, item) {
-    console.log("testv  dell");
-    dispatch(
-      Actions.updateUser({ ...item, [event.target.name]: event.target.value })
-    );
-    dispatch(Actions.getListings());
-    dispatch(Actions.closeDialog());
-  }
+
   function handleChangePublishListingData(event, item) {
     console.log("testv  change");
     dispatch(
@@ -90,7 +84,6 @@ function ListingsTable(props) {
     dispatch(Actions.getListings());
     dispatch(Actions.closeDialog());
   }
- 
   function handleChangePage(event, page) {
     setPage(page);
   }
@@ -134,24 +127,24 @@ function ListingsTable(props) {
                   <TableRow
                     className="h-64 cursor-pointer"
                     hover
-                    role="checkbox"
                     aria-checked={isSelected}
                     tabIndex={-1}
                     key={n.id}
                     selected={isSelected}
                     // onClick={event => handleClick(n)}   && n.profile.picture
                   >
-                    <TableCell className="w-52" component="th" scope="row" padding="none" >
-                      {n.publish  ? (
-                        //<img className="w-full block rounded" src={n.profile.picture} alt={n.name}/>
+                    <TableCell className="w-52" component="th" scope="row">
+                      {n.publish ? (
                         <img
-                        className="w-full block rounded"
-                        src="assets/images/avatars/spacenow.svg"
-                        alt={n.name}
-                      />
+                          className="rounded"
+                          style={{ width: "50px", maxWidth: "50px" }}
+                          src="assets/images/avatars/spacenow.svg"
+                          alt={n.name}
+                        />
                       ) : (
                         <img
-                          className="w-full block rounded"
+                          className="rounded"
+                          style={{ width: "50px", maxWidth: "50px" }}
                           src="assets/images/avatars/spacenow.svg"
                           alt={n.name}
                         />
@@ -178,8 +171,15 @@ function ListingsTable(props) {
                       {n.city}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                    {/* style={n.state == "active" ? {color:"green"} : {color:"red"}} */}
-                      <span className={n.state === "active" ? "text-green" : "text-red"} >{n.state}</span> 
+                      {/* style={n.state == "active" ? {color:"green"} : {color:"red"}} */}
+                      {/* { n.state === "active" ? <Typography color="primary"> n.state </Typography> : <Typography></Typography> } */}
+                      <span
+                        className={
+                          n.state === "active" ? "text-green" : "text-red"
+                        }
+                      >
+                        {n.state}
+                      </span>
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {n.country}
@@ -188,7 +188,8 @@ function ListingsTable(props) {
                       {/* {n.createdDate} */}
                       {n.createdDate &&
                         moment(n.createdAt).format(
-                          "MM-YYYY", moment.HTML5_FMT.MONTH 
+                          "DD-MM-YYYY",
+                          moment.HTML5_FMT.DATE
                         )}
                     </TableCell>
                     <TableCell component="th" scope="row">
@@ -200,16 +201,22 @@ function ListingsTable(props) {
                         size="small"
                         variant="contained"
                         color={n.publish ? "bg-red" : "bg-red"}
-                        className={n.publish ? "bg-green text-white" : "bg-red text-white"}
+                        className={
+                          n.publish
+                            ? "bg-green text-white"
+                            : "bg-red text-white"
+                        }
                       >
-                        {n.publish
-                          ? "Publish"
-                          : "Unpublished"}
-                         
+                        {n.publish ? "Publish" : "Unpublished"}
                       </Button>
                     </TableCell>
                     <TableCell component="th" scope="row" align="center">
-                      <Button size="small" variant="text" color="primary" onClick={event => editListingHandleClick(n)}>
+                      <Button
+                        size="small"
+                        variant="text"
+                        color="primary"
+                        onClick={event => editListingHandleClick(n)}
+                      >
                         Edit
                       </Button>
                     </TableCell>
@@ -231,7 +238,8 @@ function ListingsTable(props) {
                                   </DialogContent>
                                   <DialogActions>
                                     <Button
-                                      onClick={() => dispatch(Actions.closeDialog())
+                                      onClick={() =>
+                                        dispatch(Actions.closeDialog())
                                       }
                                       size="small"
                                       color="primary"
@@ -239,7 +247,8 @@ function ListingsTable(props) {
                                       Cancel
                                     </Button>
                                     <Button
-                                      onClick={event => handleDeleteListingData(event, n)
+                                      onClick={event =>
+                                        handleChangePublishListingData(event, n)
                                       }
                                       //onChange={event => handleChangeUserData(event, n)}
                                       size="small"

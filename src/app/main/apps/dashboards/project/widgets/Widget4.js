@@ -1,34 +1,7 @@
 import React from "react";
 import { Icon, Typography, Paper, IconButton } from "@material-ui/core";
 
-//import { useDispatch, useSelector } from "react-redux";
-
-import * as Actions from "./../store/actions";
-
 function Widget4(props) {
-  // const dispatch = useDispatch();
-
-  // const state = useSelector(state => state);
-  // console.log(state);
-
-  // const users = useSelector(state => state);
-  // //const searchText = useSelector(({ managment }) => managment.users.searchText);
-
-  // const [selected, setSelected] = useState([]);
-  // // const [data, setData] = useState(users);
-  // const [page, setPage] = useState(0);
-  // const [rowsPerPage, setRowsPerPage] = useState(10);
-  // const [order, setOrder] = useState({
-  //   direction: "asc",
-  //   id: null
-  // });
-
-  // useEffect(() => {
-  //   dispatch(Actions.getUsers());
-  // }, [dispatch]);
-
- // console.log("users",state.projectDashboardApp.widgets.widget4.title);
-
   return (
     <Paper className="w-full rounded-8 shadow-none border-1">
       <div className="flex items-center justify-between pr-4 pl-16 pt-4">

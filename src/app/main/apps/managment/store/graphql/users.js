@@ -18,6 +18,9 @@ export const queryGetAllUsersLegacy = gql`
           createdAt
           picture
         }
+        userVerifiedInfo {
+          isEmailConfirmed
+        }
       }
       count
     }
