@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Icon, Typography, Paper, IconButton } from "@material-ui/core";
 
-import { useDispatch, useSelector } from "react-redux";
+//import { useDispatch, useSelector } from "react-redux";
 
 import * as Actions from "./../store/actions";
 
