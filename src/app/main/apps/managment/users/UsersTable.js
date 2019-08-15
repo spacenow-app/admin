@@ -176,7 +176,7 @@ function UsersTable(props) {
                       </FormControl>
                     </TableCell>
                     <TableCell component="th" scope="row" align="center">
-                      {n.emailConfirmed ? (
+                      {n.userVerifiedInfo.isEmailConfirmed ? (
                         <Icon className="text-green text-20">check_circle</Icon>
                       ) : (
                         <Icon className="text-red text-20">remove_circle</Icon>
