@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
         borderRadius: '0 20px 20px 0',
         paddingRight: 12,
         '&.active': {
-            backgroundColor: theme.palette.secondary.main,
+            backgroundColor: theme.palette.primary.main,
             color: theme.palette.secondary.contrastText + '!important',
             pointerEvents: 'none',
             transition: 'border-radius .15s cubic-bezier(0.4,0.0,0.2,1)',

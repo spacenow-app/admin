@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Avatar,
   Button,
   Icon,
   IconButton,
@@ -9,16 +8,16 @@ import {
   TableCell,
   TablePagination,
   TableRow,
-  Dialog,
   DialogTitle,
   DialogContent,
   DialogContentText,
   DialogActions
 } from "@material-ui/core";
 
-import BookingsStatus from "../../manageBookings/booking/BookingsStatus";
+import Status from "../../manageBookings/booking/BookingsStatus";
+import moment from "moment";
 
-import { SpacenowScrollbars, SpacenowDialog } from "@spacenow";
+import { SpacenowScrollbars} from "@spacenow";
 import { withRouter } from "react-router-dom";
 import _ from "@lodash";
 import ListingsTableHead from "./ListingsTableHead";
@@ -34,7 +33,7 @@ function ListingsTable(props) {
     ({ managmentListing }) => managmentListing.listings.searchText
   );
 
-  const [selected, setSelected] = useState([]);
+  const [selected] = useState([]);
   const [data, setData] = useState(listings);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -71,13 +70,6 @@ function ListingsTable(props) {
     });
   }
 
-  function handleSelectAllClick(event) {
-    if (event.target.checked) {
-      setSelected(data.map(n => n.id));
-      return;
-    }
-    setSelected([]);
-  }
 
   function editListingHandleClick(item) {
     props.history.push("/apps/managment/users");
@@ -99,26 +91,6 @@ function ListingsTable(props) {
     dispatch(Actions.closeDialog());
   }
  
-  function handleCheck(event, id) {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
-  }
-
   function handleChangePage(event, page) {
     setPage(page);
   }
@@ -167,12 +139,16 @@ function ListingsTable(props) {
                     tabIndex={-1}
                     key={n.id}
                     selected={isSelected}
-                    // onClick={event => handleClick(n)}
+                    // onClick={event => handleClick(n)}   && n.profile.picture
                   >
-                    <TableCell className="rt-td justify-center">
-                      {n.profile && n.profile.picture ? (
+                    <TableCell className="w-52" component="th" scope="row" padding="none" >
+                      {n.publish  ? (
                         //<img className="w-full block rounded" src={n.profile.picture} alt={n.name}/>
-                        <Avatar src={n.profile.picture} />
+                        <img
+                        className="w-full block rounded"
+                        src="assets/images/avatars/spacenow.svg"
+                        alt={n.name}
+                      />
                       ) : (
                         <img
                           className="w-full block rounded"
@@ -190,7 +166,7 @@ function ListingsTable(props) {
                       {n.title}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      <BookingsStatus name={"pending"} />
+                      <Status name={n.status} />
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {n.ownerName}
@@ -202,13 +178,18 @@ function ListingsTable(props) {
                       {n.city}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.state}
+                    {/* style={n.state == "active" ? {color:"green"} : {color:"red"}} */}
+                      <span className={n.state === "active" ? "text-green" : "text-red"} >{n.state}</span> 
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {n.country}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.createdDate}
+                      {/* {n.createdDate} */}
+                      {n.createdDate &&
+                        moment(n.createdAt).format(
+                          "MM-YYYY", moment.HTML5_FMT.MONTH 
+                        )}
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {n.ready ? "YES" : "NO"}
@@ -218,7 +199,8 @@ function ListingsTable(props) {
                         onClick={event => handleChangePublishListingData(n)}
                         size="small"
                         variant="contained"
-                        color={n.publish ? "primary" : "secondary"}
+                        color={n.publish ? "bg-red" : "bg-red"}
+                        className={n.publish ? "bg-green text-white" : "bg-red text-white"}
                       >
                         {n.publish
                           ? "Publish"
@@ -257,7 +239,7 @@ function ListingsTable(props) {
                                       Cancel
                                     </Button>
                                     <Button
-                                      onClick={event => handleChangePublishListingData(event, n)
+                                      onClick={event => handleDeleteListingData(event, n)
                                       }
                                       //onChange={event => handleChangeUserData(event, n)}
                                       size="small"

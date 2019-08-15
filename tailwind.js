@@ -98,7 +98,7 @@ module.exports = {
                 'green-darkest' : '#0F2F21',
                 'green-darker'  : '#1A4731',
                 'green-dark'    : '#1F9D55',
-                'green'         : '#38C172',
+                'green'         : '#6ADC91',
                 'green-light'   : '#51D88A',
                 'green-lighter' : '#A2F5BF',
                 'green-lightest': '#E3FCEC',
