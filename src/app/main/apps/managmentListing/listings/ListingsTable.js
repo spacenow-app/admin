@@ -12,7 +12,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  Typography
 } from "@material-ui/core";
 
 import Status from "../../manageBookings/booking/Status";
