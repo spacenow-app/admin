@@ -5,11 +5,24 @@ export function getWidgets() {
   const request = new Promise((resolve, reject) =>
     resolve({
       data: {
-        widget4: {
+        widget1: {
           title: "Users",
           data: {
-            label: "ACTIVE USERS",
-            count: 108,
+            label: "USERS",
+            count: 708,
+            extra: {
+              label: "Active",
+              count: 503
+            }
+          },
+          detail:
+            "You can show some detailed information about this widget in here."
+        },
+        widget2: {
+          title: "Bookings",
+          data: {
+            label: "BOOKINGS",
+            count: 2,
             extra: {
               label: "Active",
               count: 10
@@ -18,7 +31,20 @@ export function getWidgets() {
           detail:
             "You can show some detailed information about this widget in here."
         },
-        widget2: {
+        widget3: {
+          title: "Listings",
+          data: {
+            label: "LISTINGS",
+            count: 406,
+            extra: {
+              label: "Active",
+              count: 365
+            }
+          },
+          detail:
+            "You can show some detailed information about this widget in here."
+        },
+        widget4: {
           title: "Bookings",
           data: {
             label: "ACTIVE BOOKINGS",

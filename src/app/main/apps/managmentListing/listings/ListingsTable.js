@@ -23,7 +23,7 @@ import _ from "@lodash";
 import ListingsTableHead from "./ListingsTableHead";
 import * as Actions from "../store/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { width, maxWidth } from "@material-ui/system";
+// import { width, maxWidth } from "@material-ui/system";
 
 function ListingsTable(props) {
   const dispatch = useDispatch();
@@ -52,8 +52,8 @@ function ListingsTable(props) {
       searchText.length === 0
         ? listings
         : _.filter(listings, item =>
-            item.id.toLowerCase().includes(searchText.toLowerCase())
-          )
+          item.id.toLowerCase().includes(searchText.toLowerCase())
+        )
     );
   }, [listings, searchText]);
 
@@ -130,7 +130,7 @@ function ListingsTable(props) {
                     tabIndex={-1}
                     key={n.id}
                     selected={isSelected}
-                    // onClick={event => handleClick(n)}   && n.profile.picture
+                  // onClick={event => handleClick(n)}   && n.profile.picture
                   >
                     <TableCell className="w-52" component="th" scope="row">
                       {n.publish ? (
@@ -141,13 +141,13 @@ function ListingsTable(props) {
                           alt={n.name}
                         />
                       ) : (
-                        <img
-                          className="rounded"
-                          style={{ width: "50px", maxWidth: "50px" }}
-                          src="assets/images/avatars/spacenow.svg"
-                          alt={n.name}
-                        />
-                      )}
+                          <img
+                            className="rounded"
+                            style={{ width: "50px", maxWidth: "50px" }}
+                            src="assets/images/avatars/spacenow.svg"
+                            alt={n.name}
+                          />
+                        )}
                     </TableCell>
 
                     <TableCell component="th" scope="row">

@@ -7,7 +7,7 @@ const initialState = {
   searchText: ""
 };
 
-const usersReducer = function(state = initialState, action) {
+const usersReducer = function (state = initialState, action) {
   switch (action.type) {
     case Actions.GET_USERS: {
       return {
@@ -19,7 +19,7 @@ const usersReducer = function(state = initialState, action) {
     case Actions.SET_USER_SUCCESS: {
       return {
         ...state,
-        data: state.data.rows.map(item => {
+        data: state.data.map(item => {
           if (item.id === action.payload.id) return action.payload;
           return item;
         })
