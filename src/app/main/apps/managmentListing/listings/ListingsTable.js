@@ -14,7 +14,7 @@ import {
   DialogActions,
 } from "@material-ui/core";
 
-import Status from "../../manageBookings/booking/Status";
+import Status from "./Status";
 import moment from "moment";
 
 import { SpacenowScrollbars } from "@spacenow";
@@ -76,7 +76,6 @@ function ListingsTable(props) {
   }
 
   function handleChangePublishListingData(event, item) {
-    console.log("testv  change");
     dispatch(
       Actions.updateUser({ ...item, [event.target.name]: event.target.value })
     );
@@ -121,6 +120,7 @@ function ListingsTable(props) {
             )
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(n => {
+                console.log(n)
                 const isSelected = selected.indexOf(n.id) !== -1;
                 return (
                   <TableRow
@@ -158,16 +158,16 @@ function ListingsTable(props) {
                       {n.title}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      <Status name={n.status} />
+                      <Status name={(n.status.charAt(0).toUpperCase() + n.status.slice(1))} />
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.ownerName}
+                      {n.user.profile && n.user.profile.firstName}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.ownerEmail}
+                      {n.user.email}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.city}
+                      {n.location.city}
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {/* style={n.state == "active" ? {color:"green"} : {color:"red"}} */}
@@ -177,36 +177,35 @@ function ListingsTable(props) {
                           n.state === "active" ? "text-green" : "text-red"
                         }
                       >
-                        {n.state}
+                        {n.location.state}
                       </span>
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.country}
+                      {n.location.country}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {/* {n.createdDate} */}
-                      {n.createdDate &&
+                      {n.createdAt &&
                         moment(n.createdAt).format(
-                          "DD-MM-YYYY",
+                          "DD/MM/YYYY",
                           moment.HTML5_FMT.DATE
                         )}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {n.ready ? "YES" : "NO"}
+                      {n.isReady ? "YES" : "NO"}
                     </TableCell>
                     <TableCell component="th" scope="row">
                       <Button
                         onClick={event => handleChangePublishListingData(n)}
                         size="small"
                         variant="contained"
-                        color={n.publish ? "bg-red" : "bg-red"}
+                        color={n.isPublished ? "bg-red" : "bg-red"}
                         className={
-                          n.publish
+                          n.isPublished
                             ? "bg-green text-white"
                             : "bg-red text-white"
                         }
                       >
-                        {n.publish ? "Publish" : "Unpublished"}
+                        {n.isPublished ? "Publish" : "Unpublished"}
                       </Button>
                     </TableCell>
                     <TableCell component="th" scope="row" align="center">

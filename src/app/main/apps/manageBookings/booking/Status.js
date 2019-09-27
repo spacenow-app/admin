@@ -110,6 +110,24 @@ export const statuses = [
     name: "Awaiting Cash-on-delivery payment",
     slug: "awaiting_cash_on_delivery_payment",
     color: "bg-blue-800 text-white"
+  },
+  {
+    id: 19,
+    name: "Claimed",
+    slug: "claimed",
+    color: "bg-purple-700 text-white"
+  },
+  {
+    id: 20,
+    name: "Active",
+    slug: "active",
+    color: "bg-green text-white"
+  },
+  {
+    id: 21,
+    name: "Deleted",
+    slug: "deleted",
+    color: "bg-pink text-white"
   }
 ];
 
