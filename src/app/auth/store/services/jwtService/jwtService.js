@@ -74,7 +74,7 @@ class jwtService extends SpacenowUtils.EventEmitter {
 				.then(response => {
 					if (response.data.loginAdmin.token) {
 						this.setSession(response.data.loginAdmin.token);
-						this.signInWithToken();
+						resolve(this.signInWithToken());
 					} else {
 						reject(response.data.error);
 					}
