@@ -8,7 +8,7 @@ import * as Actions from "./store/actions";
 import reducer from "./store/reducers";
 import WidgetUsers from "./widgets/WidgetUsers";
 import WidgetListings from "./widgets/WidgetListings";
-import WidgetListingsCategory from "./widgets/WidgetListingsCategory";
+// import WidgetListingsCategory from "./widgets/WidgetListingsCategory";
 import WidgetBookings from "./widgets/WidgetBookings";
 
 const useStyles = makeStyles(() => ({
