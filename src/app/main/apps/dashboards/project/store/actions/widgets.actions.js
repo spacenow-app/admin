@@ -96,6 +96,26 @@ export const getTotalListingsByDate = (days, category) => {
       });
 }
 
+export const getTotalListings = () => {
+
+  const request = widgetsService.getTotalListings();
+
+  return dispatch =>
+    request
+      .then(response => {
+        dispatch({
+          type: GET_TOTAL_LISTINGS_SUCCESS,
+          payload: response
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: GET_TOTAL_LISTINGS_FAILURE,
+          payload: error
+        });
+      });
+}
+
 export const getTotalListingsByCategory = (category) => {
 
   const request = widgetsService.getTotalListingsByCategory(category);

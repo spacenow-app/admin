@@ -21,6 +21,14 @@ export const queryTotalUsersLegacyByDate = gql`
 }
 `;
 
+export const queryTotalListings = gql`
+  query GetTotalListingsByDate {
+    getTotalListingsByDate {
+      count
+    }
+}
+`;
+
 export const queryTotalListingsByDate = gql`
   query GetTotalListingsByDate($days: Int, $category: Int) {
     getTotalListingsByDate(days: $days, category: $category) {

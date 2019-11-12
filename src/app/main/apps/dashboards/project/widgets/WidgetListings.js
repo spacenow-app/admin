@@ -34,7 +34,7 @@ function WidgetListings(props) {
                     onChange={(ev) =>  _setCategoryDay(currentCategoryDay.category, ev.target.value)}
                     disableUnderline={true}
                 >
-                    <option key={0} value={null}>All</option>
+                    <option key={0} value={10000}>All</option>
                     <option key={1} value={1}>Day</option>
                     <option key={2} value={7}>Week</option>
                     <option key={3} value={30}>Month</option>

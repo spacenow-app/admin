@@ -29,7 +29,7 @@ const ProjectDashboardApp = props => {
   useEffect(() => {
     dispatch(Actions.getTotalUsers());
     dispatch(Actions.getTotalBookingsByDate());
-    dispatch(Actions.getTotalListingsByDate());
+    dispatch(Actions.getTotalListings());
     dispatch(Actions.getAllCategories());
   }, [dispatch]);
 

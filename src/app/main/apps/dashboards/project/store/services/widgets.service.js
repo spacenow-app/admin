@@ -87,25 +87,25 @@ class widgetsService extends SpacenowUtils.EventEmitter {
     });
   };
 
-  // getTotalListings = () => {
+  getTotalListings = () => {
 
-  //   return new Promise((resolve, reject) => {
-  //     getClientWithAuth()
-  //       .query({
-  //         query: widgetsQL.queryTotalListings
-  //       })
-  //       .then(response => {
-  //         if (response.data.getTotalListings) {
-  //           resolve(response.data.getTotalListings);
-  //         } else {
-  //           reject(response.data.error);
-  //         }
-  //       })
-  //       .catch(error => {
-  //         reject(error)
-  //       });
-  //   });
-  // };
+    return new Promise((resolve, reject) => {
+      getClientWithAuth()
+        .query({
+          query: widgetsQL.queryTotalListings
+        })
+        .then(response => {
+          if (response.data.getTotalListings) {
+            resolve(response.data.getTotalListings);
+          } else {
+            reject(response.data.error);
+          }
+        })
+        .catch(error => {
+          reject(error)
+        });
+    });
+  };
 
   getTotalListingsByDate = (days, category) => {
 
