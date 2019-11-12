@@ -22,8 +22,8 @@ export const queryTotalUsersLegacyByDate = gql`
 `;
 
 export const queryTotalListings = gql`
-  query GetTotalListingsByDate {
-    getTotalListingsByDate {
+  query GetTotalListings {
+    getTotalListings {
       count
     }
 }
