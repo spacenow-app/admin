@@ -1,105 +1,137 @@
-export const GET_WIDGETS = "[PROJECT DASHBOARD APP] GET WIDGETS";
-export const GET_USERS = "[PROJECT DASHBOARD APP] GET USERS";
+import widgetsService from '../services/widgets.service'
 
-export function getWidgets() {
-  const request = new Promise((resolve, reject) =>
-    resolve({
-      data: {
-        widget1: {
-          title: "Users",
-          data: {
-            label: "USERS",
-            count: 708,
-            extra: {
-              label: "Active",
-              count: 503
-            }
-          },
-          detail:
-            "You can show some detailed information about this widget in here."
-        },
-        widget2: {
-          title: "Bookings",
-          data: {
-            label: "BOOKINGS",
-            count: 2,
-            extra: {
-              label: "Active",
-              count: 10
-            }
-          },
-          detail:
-            "You can show some detailed information about this widget in here."
-        },
-        widget3: {
-          title: "Listings",
-          data: {
-            label: "LISTINGS",
-            count: 406,
-            extra: {
-              label: "Active",
-              count: 365
-            }
-          },
-          detail:
-            "You can show some detailed information about this widget in here."
-        },
-        widget4: {
-          title: "Bookings",
-          data: {
-            label: "ACTIVE BOOKINGS",
-            count: 18,
-            extra: {
-              label: "Active",
-              count: 10
-            }
-          },
-          detail:
-            "You can show some detailed information about this widget in here."
-        }
-      }
-    })
-  );
+export const GET_TOTAL_USERS_REQUEST = "[PROJECT DASHBOARD APP] GET TOTAL USERS REQUEST";
+export const GET_TOTAL_USERS_SUCCESS = "[PROJECT DASHBOARD APP] GET TOTAL USERS SUCCESS";
+export const GET_TOTAL_USERS_FAILURE = "[PROJECT DASHBOARD APP] GET TOTAL USERS FAILURE";
+export const GET_TOTAL_BOOKINGS_REQUEST = "[PROJECT DASHBOARD APP] GET TOTAL BOOKINGS REQUEST";
+export const GET_TOTAL_BOOKINGS_SUCCESS = "[PROJECT DASHBOARD APP] GET TOTAL BOOKINGS SUCCESS";
+export const GET_TOTAL_BOOKINGS_FAILURE = "[PROJECT DASHBOARD APP] GET TOTAL BOOKINGS FAILURE";
+export const GET_TOTAL_LISTINGS_REQUEST = "[PROJECT DASHBOARD APP] GET TOTAL LISTINGS REQUEST";
+export const GET_TOTAL_LISTINGS_SUCCESS = "[PROJECT DASHBOARD APP] GET TOTAL LISTINGS SUCCESS";
+export const GET_TOTAL_LISTINGS_FAILURE = "[PROJECT DASHBOARD APP] GET TOTAL LISTINGS FAILURE";
+export const GET_TOTAL_LISTINGS_CATEGORY_REQUEST = "[PROJECT DASHBOARD APP] GET TOTAL LISTINGS CATEGORY REQUEST";
+export const GET_TOTAL_LISTINGS_CATEGORY_SUCCESS = "[PROJECT DASHBOARD APP] GET TOTAL LISTINGS CATEGORY SUCCESS";
+export const GET_TOTAL_LISTINGS_CATEGORY_FAILURE = "[PROJECT DASHBOARD APP] GET TOTAL LISTINGS CATEGORY FAILURE";
+export const GET_ALL_CATEGORY_REQUEST = "[PROJECT DASHBOARD APP] GET ALL CATEGORY REQUEST";
+export const GET_ALL_CATEGORY_SUCCESS = "[PROJECT DASHBOARD APP] GET ALL CATEGORY SUCCESS";
+export const GET_ALL_CATEGORY_FAILURE = "[PROJECT DASHBOARD APP] GET ALL CATEGORY FAILURE";
+
+export const getTotalUsers = () => {
+
+  const request = widgetsService.getTotalUsers();
 
   return dispatch =>
-    request.then(response =>
-      dispatch({
-        type: GET_WIDGETS,
-        payload: response.data
+    request
+      .then(response => {
+        dispatch({
+          type: GET_TOTAL_USERS_SUCCESS,
+          payload: response
+        });
       })
-    );
+      .catch(error => {
+        dispatch({
+          type: GET_TOTAL_USERS_FAILURE,
+          payload: error
+        });
+      });
 }
 
+export const getTotalUsersByDate = (days) => {
 
-// export function getUsers() {
-//   const request = usersService.getUsers();
+  const request = widgetsService.getTotalUsersByDate(days);
 
-//   return dispatch =>
-//     request.then(response => {
-//       dispatch({
-//         type: GET_USERS,
-//         payload: response
-//       });
-//     });
-// }
+  return dispatch =>
+    request
+      .then(response => {
+        dispatch({
+          type: GET_TOTAL_USERS_SUCCESS,
+          payload: response
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: GET_TOTAL_USERS_FAILURE,
+          payload: error
+        });
+      });
+}
 
-// export function updateUser(user) {
-//   const request = usersService.updateUser(user);
-//   return dispatch =>
-//     request
-//       .then(() => {
-//         //dispatch(Actions.showMessage({ message: "User updated" }));
-//         dispatch({
-//           type: SET_USER_SUCCESS,
-//           payload: user
-//         });
-//       })
-//       .catch(error => {
-//         dispatch({
-//           type: SET_USER_ERROR,
-//           payload: error
-//         });
-//       });
-//}
+export const getTotalBookingsByDate = (days) => {
 
+  const request = widgetsService.getTotalBookingsByDate(days);
 
+  return dispatch =>
+    request
+      .then(response => {
+        dispatch({
+          type: GET_TOTAL_BOOKINGS_SUCCESS,
+          payload: response
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: GET_TOTAL_BOOKINGS_FAILURE,
+          payload: error
+        });
+      });
+}
+
+export const getTotalListingsByDate = (days, category) => {
+
+  const request = widgetsService.getTotalListingsByDate(days, category);
+
+  return dispatch =>
+    request
+      .then(response => {
+        dispatch({
+          type: GET_TOTAL_LISTINGS_SUCCESS,
+          payload: response
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: GET_TOTAL_LISTINGS_FAILURE,
+          payload: error
+        });
+      });
+}
+
+export const getTotalListingsByCategory = (category) => {
+
+  const request = widgetsService.getTotalListingsByCategory(category);
+
+  return dispatch =>
+    request
+      .then(response => {
+        dispatch({
+          type: GET_TOTAL_LISTINGS_CATEGORY_SUCCESS,
+          payload: response
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: GET_TOTAL_LISTINGS_CATEGORY_FAILURE,
+          payload: error
+        });
+      });
+}
+
+export const getAllCategories = () => {
+
+  const request = widgetsService.getAllCategories();
+
+  return dispatch =>
+    request
+      .then(response => {
+        dispatch({
+          type: GET_ALL_CATEGORY_SUCCESS,
+          payload: response
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: GET_ALL_CATEGORY_FAILURE,
+          payload: error
+        });
+      });
+}

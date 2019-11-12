@@ -22,6 +22,22 @@ class usersService extends SpacenowUtils.EventEmitter {
     });
   };
 
+  getTotalUsers = () => {
+    return new Promise((resolve, reject) => {
+      getClientWithAuth()
+        .query({
+          query: usersQL.getTotalUsersLegacy
+        })
+        .then(response => {
+          if (response.data.getTotalUsersLegacy) {
+            resolve(response.data.getTotalUsersLegacy);
+          } else {
+            reject(response.data.error);
+          }
+        });
+    });
+  };
+
   updateUser = user => {
     const userM = new UserInputClass(user);
     return new Promise((resolve, reject) => {

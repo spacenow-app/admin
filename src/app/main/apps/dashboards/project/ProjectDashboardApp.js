@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/styles";
-// import { Typography } from '@material-ui/core';
 import { SpacenowAnimateGroup, SpacenowPageSimple } from "@spacenow";
 import withReducer from "app/store/withReducer";
 import * as Actions from "./store/actions";
 
 import reducer from "./store/reducers";
-import Widget4 from "./widgets/Widget4";
-// import Widget1 from "./widgets/Widget1";
-import Widget3 from "./widgets/Widget3";
+import WidgetUsers from "./widgets/WidgetUsers";
+import WidgetListings from "./widgets/WidgetListings";
+import WidgetListingsCategory from "./widgets/WidgetListingsCategory";
+import WidgetBookings from "./widgets/WidgetBookings";
 
 const useStyles = makeStyles(() => ({
   content: {
@@ -27,8 +27,25 @@ const ProjectDashboardApp = props => {
   const classes = useStyles(props);
 
   useEffect(() => {
-    dispatch(Actions.getWidgets());
+    dispatch(Actions.getTotalUsers());
+    dispatch(Actions.getTotalBookingsByDate());
+    dispatch(Actions.getTotalListingsByDate());
+    dispatch(Actions.getAllCategories());
   }, [dispatch]);
+
+  const _handleUsersByDate = (days) => {
+    if(days)
+      dispatch(Actions.getTotalUsersByDate(days));
+    dispatch(Actions.getTotalUsers());
+  }
+
+  const _handleBookingsByDate = (days) => {
+    dispatch(Actions.getTotalBookingsByDate(days));
+  }
+
+  const _handleListingsByDate = ({ days, category }) => {
+    dispatch(Actions.getTotalListingsByDate(days, category));
+  }
 
   if (!widgets) {
     return null;
@@ -51,16 +68,13 @@ const ProjectDashboardApp = props => {
             }}
           >
             <div className="widget flex w-full sm:w-1/2 md:w-1/4 p-12">
-              <Widget3 widget={widgets.widget1} />
+              { widgets.users && <WidgetUsers widget={widgets.users} handleChangeRange={(days) => _handleUsersByDate(days)}/> }
             </div>
             <div className="widget flex w-full sm:w-1/2 md:w-1/4 p-12">
-              <Widget4 widget={widgets.widget2} />
+              { widgets.bookings && <WidgetBookings widget={widgets.bookings} handleChangeRange={(days) => _handleBookingsByDate(days)}/> }
             </div>
             <div className="widget flex w-full sm:w-1/2 md:w-1/4 p-12">
-              <Widget4 widget={widgets.widget3} />
-            </div>
-            <div className="widget flex w-full sm:w-1/2 md:w-1/4 p-12">
-              <Widget4 widget={widgets.widget4} />
+              { widgets.listings && widgets.categories && <WidgetListings categories={widgets.categories} widget={widgets.listings} handleChangeRange={({days, category}) => _handleListingsByDate({days, category})}/> }
             </div>
           </SpacenowAnimateGroup>
         </div>
