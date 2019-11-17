@@ -173,6 +173,7 @@ function UsersTable(props) {
                           <MenuItem value={"wework"}>WeWork</MenuItem>
                           <MenuItem value={"spacenow"}>Spacenow</MenuItem>
                           <MenuItem value={"generic"}>Generic</MenuItem>
+                          <MenuItem value={"external"}>External</MenuItem>
                         </Select>
                       </FormControl>
                     </TableCell>
