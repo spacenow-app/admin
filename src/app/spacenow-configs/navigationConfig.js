@@ -31,10 +31,25 @@ const navigationConfig = [
       {
         id: "Listings",
         title: "Listings",
-        type: "item",
+        type: 'collapse',
         icon: "list",
-        url: "/apps/managmentListing/listings",
-        exact: true
+        exact: true,
+        children: [{
+          id: "spacenow",
+          title: "Spacenow",
+          type: "item",
+          icon: "credit_card",
+          url: "/apps/managmentListing/listings",
+          exact: true
+        },
+        {
+          id: "external",
+          title: "External",
+          type: "item",
+          icon: "credit_card",
+          url: "/apps/listings/external",
+          exact: true
+        }]
       }
     ]
   }
