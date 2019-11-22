@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {
-  Button,
-  Icon,
-  IconButton,
   Table,
   TableBody,
   TableCell,
   TablePagination,
-  TableRow,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
+  TableRow
 } from "@material-ui/core";
 
-import Status from "./Status";
 import moment from "moment";
 
 import { SpacenowScrollbars } from "@spacenow";
@@ -37,7 +29,7 @@ function ListingsTable(props) {
   const [selected] = useState([]);
   const [data, setData] = useState(external);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage] = useState(10);
   const [order, setOrder] = useState({
     direction: "asc",
     id: null

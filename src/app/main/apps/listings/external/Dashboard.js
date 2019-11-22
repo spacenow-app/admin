@@ -4,7 +4,7 @@ import { Avatar, Typography } from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles";
 import {fade} from '@material-ui/core/styles/colorManipulator';
 import {Link} from 'react-router-dom';
-import { SpacenowAnimateGroup, SpacenowPageSimple, SpacenowAnimate } from "@spacenow";
+import { SpacenowAnimateGroup, SpacenowAnimate } from "@spacenow";
 import withReducer from "app/store/withReducer";
 import * as Actions from "../store/actions";
 import clsx from 'clsx';
@@ -106,44 +106,6 @@ const Dashboard = props => {
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-    // <SpacenowPageSimple
-    //   classes={{
-    //     header: "min-h-160 h-160",
-    //     toolbar: "min-h-48 h-48",
-    //     rightSidebar: "w-288",
-    //     content: classes.content
-    //   }}
-    //   content={
-    //     <div className="p-12">
-    //       <SpacenowAnimateGroup
-    //         className="flex flex-wrap"
-    //         enter={{
-    //           animation: "transition.slideUpBigIn"
-    //         }}
-    //       >
-    //         {
-    //           external.users.map((user, index) => (
-    //             <div key={index} className="widget flex w-full sm:w-1/2 md:w-1/4 p-12">
-    //               <Typography className="username text-16 whitespace-no-wrap" color="inherit">{user.profile.displayName}</Typography>
-    //               <Typography className="email text-13 mt-8 opacity-50 whitespace-no-wrap" color="inherit">{user.profile.email}</Typography>
-    //               <Avatar
-    //                   className={clsx(classes.avatar, "avatar")}
-    //                   alt="user photo"
-    //                   src={user.profile.picture && user.profile.picture !== '' ? user.profile.picture : "assets/images/avatars/profile.jpg"}
-    //               />
-    //             </div>
-    //           ))
-    //         }
-    //       </SpacenowAnimateGroup>
-    //     </div>
-    //   }
-    // />
   );
 };
 
