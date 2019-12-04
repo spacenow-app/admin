@@ -31,7 +31,7 @@ function WidgetListings(props) {
             <div className="flex items-center justify-between pr-4 pl-16 pt-4">
                 <Select
                     native
-                    onChange={(ev) =>  _setCategoryDay(currentCategoryDay.category, ev.target.value)}
+                    onChange={(ev) => _setCategoryDay(currentCategoryDay.category, ev.target.value)}
                     disableUnderline={true}
                 >
                     <option key={0} value={10000}>All</option>
@@ -53,7 +53,7 @@ function WidgetListings(props) {
                     onClose={closeSelectedCategoryMenu}
                 >
                     <MenuList>
-                        <MenuItem onClick={() => _setCategoryDay(null, currentCategoryDay.days) }>
+                        <MenuItem onClick={() => _setCategoryDay(null, currentCategoryDay.days)}>
                             <ListItemText primary="All" />
                         </MenuItem>
                         {
@@ -70,8 +70,13 @@ function WidgetListings(props) {
             </div>
             <div className="text-center pt-12 pb-28">
                 <Typography
-                    className="text-72 leading-none text-orange">{props.widget.data.count}</Typography>
+                    className="text-72 leading-none text-orange">{props.widget.data.count.all}</Typography>
                 <Typography className="text-16" color="textSecondary">Total Listings </Typography>
+            </div>
+            <div className="flex items-center justify-between p-16">
+                <Typography className="text-16" color="textSecondary">Actives: {props.widget.data.count.active}</Typography>
+                <Typography className="text-16" color="textSecondary">Published: {props.widget.data.count.published}</Typography>
+                <Typography className="text-16" color="textSecondary">Deleted: {props.widget.data.count.deleted}</Typography>
             </div>
         </Paper>
     );

@@ -32,9 +32,14 @@ export const queryTotalListings = gql`
 export const queryTotalListingsByDate = gql`
   query GetTotalListingsByDate($days: Int, $category: Int) {
     getTotalListingsByDate(days: $days, category: $category) {
-      count
+      count {
+        all
+        active
+        deleted
+        published
+      }
     }
-}
+  }
 `;
 
 export const queryTotalBookingsByDate = gql`
@@ -42,15 +47,20 @@ export const queryTotalBookingsByDate = gql`
     getTotalBookingsByDate(days: $days) {
       count
     }
-}
+  }
 `;
 
 export const queryTotalListingsByCategory = gql`
   query GetTotalListingsByCategory($category: ID) {
     getTotalListingsByCategory(category: $category) {
-      count
+      count {
+        all
+        active
+        deleted
+        published
+      }
     }
-}
+  }
 `;
 
 export const queryGetAllCategories = gql`
