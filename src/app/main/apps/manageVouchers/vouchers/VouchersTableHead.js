@@ -59,6 +59,13 @@ const rows = [
     disablePadding: false,
     label: 'Status',
     sort: true
+  },
+  {
+    id: 'edition',
+    align: 'left',
+    disablePadding: false,
+    label: '',
+    sort: false
   }
 ];
 
