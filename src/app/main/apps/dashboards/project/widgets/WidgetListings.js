@@ -59,7 +59,7 @@ function WidgetListings(props) {
                         {
                             props.categories && props.categories.data.map((category) => (
                                 category.subCategories.map((subcategory, index) => (
-                                    <MenuItem key={index} onClick={() => _setCategoryDay(currentCategoryDay.days, subcategory.listSettingsParentId)}>
+                                    <MenuItem key={index} onClick={() => _setCategoryDay(subcategory.listSettingsParentId, currentCategoryDay.days)}>
                                         <ListItemText primary={`${category.itemName} -> ${subcategory.itemName}`} />
                                     </MenuItem>
                                 ))
