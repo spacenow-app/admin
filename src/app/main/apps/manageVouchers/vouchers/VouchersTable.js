@@ -23,6 +23,8 @@ import { SpacenowScrollbars } from '@spacenow';
 
 import VouchersTableHead from './VouchersTableHead';
 
+import * as Actions from "../store/actions";
+
 const MOCK_VOUCHERS = [
   {
     id: '1',
@@ -64,9 +66,7 @@ const statusMap = {
 const VouchersTable = () => {
   const dispatch = useDispatch();
 
-  const data = useSelector(
-    ({ manageVouchers }) => manageVouchers.data || MOCK_VOUCHERS
-  );
+  const { data } = useSelector(({ manageVouchers }) => manageVouchers.reducer);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -74,6 +74,10 @@ const VouchersTable = () => {
   const [selected, setSelected] = useState([]);
   const [confirmDisable, setConfirmDisable] = useState(false);
   const [voucherCode, setVoucherCode] = useState('');
+
+  useEffect(() => {
+    dispatch(Actions.listVouchers())
+  }, [dispatch])
 
   const handleChangePage = (event, page) => {
     setPage(page);
