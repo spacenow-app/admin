@@ -31,7 +31,7 @@ import VouchersTableHead from './VouchersTableHead';
 
 const MOCK_VOUCHERS = [
   {
-    id: '3f25c160-cb70-4526-81f4-e197904344af',
+    id: '1',
     usageCount: 0,
     status: 'active',
     code: 'SN251959',
@@ -43,7 +43,7 @@ const MOCK_VOUCHERS = [
     createdAt: '2019-12-04T01:36:18.312Z'
   },
   {
-    id: '3f25c160-cb70-4526-81f4-e197904344af',
+    id: '2',
     usageCount: 0,
     status: 'disabled',
     code: 'SN123456',
@@ -70,15 +70,14 @@ const statusMap = {
 const VouchersTable = () => {
   const dispatch = useDispatch();
 
-  const data = useSelector(
-    ({ manageVouchers }) => manageVouchers.data || MOCK_VOUCHERS
-  );
+  const data = useSelector(({ manageVouchers }) => manageVouchers.data || MOCK_VOUCHERS);
 
   const [page, setPage] = useState(0);
-  const [dialog, setDialog] = useState({ isOpen: false, object: null });
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState({ direction: 'asc', id: null });
   const [selected, setSelected] = useState([]);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [voucherObj, setVoucherObj] = useState({ code: '', type: 'percentual', value: 0, usageLimit: 1, expireAt: new Date() });
 
   const handleChangePage = (event, page) => {
     setPage(page);
@@ -100,71 +99,107 @@ const VouchersTable = () => {
   const statusContainer = (status) => {
     const statusItem = statusMap[status];
     return (
-      <div
-        className={clsx(
-          'inline text-12 p-4 rounded truncate',
-          statusItem.color
-        )}
-      >
+      <div className={clsx('inline text-12 p-4 rounded truncate', statusItem.color)}>
         {statusItem.name}
       </div>
     );
   };
 
-  const handleOpen = (voucherObj) => {
-    setDialog({ isOpen: true, object: voucherObj });
+  const handleOpen = (voucher) => {
+    setVoucherObj(voucher)
+    setOpenDialog(true);
   };
 
   const handleClose = () => {
-    setDialog({ isOpen: false, object: null });
+    setOpenDialog(false);
+  };
+
+  const handleConfirm = () => {
+    console.log('Voucher: ', voucherObj)
+    setOpenDialog(false);
+  };
+
+  const handleType = (event) => {
+    setVoucherObj((o) => {
+      return { ...o, type: event.target.value };
+    });
+    event.persist();
+  };
+
+  const handleValue = (event) => {
+    setVoucherObj((o) => {
+      return { ...o, value: event.target.value };
+    });
+    event.persist();
+  };
+
+  const handleLimit = (event) => {
+    setVoucherObj((o) => {
+      return { ...o, usageLimit: event.target.value };
+    });
+    event.persist();
+  };
+
+  const handleExpire = (event) => {
+    setVoucherObj((o) => {
+      return { ...o, expireAt: event.target.value };
+    });
+    event.persist();
   };
 
   return (
     <>
       <Dialog
-        open={dialog.isOpen}
+        open={openDialog}
         onClose={handleClose}
         aria-labelledby='form-dialog-title'
       >
-        <DialogTitle id='form-dialog-title'>{`Voucher ${dialog.object &&
-          dialog.object.code}`}</DialogTitle>
+        <DialogTitle id='form-dialog-title'>Voucher</DialogTitle>
         <DialogContent>
-          <InputLabel id='select-type'>Type</InputLabel>
-          <Select labelId='select-type' id='select-type' fullWidth>
-            <MenuItem value={'percentual'}>Percentual</MenuItem>
-            <MenuItem value={'zerofee'}>Zero Fee</MenuItem>
-            <MenuItem value={'value'}>Value</MenuItem>
-          </Select>
-          <TextField
-            margin='dense'
-            id='value'
-            label='Value'
-            type='number'
-            fullWidth
-          />
-          <TextField
-            margin='dense'
-            id='limit'
-            label='Limit'
-            type='number'
-            fullWidth
-          />
-          <TextField
-            margin='dense'
-            id='expireAt'
-            label='Expire At'
-            type='date'
-            InputLabelProps={{
-              shrink: true,
-            }}
-            fullWidth
-          />
+          <FormControl>
+            <InputLabel id='select-type'>Type</InputLabel>
+            <Select id='select-type' value={voucherObj.type} onChange={handleType} fullWidth>
+              <MenuItem value={'percentual'}>Percentual</MenuItem>
+              <MenuItem value={'zerofee'}>Zero Fee</MenuItem>
+              <MenuItem value={'value'}>Value</MenuItem>
+            </Select>
+            <TextField
+              margin='dense'
+              id='value'
+              label='Value'
+              type='number'
+              value={voucherObj.value}
+              onChange={handleValue}
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              margin='dense'
+              id='limit'
+              label='Limit (Usage Count)'
+              type='number'
+              value={voucherObj.usageLimit}
+              onChange={handleLimit}
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              margin='dense'
+              id='expireAt'
+              label='Expire At'
+              type='date'
+              value={voucherObj.expireAt}
+              onChange={handleExpire}
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+            />
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color='primary'>
             Cancel
           </Button>
-          <Button onClick={handleClose} color='primary'>
+          <Button onClick={handleConfirm} color='primary'>
             Confirm
           </Button>
         </DialogActions>
