@@ -6,11 +6,13 @@ export const FAILURE_VOUCHERS = '[MANAGMENT APP] FAILURE VOUCHERS';
 export function listVouchers() {
   return (dispatch) =>
     Service.getVouchers()
-      .then((data) => {
-        console.log('Actions -> resolve', data);
-        dispatch({ type: GET_VOUCHERS, payload: data });
-      })
-      .catch((err) => {
-        dispatch({ type: FAILURE_VOUCHERS, error: err });
-      });
+      .then((data) => dispatch({ type: GET_VOUCHERS, payload: data }))
+      .catch((err) => dispatch({ type: FAILURE_VOUCHERS, error: err }));
+}
+
+export function desactiveVoucher(voucherCode) {
+  return (dispatch) =>
+    Service.desactiveVoucher(voucherCode)
+      .then((data) => dispatch({ type: GET_VOUCHERS, payload: data }))
+      .catch((err) => dispatch({ type: FAILURE_VOUCHERS, error: err }));
 }

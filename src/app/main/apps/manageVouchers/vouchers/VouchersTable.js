@@ -118,8 +118,7 @@ const VouchersTable = () => {
   const handleDisableClose = () => setConfirmDisable(false);
 
   const handleDisableConfirm = () => {
-    console.log('Disable Voucher', voucherCode);
-    setConfirmDisable(false);
+    dispatch(Actions.desactiveVoucher(voucherCode)).then(setConfirmDisable(false))
   };
 
   return (
@@ -214,6 +213,7 @@ const VouchersTable = () => {
                           variant='outlined'
                           color='secondary'
                           onClick={() => handleDisableVoucher(n.code)}
+                          disabled={n.status === 'disabled'}
                         >
                           Disable
                         </Button>

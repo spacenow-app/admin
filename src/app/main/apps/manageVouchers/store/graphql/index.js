@@ -16,3 +16,20 @@ export const queryGetVouchers = gql`
     }
   }
 `;
+
+export const mutateDesactiveVoucher = gql`
+  mutation desactiveVoucher($voucherCode: String!) {
+    desactiveVoucher(voucherCode: $voucherCode) {
+      id
+      code
+      type
+      value
+      usageCount
+      usageLimit
+      expireAt
+      status
+      createdAt
+      updatedAt
+    }
+  }
+`;
