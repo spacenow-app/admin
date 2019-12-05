@@ -38,8 +38,23 @@ class VoucherService {
         });
     });
   };
+
+  createVoucher = (type, value, usageLimit, expireAt) => {
+    return new Promise((resolve, reject) => {
+      getClientWithAuth()
+        .mutate({
+          mutation: QL.mutateCreateVoucher,
+          variables: { type, value, usageLimit, expireAt }
+        })
+        .then((res) => {
+          if (res.data.createVoucher) {
+            resolve(this.getVouchers());
+          } else {
+            reject(res.data.error);
+          }
+        });
+    });
+  };
 }
 
-const instance = new VoucherService();
-
-export default instance;
+export default new VoucherService();

@@ -16,3 +16,10 @@ export function desactiveVoucher(voucherCode) {
       .then((data) => dispatch({ type: GET_VOUCHERS, payload: data }))
       .catch((err) => dispatch({ type: FAILURE_VOUCHERS, error: err }));
 }
+
+export function createVoucher({ type, value, usageLimit, expireAt }) {
+  return (dispatch) =>
+    Service.createVoucher(type, value, usageLimit, expireAt)
+      .then((data) => dispatch({ type: GET_VOUCHERS, payload: data }))
+      .catch((err) => dispatch({ type: FAILURE_VOUCHERS, error: err }));
+}

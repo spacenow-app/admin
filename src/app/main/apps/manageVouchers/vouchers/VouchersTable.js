@@ -23,34 +23,7 @@ import { SpacenowScrollbars } from '@spacenow';
 
 import VouchersTableHead from './VouchersTableHead';
 
-import * as Actions from "../store/actions";
-
-const MOCK_VOUCHERS = [
-  {
-    id: '1',
-    usageCount: 0,
-    status: 'active',
-    code: 'SN251959',
-    type: 'percentual',
-    value: 10,
-    usageLimit: 2,
-    expireAt: '2019-12-04T13:00:00.000Z',
-    updatedAt: '2019-12-04T01:36:18.312Z',
-    createdAt: '2019-12-04T01:36:18.312Z'
-  },
-  {
-    id: '2',
-    usageCount: 0,
-    status: 'disabled',
-    code: 'SN123456',
-    type: 'value',
-    value: 15,
-    usageLimit: 1,
-    expireAt: '2019-12-04T13:00:00.000Z',
-    updatedAt: '2019-12-04T01:36:18.312Z',
-    createdAt: '2019-12-04T01:36:18.312Z'
-  }
-];
+import * as Actions from '../store/actions';
 
 const statusMap = {
   active: {
@@ -71,13 +44,13 @@ const VouchersTable = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState({ direction: 'asc', id: null });
-  const [selected, setSelected] = useState([]);
+  const [selected] = useState([]);
   const [confirmDisable, setConfirmDisable] = useState(false);
   const [voucherCode, setVoucherCode] = useState('');
 
   useEffect(() => {
-    dispatch(Actions.listVouchers())
-  }, [dispatch])
+    dispatch(Actions.listVouchers());
+  }, [dispatch]);
 
   const handleChangePage = (event, page) => {
     setPage(page);
@@ -118,7 +91,9 @@ const VouchersTable = () => {
   const handleDisableClose = () => setConfirmDisable(false);
 
   const handleDisableConfirm = () => {
-    dispatch(Actions.desactiveVoucher(voucherCode)).then(setConfirmDisable(false))
+    dispatch(Actions.desactiveVoucher(voucherCode)).then(
+      setConfirmDisable(false)
+    );
   };
 
   return (

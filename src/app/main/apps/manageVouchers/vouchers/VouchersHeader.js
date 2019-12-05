@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import * as Actions from '../store/actions';
 
 import {
   Button,
@@ -27,6 +29,8 @@ const VOUCHER_INIT = {
 };
 
 function Header() {
+  const dispatch = useDispatch();
+
   const [openDialog, setOpenDialog] = useState(false);
   const [voucherObj, setVoucherObj] = useState(VOUCHER_INIT);
 
@@ -42,8 +46,7 @@ function Header() {
   };
 
   const handleConfirm = () => {
-    console.log('Voucher: ', voucherObj);
-    setOpenDialog(false);
+    dispatch(Actions.createVoucher(voucherObj)).then(setOpenDialog(false));
   };
 
   const handleType = (event) => {
@@ -55,14 +58,14 @@ function Header() {
 
   const handleValue = (event) => {
     setVoucherObj((o) => {
-      return { ...o, value: event.target.value };
+      return { ...o, value: parseFloat(event.target.value, 10) };
     });
     event.persist();
   };
 
   const handleLimit = (event) => {
     setVoucherObj((o) => {
-      return { ...o, usageLimit: event.target.value };
+      return { ...o, usageLimit: parseInt(event.target.value, 10) };
     });
     event.persist();
   };
