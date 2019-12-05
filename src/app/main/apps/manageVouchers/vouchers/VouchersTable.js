@@ -11,17 +11,11 @@ import {
   TablePagination,
   TableRow,
   Button,
-  TextField,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  KeyboardDatePicker
+  DialogTitle
 } from '@material-ui/core';
 
 import _ from '@lodash';
@@ -70,16 +64,16 @@ const statusMap = {
 const VouchersTable = () => {
   const dispatch = useDispatch();
 
-  const data = useSelector(({ manageVouchers }) => manageVouchers.data || MOCK_VOUCHERS);
+  const data = useSelector(
+    ({ manageVouchers }) => manageVouchers.data || MOCK_VOUCHERS
+  );
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [order, setOrder] = useState({ direction: 'asc', id: null });
   const [selected, setSelected] = useState([]);
-  const [openDialog, setOpenDialog] = useState(false);
   const [confirmDisable, setConfirmDisable] = useState(false);
-  const [voucherCode, setVoucherCode] = useState('')
-  const [voucherObj, setVoucherObj] = useState({ code: '', type: 'percentual', value: 0, usageLimit: 1, expireAt: new Date() });
+  const [voucherCode, setVoucherCode] = useState('');
 
   const handleChangePage = (event, page) => {
     setPage(page);
@@ -101,143 +95,49 @@ const VouchersTable = () => {
   const statusContainer = (status) => {
     const statusItem = statusMap[status];
     return (
-      <div className={clsx('inline text-12 p-4 rounded truncate', statusItem.color)}>
+      <div
+        className={clsx(
+          'inline text-12 p-4 rounded truncate',
+          statusItem.color
+        )}
+      >
         {statusItem.name}
       </div>
     );
   };
 
-  const handleOpen = (voucher) => {
-    setVoucherObj(voucher)
-    setOpenDialog(true);
-  };
-
-  const handleClose = () => {
-    setOpenDialog(false);
-  };
-
-  const handleConfirm = () => {
-    console.log('Voucher: ', voucherObj)
-    setOpenDialog(false);
-  };
-
-  const handleType = (event) => {
-    setVoucherObj((o) => {
-      return { ...o, type: event.target.value };
-    });
-    event.persist();
-  };
-
-  const handleValue = (event) => {
-    setVoucherObj((o) => {
-      return { ...o, value: event.target.value };
-    });
-    event.persist();
-  };
-
-  const handleLimit = (event) => {
-    setVoucherObj((o) => {
-      return { ...o, usageLimit: event.target.value };
-    });
-    event.persist();
-  };
-
-  const handleExpire = (event) => {
-    setVoucherObj((o) => {
-      return { ...o, expireAt: event.target.value };
-    });
-    event.persist();
-  };
-
   const handleDisableVoucher = (code) => {
-    setVoucherCode(code)
-    setConfirmDisable(true)
-  }
+    setVoucherCode(code);
+    setConfirmDisable(true);
+  };
 
-  const handleDisableClose = () => setConfirmDisable(false)
+  const handleDisableClose = () => setConfirmDisable(false);
 
   const handleDisableConfirm = () => {
-    console.log('Disable Voucher', voucherCode)
-    setConfirmDisable(false)
-  }
+    console.log('Disable Voucher', voucherCode);
+    setConfirmDisable(false);
+  };
 
   return (
     <>
-      {/* Dialog to create a new voucher */}
-      <Dialog
-        open={openDialog}
-        onClose={handleClose}
-        aria-labelledby='form-dialog-title'
-      >
-        <DialogTitle id='form-dialog-title'>Voucher</DialogTitle>
-        <DialogContent>
-          <FormControl>
-            <InputLabel id='select-type'>Type</InputLabel>
-            <Select id='select-type' value={voucherObj.type} onChange={handleType} fullWidth>
-              <MenuItem value={'percentual'}>Percentual</MenuItem>
-              <MenuItem value={'zerofee'}>Zero Fee</MenuItem>
-              <MenuItem value={'value'}>Value</MenuItem>
-            </Select>
-            <TextField
-              margin='dense'
-              id='value'
-              label='Value'
-              type='number'
-              value={voucherObj.value}
-              onChange={handleValue}
-              fullWidth
-              InputLabelProps={{ shrink: true }}
-            />
-            <TextField
-              margin='dense'
-              id='limit'
-              label='Limit (Usage Count)'
-              type='number'
-              value={voucherObj.usageLimit}
-              onChange={handleLimit}
-              fullWidth
-              InputLabelProps={{ shrink: true }}
-            />
-            <TextField
-              margin='dense'
-              id='expireAt'
-              label='Expire At'
-              type='date'
-              value={voucherObj.expireAt}
-              onChange={handleExpire}
-              fullWidth
-              InputLabelProps={{ shrink: true }}
-            />
-          </FormControl>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color='primary'>
-            Cancel
-          </Button>
-          <Button onClick={handleConfirm} color='primary'>
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
-
       {/* Confirming a voucher to disable */}
       <Dialog
         open={confirmDisable}
         onClose={handleDisableClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
       >
-        <DialogTitle id="alert-dialog-title">{"Disable Voucher?"}</DialogTitle>
+        <DialogTitle id='alert-dialog-title'>{'Disable Voucher?'}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText id='alert-dialog-description'>
             {`Would you like to disable Voucher ${voucherCode}?`}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDisableClose} color="primary">
+          <Button onClick={handleDisableClose} color='primary'>
             No
           </Button>
-          <Button onClick={handleDisableConfirm} color="primary">
+          <Button onClick={handleDisableConfirm} color='primary'>
             Yes
           </Button>
         </DialogActions>
@@ -307,8 +207,8 @@ const VouchersTable = () => {
                       <TableCell component='th' scope='row'>
                         <Button
                           size='small'
-                          variant='text'
-                          color='primary'
+                          variant='outlined'
+                          color='secondary'
                           onClick={() => handleDisableVoucher(n.code)}
                         >
                           Disable
