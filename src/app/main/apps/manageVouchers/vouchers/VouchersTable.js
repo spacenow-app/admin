@@ -77,6 +77,8 @@ const VouchersTable = () => {
   const [order, setOrder] = useState({ direction: 'asc', id: null });
   const [selected, setSelected] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
+  const [confirmDisable, setConfirmDisable] = useState(false);
+  const [voucherCode, setVoucherCode] = useState('')
   const [voucherObj, setVoucherObj] = useState({ code: '', type: 'percentual', value: 0, usageLimit: 1, expireAt: new Date() });
 
   const handleChangePage = (event, page) => {
@@ -147,8 +149,21 @@ const VouchersTable = () => {
     event.persist();
   };
 
+  const handleDisableVoucher = (code) => {
+    setVoucherCode(code)
+    setConfirmDisable(true)
+  }
+
+  const handleDisableClose = () => setConfirmDisable(false)
+
+  const handleDisableConfirm = () => {
+    console.log('Disable Voucher', voucherCode)
+    setConfirmDisable(false)
+  }
+
   return (
     <>
+      {/* Dialog to create a new voucher */}
       <Dialog
         open={openDialog}
         onClose={handleClose}
@@ -204,6 +219,31 @@ const VouchersTable = () => {
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Confirming a voucher to disable */}
+      <Dialog
+        open={confirmDisable}
+        onClose={handleDisableClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Disable Voucher?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {`Would you like to disable Voucher ${voucherCode}?`}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDisableClose} color="primary">
+            No
+          </Button>
+          <Button onClick={handleDisableConfirm} color="primary">
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Vouchers table */}
       <div className='w-full flex flex-col'>
         <SpacenowScrollbars className='flex-grow overflow-x-auto'>
           <Table className='min-w-xl' aria-labelledby='tableTitle'>
@@ -269,9 +309,9 @@ const VouchersTable = () => {
                           size='small'
                           variant='text'
                           color='primary'
-                          onClick={() => handleOpen(n)}
+                          onClick={() => handleDisableVoucher(n.code)}
                         >
-                          Edit
+                          Disable
                         </Button>
                       </TableCell>
                     </TableRow>
