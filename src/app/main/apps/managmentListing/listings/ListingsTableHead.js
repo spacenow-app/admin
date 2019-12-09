@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+
 import {
   TableHead,
   TableSortLabel,
@@ -6,8 +7,6 @@ import {
   TableRow,
   Tooltip
 } from '@material-ui/core';
-
-import { makeStyles } from '@material-ui/styles';
 
 const rows = [
   {
@@ -89,28 +88,10 @@ const rows = [
   }
 ];
 
-const useStyles = makeStyles((theme) => ({
-  actionsButtonWrapper: {
-    background: theme.palette.background.paper
-  }
-}));
-
 function ListingsTableHead(props) {
-  const classes = useStyles(props);
-
-  const [selectedUsersMenu, setSelectedUsersMenu] = useState(null);
-
   const createSortHandler = (property) => (event) => {
     props.onRequestSort(event, property);
   };
-
-  function openSelectedUsersMenu(event) {
-    setSelectedUsersMenu(event.currentTarget);
-  }
-
-  function closeSelectedUsersMenu() {
-    setSelectedUsersMenu(null);
-  }
 
   return (
     <TableHead>
