@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   Button,
-  Icon,
-  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -124,6 +122,11 @@ function ListingsTable(props) {
                       <Status
                         name={
                           n.status.charAt(0).toUpperCase() + n.status.slice(1)
+                        }
+                        tooltip={
+                          n.status === 'active'
+                            ? 'Click here to disable this listing'
+                            : 'Click here to activate this listing'
                         }
                         onClick={() =>
                           dispatch(
