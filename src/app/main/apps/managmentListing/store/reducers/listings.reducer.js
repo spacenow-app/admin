@@ -11,8 +11,8 @@ const listingsReducer = function(state = initialState, action) {
     case Actions.GET_LISTINGS: {
       return {
         ...state,
-        data: action.payload.rows,
-        count: action.payload.count
+        data: action.payload,
+        count: action.payload.length
       };
     }
     case Actions.SET_LISTINGS_SEARCH_TEXT: {
