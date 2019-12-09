@@ -23,12 +23,9 @@ import Status from './Status';
 
 function ListingsTable(props) {
   const dispatch = useDispatch();
-  const listings = useSelector(
-    ({ managmentListing }) => managmentListing.listings.data
-  );
-  const searchText = useSelector(
-    ({ managmentListing }) => managmentListing.listings.searchText
-  );
+  
+  const listings = useSelector(({ managmentListing }) => managmentListing.listings.data);
+  const searchText = useSelector(({ managmentListing }) => managmentListing.listings.searchText);
 
   const [selected] = useState([]);
   const [data, setData] = useState(listings);
@@ -41,13 +38,13 @@ function ListingsTable(props) {
   }, [dispatch]);
 
   useEffect(() => {
-    setData(
-      searchText.length === 0
-        ? listings
-        : _.filter(listings, (item) =>
-            item.id.toLowerCase().includes(searchText.toLowerCase())
-          )
-    );
+    if (searchText) {
+      const searchId = parseInt(searchText, 10);
+      const filtered = listings.filter((i) => i.id == searchId);
+      setData(filtered);
+    } else {
+      setData(listings);
+    }
   }, [listings, searchText]);
 
   function handleRequestSort(event, property) {
@@ -219,7 +216,6 @@ function ListingsTable(props) {
           </TableBody>
         </Table>
       </SpacenowScrollbars>
-
       <TablePagination
         component='div'
         count={data.length}

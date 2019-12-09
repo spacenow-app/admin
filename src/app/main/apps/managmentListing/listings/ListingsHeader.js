@@ -7,9 +7,8 @@ import * as Actions from '../store/actions';
 
 function ListingsHeader(props) {
   const dispatch = useDispatch();
-  const searchText = useSelector(
-    ({ managmentListing }) => managmentListing.listings.searchText
-  );
+
+  const searchText = useSelector(({ managmentListing }) => managmentListing.listings.searchText);
   const mainTheme = useSelector(({ spacenow }) => spacenow.settings.mainTheme);
 
   return (
@@ -35,7 +34,7 @@ function ListingsHeader(props) {
                 list
               </Icon>
               <Input
-                placeholder='Search'
+                placeholder='Searching by Listing ID'
                 className='flex flex-1'
                 disableUnderline
                 fullWidth
