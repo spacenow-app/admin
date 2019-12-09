@@ -40,7 +40,8 @@ function UsersTable(props) {
     open: false,
     user: {},
     status: 0,
-    msg: ''
+    msg: '',
+    warning: ''
   });
 
   useEffect(() => {
@@ -81,15 +82,18 @@ function UsersTable(props) {
   function handleToBanOrActiveUser(e, user) {
     e.preventDefault();
     if (user.userBanStatus === e.target.value) return;
-    let msg = `Do you confirm the activation of the user ${user.email}?`;
+    let msgOne = `Do you confirm the activation of the user ${user.email}?`;
+    let msgWarn = `All listings of this user will be activate but not published.`
     if (e.target.value == 1) {
-      msg = `Are you sure you want to ban the user ${user.email}?`;
+      msgOne = `Are you sure you want to ban the user ${user.email}?`;
+      msgWarn = `All listing of this user will be disabled as well.`
     }
     setConfirmUserBan({
       open: true,
       user: user,
       status: e.target.value,
-      msg: msg
+      msg: msgOne,
+      warning: msgWarn
     });
   }
 
@@ -118,6 +122,8 @@ function UsersTable(props) {
         <DialogContent fullWidth>
           <DialogContentText id='form-dialog-title'>
             {confirmUserBan.msg}
+            <br />
+            {confirmUserBan.warning}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
