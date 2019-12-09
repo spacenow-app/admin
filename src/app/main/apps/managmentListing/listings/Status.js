@@ -27,6 +27,7 @@ export const statuses = [
 function Status(props) {
   return (
     <div
+      {...props}
       className={clsx(
         "inline text-12 p-4 rounded truncate",
         _.find(statuses, { name: props.name }).color

@@ -1,9 +1,9 @@
-import * as Actions from "../actions";
+import * as Actions from '../actions';
 
 const initialState = {
   count: 0,
   data: [],
-  searchText: ""
+  searchText: ''
 };
 
 const listingsReducer = function(state = initialState, action) {
@@ -19,6 +19,16 @@ const listingsReducer = function(state = initialState, action) {
       return {
         ...state,
         searchText: action.searchText
+      };
+    }
+    case Actions.UPDATE_LISTING: {
+      return {
+        ...state,
+        data: state.data.map((item) => {
+          if (item.id === action.payload.id) 
+            return action.payload;
+          return item;
+        })
       };
     }
     default: {
