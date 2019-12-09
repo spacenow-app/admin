@@ -81,9 +81,9 @@ function UsersTable(props) {
   function handleToBanOrActiveUser(e, user) {
     e.preventDefault();
     if (user.userBanStatus === e.target.value) return;
-    let msg = `Do you confirm the activation of the user ${user.email}?\nAll listings from this user will be activated but not published.`;
+    let msg = `Do you confirm the activation of the user ${user.email}?`;
     if (e.target.value == 1) {
-      msg = `Are you sure you want to ban the user ${user.email}?\nAll listings belonging to this user will be deactivated.`;
+      msg = `Are you sure you want to ban the user ${user.email}?`;
     }
     setConfirmUserBan({
       open: true,
@@ -117,7 +117,7 @@ function UsersTable(props) {
         </DialogTitle>
         <DialogContent fullWidth>
           <DialogContentText id='form-dialog-title'>
-            <pre>{confirmUserBan.msg}</pre>
+            {confirmUserBan.msg}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
