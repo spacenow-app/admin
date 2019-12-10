@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Tab, Tabs } from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles";
 import { SpacenowAnimateGroup, SpacenowPageSimple } from "@spacenow";
 import withReducer from "app/store/withReducer";
@@ -8,6 +9,7 @@ import * as Actions from "./store/actions";
 import reducer from "./store/reducers";
 import WidgetUsers from "./widgets/WidgetUsers";
 import WidgetListings from "./widgets/WidgetListings";
+import WidgetListingTable from "./widgets/WidgetListingTable";
 // import WidgetListingsCategory from "./widgets/WidgetListingsCategory";
 import WidgetBookings from "./widgets/WidgetBookings";
 
@@ -21,6 +23,7 @@ const useStyles = makeStyles(() => ({
 
 const ProjectDashboardApp = props => {
   const dispatch = useDispatch();
+  const [tabValue, setTabValue] = useState(0);
   const widgets = useSelector(
     ({ projectDashboardApp }) => projectDashboardApp.widgets
   );
@@ -34,7 +37,7 @@ const ProjectDashboardApp = props => {
   }, [dispatch]);
 
   const _handleUsersByDate = (days) => {
-    if(days)
+    if (days)
       dispatch(Actions.getTotalUsersByDate(days));
     dispatch(Actions.getTotalUsers());
   }
@@ -46,6 +49,33 @@ const ProjectDashboardApp = props => {
   const _handleListingsByDate = ({ days, category }) => {
     dispatch(Actions.getTotalListingsByDate(days, category));
   }
+
+  const _handleChangeTab = (event, tabValue) => {
+    setTabValue(tabValue);
+  }
+
+  const columns = [
+    {
+      'id': 'category',
+      'title': 'Category'
+    },
+    {
+      'id': 'total-listings',
+      'title': 'Total Listings'
+    },
+    {
+      'id': 'active',
+      'title': 'Active'
+    },
+    {
+      'id': 'published',
+      'title': 'Published'
+    },
+    {
+      'id': 'deleted',
+      'title': 'Deleted'
+    }
+  ]
 
   if (!widgets) {
     return null;
@@ -68,15 +98,52 @@ const ProjectDashboardApp = props => {
             }}
           >
             <div className="widget flex w-full sm:w-1/2 md:w-1/4 p-12">
-              { widgets.users && <WidgetUsers widget={widgets.users} handleChangeRange={(days) => _handleUsersByDate(days)}/> }
+              {widgets.users && <WidgetUsers widget={widgets.users} handleChangeRange={(days) => _handleUsersByDate(days)} />}
             </div>
             <div className="widget flex w-full sm:w-1/2 md:w-1/4 p-12">
-              { widgets.bookings && <WidgetBookings widget={widgets.bookings} handleChangeRange={(days) => _handleBookingsByDate(days)}/> }
+              {widgets.bookings && <WidgetBookings widget={widgets.bookings} handleChangeRange={(days) => _handleBookingsByDate(days)} />}
             </div>
             <div className="widget flex w-full sm:w-1/2 md:w-1/4 p-12">
-              { widgets.listings && widgets.categories && <WidgetListings categories={widgets.categories} widget={widgets.listings} handleChangeRange={({days, category}) => _handleListingsByDate({days, category})}/> }
+              {widgets.listings && widgets.categories && <WidgetListings categories={widgets.categories} widget={widgets.listings} handleChangeRange={({ days, category }) => _handleListingsByDate({ days, category })} />}
             </div>
           </SpacenowAnimateGroup>
+          <Tabs
+            value={tabValue}
+            onChange={_handleChangeTab}
+            indicatorColor="secondary"
+            textColor="secondary"
+            variant="scrollable"
+            scrollButtons="off"
+            className="w-full border-b-1 px-24"
+          >
+            <Tab className="text-14 font-600 normal-case" label="Listings By Category" />
+            <Tab className="text-14 font-600 normal-case" label="Listings By Country" />
+          </Tabs>
+          {tabValue === 0 &&
+            (
+              <SpacenowAnimateGroup
+                className="flex flex-wrap"
+                enter={{
+                  animation: "transition.slideUpBigIn"
+                }}
+              >
+                <div className="widget flex w-full p-12">
+                  <WidgetListingTable title={"Listings By Category"} columns={columns} />
+                </div>
+              </SpacenowAnimateGroup>
+            )}
+          {tabValue === 1 && (
+            <SpacenowAnimateGroup
+              className="flex flex-wrap"
+              enter={{
+                animation: "transition.slideUpBigIn"
+              }}
+            >
+              <div className="widget flex w-full p-12">
+                <WidgetListingTable title={"Listings By Country"} columns={columns} />
+              </div>
+            </SpacenowAnimateGroup>
+          )}
         </div>
       }
     />

@@ -17,7 +17,7 @@ import {
 import Status from "./Status";
 import moment from "moment";
 
-import { SpacenowScrollbars } from "@spacenow";
+import { SpacenowScrollbars, SpacenowUtils } from "@spacenow";
 import { withRouter } from "react-router-dom";
 import _ from "@lodash";
 import ListingsTableHead from "./ListingsTableHead";
@@ -51,9 +51,7 @@ function ListingsTable(props) {
     setData(
       searchText.length === 0
         ? listings
-        : _.filter(listings, item =>
-          item.id.toLowerCase().includes(searchText.toLowerCase())
-        )
+        : SpacenowUtils.filterArrayByString(listings, searchText)
     );
   }, [listings, searchText]);
 
@@ -120,7 +118,6 @@ function ListingsTable(props) {
             )
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(n => {
-                console.log(n)
                 const isSelected = selected.indexOf(n.id) !== -1;
                 return (
                   <TableRow
@@ -170,8 +167,6 @@ function ListingsTable(props) {
                       {n.location.city}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      {/* style={n.state == "active" ? {color:"green"} : {color:"red"}} */}
-                      {/* { n.state === "active" ? <Typography color="primary"> n.state </Typography> : <Typography></Typography> } */}
                       <span
                         className={
                           n.state === "active" ? "text-green" : "text-red"
@@ -198,7 +193,7 @@ function ListingsTable(props) {
                         onClick={event => handleChangePublishListingData(n)}
                         size="small"
                         variant="contained"
-                        color={n.isPublished ? "bg-red" : "bg-red"}
+                        color={n.isPublished ? "default" : "primary"}
                         className={
                           n.isPublished
                             ? "bg-green text-white"
