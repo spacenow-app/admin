@@ -25,6 +25,9 @@ function WidgetListings(props) {
 
     if (props.widget.isLoading || props.categories.isLoading)
         return null
+
+    console.log(props.categories.data)
+
     return (
         props.widget.data && props.categories.data &&
         <Paper className="w-full rounded-8 shadow-none border-1">
@@ -58,9 +61,9 @@ function WidgetListings(props) {
                         </MenuItem>
                         {
                             props.categories && props.categories.data.map((category) => (
-                                category.subCategories.map((subcategory, index) => (
-                                    <MenuItem key={index} onClick={() => _setCategoryDay(subcategory.listSettingsParentId, currentCategoryDay.days)}>
-                                        <ListItemText primary={`${category.itemName} -> ${subcategory.itemName}`} />
+                                category.subCategories.map((item) => (
+                                    <MenuItem key={item.id} onClick={() => _setCategoryDay(item.subCategory.id, currentCategoryDay.days)}>
+                                        <ListItemText primary={`${category.itemName} -> ${item.subCategory.itemName}`} />
                                     </MenuItem>
                                 ))
                             ))

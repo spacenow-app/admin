@@ -1,179 +1,116 @@
-import React, {useState} from 'react';
-import {TableHead, TableSortLabel, TableCell, TableRow, Tooltip, IconButton, Icon, Menu, MenuList, MenuItem, ListItemIcon, ListItemText,} from '@material-ui/core';
-import clsx from 'clsx';
-import {makeStyles} from '@material-ui/styles';
+import React from 'react';
+
+import {
+  TableHead,
+  TableSortLabel,
+  TableCell,
+  TableRow,
+  Tooltip
+} from '@material-ui/core';
 
 const rows = [
   {
-    id: "id",
-    align: "left",
+    id: 'id',
+    align: 'left',
     disablePadding: false,
-    label: "Id",
+    label: 'ID',
     sort: true
   },
   {
-    id: "title",
-    align: "left",
+    id: 'title',
+    align: 'left',
     disablePadding: false,
-    label: "Title",
+    label: 'Title',
     sort: true
   },
   {
-    id: "status",
-    align: "left",
+    id: 'status',
+    align: 'left',
     disablePadding: false,
-    label: "Status",
+    label: 'Status',
     sort: true
   },
   {
-    id: "ownerName",
-    align: "left",
+    id: 'ownerName',
+    align: 'left',
     disablePadding: false,
-    label: "Owner Name",
+    label: 'Owner',
     sort: true
   },
   {
-    id: "ownerEmail",
-    align: "left",
+    id: 'ownerEmail',
+    align: 'left',
     disablePadding: false,
-    label: "Owner Email",
+    label: 'Owner Email',
     sort: true
   },
   {
-    id: "city",
-    align: "left",
+    id: 'city',
+    align: 'left',
     disablePadding: false,
-    label: "City",
+    label: 'City',
     sort: true
   },
   {
-    id: "state",
-    align: "left",
+    id: 'state',
+    align: 'left',
     disablePadding: false,
-    label: "State",
+    label: 'State',
     sort: true
   },
   {
-    id: "country",
-    align: "left",
+    id: 'country',
+    align: 'left',
     disablePadding: false,
-    label: "Country",
+    label: 'Country',
     sort: true
   },
   {
-    id: "createdDate",
-    align: "left",
+    id: 'createdDate',
+    align: 'left',
     disablePadding: false,
-    label: "Created Date",
+    label: 'Created At',
     sort: true
   },
   {
-    id: "ready",
-    align: "left",
+    id: 'ready',
+    align: 'left',
     disablePadding: false,
-    label: "Ready",
+    label: 'Ready',
     sort: true
   },
   {
-    id: "publish",
-    align: "left",
+    id: 'publish',
+    align: 'left',
     disablePadding: false,
-    label: "Publish",
-    sort: true
-  },
-  {
-    id: "edit",
-    align: "left",
-    disablePadding: false,
-    label: "Edit",
-    sort: true
-  },
-  {
-    id: "delete",
-    align: "left",
-    disablePadding: false,
-    label: "Delete",
+    label: 'Publish',
     sort: true
   }
 ];
 
-const useStyles = makeStyles(theme => ({
-  actionsButtonWrapper: {
-    background: theme.palette.background.paper
-  }
-}));
-
 function ListingsTableHead(props) {
-  const classes = useStyles(props);
-  const [selectedUsersMenu, setSelectedUsersMenu] = useState(null);
-
-  const createSortHandler = property => event => {
+  const createSortHandler = (property) => (event) => {
     props.onRequestSort(event, property);
   };
 
-  function openSelectedUsersMenu(event) {
-    setSelectedUsersMenu(event.currentTarget);
-  }
-
-  function closeSelectedUsersMenu() {
-    setSelectedUsersMenu(null);
-  }
-
   return (
     <TableHead>
-      <TableRow className="h-64">
-        <TableCell padding="checkbox" className="relative pl-4 sm:pl-12">
-          {props.numSelected > 0 && (
-            <div
-              className={clsx(
-                "flex items-center justify-center absolute w-64 top-0 left-0 ml-68 h-64 z-10",
-                classes.actionsButtonWrapper
-              )}
-            >
-              <IconButton
-                aria-owns={selectedUsersMenu ? "selectedUsersMenu" : null}
-                aria-haspopup="true"
-                onClick={openSelectedUsersMenu}
-              >
-                <Icon>more_horiz</Icon>
-              </IconButton>
-              <Menu
-                id="selectedUsersMenu"
-                anchorEl={selectedUsersMenu}
-                open={Boolean(selectedUsersMenu)}
-                onClose={closeSelectedUsersMenu}
-              >
-                <MenuList>
-                  <MenuItem
-                    onClick={() => {
-                      closeSelectedUsersMenu();
-                    }}
-                  >
-                    <ListItemIcon className="min-w-40">
-                      <Icon>delete</Icon>
-                    </ListItemIcon>
-                    <ListItemText primary="Remove" />
-                  </MenuItem>
-                </MenuList>
-              </Menu>
-            </div>
-          )}
-        </TableCell>
-        {rows.map(row => {
+      <TableRow className='h-64'>
+        {rows.map((row) => {
           return (
             <TableCell
               key={row.id}
               align={row.align}
-              padding={row.disablePadding ? "none" : "default"}
+              padding={row.disablePadding ? 'none' : 'default'}
               sortDirection={
                 props.order.id === row.id ? props.order.direction : false
               }
             >
               {row.sort && (
                 <Tooltip
-                  title="Sort"
+                  title='Sort'
                   placement={
-                    row.align === "right" ? "bottom-end" : "bottom-start"
+                    row.align === 'right' ? 'bottom-end' : 'bottom-start'
                   }
                   enterDelay={300}
                 >

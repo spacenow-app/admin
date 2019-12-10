@@ -3,7 +3,7 @@ import { getClientWithAuth } from "@graphql/apolloClient";
 import * as widgetsQL from "../graphql/widgets.graphql";
 
 class widgetsService extends SpacenowUtils.EventEmitter {
-  init = () => {};
+  init = () => { };
 
   getTotalUsers = () => {
 
@@ -45,26 +45,6 @@ class widgetsService extends SpacenowUtils.EventEmitter {
         });
     });
   };
-
-  // getTotalBookings = () => {
-
-  //   return new Promise((resolve, reject) => {
-  //     getClientWithAuth()
-  //       .query({
-  //         query: widgetsQL.queryTotalBookings
-  //       })
-  //       .then(response => {
-  //         if (response.data.getTotalBookings) {
-  //           resolve(response.data.getTotalBookings);
-  //         } else {
-  //           reject(response.data.error);
-  //         }
-  //       })
-  //       .catch(error => {
-  //         reject(error)
-  //       });
-  //   });
-  // };
 
   getTotalBookingsByDate = (days) => {
 
@@ -157,8 +137,8 @@ class widgetsService extends SpacenowUtils.EventEmitter {
           query: widgetsQL.queryGetAllCategories
         })
         .then(response => {
-          if (response.data.getCategoriesLegacy) {
-            resolve(response.data.getCategoriesLegacy);
+          if (response.data.getCategories) {
+            resolve(response.data.getCategories);
           } else {
             reject(response.data.error);
           }

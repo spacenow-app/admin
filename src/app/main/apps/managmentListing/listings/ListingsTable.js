@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable eqeqeq */
+import React, { useEffect, useState } from 'react';
 import {
   Button,
-  Icon,
-  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -23,25 +22,18 @@ import _ from "@lodash";
 import ListingsTableHead from "./ListingsTableHead";
 import * as Actions from "../store/actions";
 import { useDispatch, useSelector } from "react-redux";
-// import { width, maxWidth } from "@material-ui/system";
 
 function ListingsTable(props) {
   const dispatch = useDispatch();
-  const listings = useSelector(
-    ({ managmentListing }) => managmentListing.listings.data
-  );
-  const searchText = useSelector(
-    ({ managmentListing }) => managmentListing.listings.searchText
-  );
+
+  const listings = useSelector(({ managmentListing }) => managmentListing.listings.data);
+  const searchText = useSelector(({ managmentListing }) => managmentListing.listings.searchText);
 
   const [selected] = useState([]);
   const [data, setData] = useState(listings);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [order, setOrder] = useState({
-    direction: "asc",
-    id: null
-  });
+  const [order, setOrder] = useState({ direction: 'asc', id: null });
 
   useEffect(() => {
     dispatch(Actions.getListings());
@@ -57,29 +49,13 @@ function ListingsTable(props) {
 
   function handleRequestSort(event, property) {
     const id = property;
-    let direction = "desc";
-
-    if (order.id === property && order.direction === "desc") {
-      direction = "asc";
+    let direction = 'desc';
+    if (order.id === property && order.direction === 'desc') {
+      direction = 'asc';
     }
-
-    setOrder({
-      direction,
-      id
-    });
+    setOrder({ direction, id });
   }
 
-  function editListingHandleClick(item) {
-    props.history.push("/apps/managment/users");
-  }
-
-  function handleChangePublishListingData(event, item) {
-    dispatch(
-      Actions.updateUser({ ...item, [event.target.name]: event.target.value })
-    );
-    dispatch(Actions.getListings());
-    dispatch(Actions.closeDialog());
-  }
   function handleChangePage(event, page) {
     setPage(page);
   }
@@ -88,24 +64,29 @@ function ListingsTable(props) {
     setRowsPerPage(event.target.value);
   }
 
+  function handleChangeListingStatus(event, listingId, status) {
+    dispatch(Actions.changeListingStatus(listingId, status));
+    dispatch(Actions.closeDialog());
+    event.preventDefault();
+  }
+
   return (
-    <div className="w-full flex flex-col">
-      <SpacenowScrollbars className="flex-grow overflow-x-auto">
-        <Table className="min-w-xl" aria-labelledby="tableTitle">
+    <div className='w-full flex flex-col'>
+      <SpacenowScrollbars className='flex-grow overflow-x-auto'>
+        <Table className='min-w-xl' aria-labelledby='tableTitle'>
           <ListingsTableHead
             numSelected={selected.length}
             order={order}
             onRequestSort={handleRequestSort}
             rowCount={data.length}
           />
-
           <TableBody>
             {_.orderBy(
               data,
               [
-                o => {
+                (o) => {
                   switch (order.id) {
-                    case "id": {
+                    case 'id': {
                       return o.id[0];
                     }
                     default: {
@@ -121,41 +102,79 @@ function ListingsTable(props) {
                 const isSelected = selected.indexOf(n.id) !== -1;
                 return (
                   <TableRow
-                    className="h-64 cursor-pointer"
+                    className='h-64 cursor-pointer'
                     hover
                     aria-checked={isSelected}
                     tabIndex={-1}
                     key={n.id}
                     selected={isSelected}
-                  // onClick={event => handleClick(n)}   && n.profile.picture
                   >
-                    <TableCell className="w-52" component="th" scope="row">
-                      {n.publish ? (
-                        <img
-                          className="rounded"
-                          style={{ width: "50px", maxWidth: "50px" }}
-                          src="assets/images/avatars/spacenow.svg"
-                          alt={n.name}
-                        />
-                      ) : (
-                          <img
-                            className="rounded"
-                            style={{ width: "50px", maxWidth: "50px" }}
-                            src="assets/images/avatars/spacenow.svg"
-                            alt={n.name}
-                          />
-                        )}
-                    </TableCell>
-
-                    <TableCell component="th" scope="row">
+                    <TableCell component='th' scope='row'>
                       {n.id}
                     </TableCell>
-
-                    <TableCell className="truncate" component="th" scope="row">
+                    <TableCell className='truncate' component='th' scope='row'>
                       {n.title}
                     </TableCell>
-                    <TableCell component="th" scope="row">
-                      <Status name={(n.status.charAt(0).toUpperCase() + n.status.slice(1))} />
+                    <TableCell component='th' scope='row'>
+                      <Status
+                        name={
+                          n.status.charAt(0).toUpperCase() + n.status.slice(1)
+                        }
+                        tooltip={
+                          n.status === 'active'
+                            ? 'Click here to disable this listing'
+                            : 'Click here to activate this listing'
+                        }
+                        onClick={() =>
+                          dispatch(
+                            Actions.openDialog({
+                              children: (
+                                <React.Fragment>
+                                  <DialogTitle id='alert-dialog-title'>
+                                    {`Listing ${n.id}`}
+                                  </DialogTitle>
+                                  <DialogContent>
+                                    <DialogContentText id='alert-dialog-description'>
+                                      {`Do you want to change this listing to "${
+                                        n.status === 'active'
+                                          ? 'deleted'
+                                          : 'active'
+                                        }"?`}
+                                    </DialogContentText>
+                                  </DialogContent>
+                                  <DialogActions>
+                                    <Button
+                                      onClick={() =>
+                                        dispatch(Actions.closeDialog())
+                                      }
+                                      size='small'
+                                      color='primary'
+                                      autoFocus
+                                    >
+                                      No
+                                    </Button>
+                                    <Button
+                                      onClick={(event) =>
+                                        handleChangeListingStatus(
+                                          event,
+                                          n.id,
+                                          n.status === 'active'
+                                            ? 'deleted'
+                                            : 'active'
+                                        )
+                                      }
+                                      size='small'
+                                      color='primary'
+                                    >
+                                      YES
+                                    </Button>
+                                  </DialogActions>
+                                </React.Fragment>
+                              )
+                            })
+                          )
+                        }
+                      />
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {n.user.profile && n.user.profile.firstName}
@@ -188,80 +207,8 @@ function ListingsTable(props) {
                     <TableCell component="th" scope="row">
                       {n.isReady ? "YES" : "NO"}
                     </TableCell>
-                    <TableCell component="th" scope="row">
-                      <Button
-                        onClick={event => handleChangePublishListingData(n)}
-                        size="small"
-                        variant="contained"
-                        color={n.isPublished ? "default" : "primary"}
-                        className={
-                          n.isPublished
-                            ? "bg-green text-white"
-                            : "bg-red text-white"
-                        }
-                      >
-                        {n.isPublished ? "Publish" : "Unpublished"}
-                      </Button>
-                    </TableCell>
-                    <TableCell component="th" scope="row" align="center">
-                      <Button
-                        size="small"
-                        variant="text"
-                        color="primary"
-                        onClick={event => editListingHandleClick(n)}
-                      >
-                        Edit
-                      </Button>
-                    </TableCell>
-
-                    <TableCell component="th" scope="row">
-                      <IconButton
-                        onClick={() =>
-                          dispatch(
-                            Actions.openDialog({
-                              children: (
-                                <React.Fragment>
-                                  <DialogTitle id="alert-dialog-title">
-                                    Deleting Listing
-                                  </DialogTitle>
-                                  <DialogContent>
-                                    <DialogContentText id="alert-dialog-description">
-                                      Are you sure you want to delete this?
-                                    </DialogContentText>
-                                  </DialogContent>
-                                  <DialogActions>
-                                    <Button
-                                      onClick={() =>
-                                        dispatch(Actions.closeDialog())
-                                      }
-                                      size="small"
-                                      color="primary"
-                                    >
-                                      Cancel
-                                    </Button>
-                                    <Button
-                                      onClick={event =>
-                                        handleChangePublishListingData(event, n)
-                                      }
-                                      //onChange={event => handleChangeUserData(event, n)}
-                                      size="small"
-                                      variant="contained"
-                                      color="danger"
-                                      autoFocus
-                                    >
-                                      Confirm Delete
-                                    </Button>
-                                  </DialogActions>
-                                </React.Fragment>
-                              )
-                            })
-                          )
-                        }
-                        variant="contained"
-                        color="primary"
-                      >
-                        <Icon>delete</Icon>
-                      </IconButton>
+                    <TableCell component='th' scope='row'>
+                      {n.isPublished ? 'Publish' : 'Unpublished'}
                     </TableCell>
                   </TableRow>
                 );
@@ -269,17 +216,16 @@ function ListingsTable(props) {
           </TableBody>
         </Table>
       </SpacenowScrollbars>
-
       <TablePagination
-        component="div"
+        component='div'
         count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         backIconButtonProps={{
-          "aria-label": "Previous Page"
+          'aria-label': 'Previous Page'
         }}
         nextIconButtonProps={{
-          "aria-label": "Next Page"
+          'aria-label': 'Next Page'
         }}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}

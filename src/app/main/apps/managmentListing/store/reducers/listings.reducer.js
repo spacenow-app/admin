@@ -1,9 +1,9 @@
-import * as Actions from "../actions";
+import * as Actions from '../actions';
 
 const initialState = {
   count: 0,
   data: [],
-  searchText: ""
+  searchText: ''
 };
 
 const listingsReducer = function(state = initialState, action) {
@@ -11,14 +11,24 @@ const listingsReducer = function(state = initialState, action) {
     case Actions.GET_LISTINGS: {
       return {
         ...state,
-        data: action.payload.rows,
-        count: action.payload.count
+        data: action.payload,
+        count: action.payload.length
       };
     }
     case Actions.SET_LISTINGS_SEARCH_TEXT: {
       return {
         ...state,
         searchText: action.searchText
+      };
+    }
+    case Actions.UPDATE_LISTING: {
+      return {
+        ...state,
+        data: state.data.map((item) => {
+          if (item.id === action.payload.id) 
+            return action.payload;
+          return item;
+        })
       };
     }
     default: {

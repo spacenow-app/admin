@@ -1,7 +1,9 @@
-import SpacenowUtils from "@spacenow/SpacenowUtils";
-import { getClientWithAuth } from "@graphql/apolloClient";
-import * as usersQL from "../graphql/users";
-import UserInputClass from "../graphql/user-input.class";
+import SpacenowUtils from '@spacenow/SpacenowUtils';
+import { getClientWithAuth } from '@graphql/apolloClient';
+
+import * as QL from '../graphql/users';
+
+import UserInputClass from '../graphql/user-input.class';
 
 class usersService extends SpacenowUtils.EventEmitter {
   init = () => {};
@@ -10,9 +12,9 @@ class usersService extends SpacenowUtils.EventEmitter {
     return new Promise((resolve, reject) => {
       getClientWithAuth()
         .query({
-          query: usersQL.queryGetAllUsersLegacy
+          query: QL.queryGetAllUsersLegacy
         })
-        .then(response => {
+        .then((response) => {
           if (response.data.getAllUsersLegacy) {
             resolve(response.data.getAllUsersLegacy);
           } else {
@@ -22,15 +24,15 @@ class usersService extends SpacenowUtils.EventEmitter {
     });
   };
 
-  updateUser = user => {
+  updateUser = (user) => {
     const userM = new UserInputClass(user);
     return new Promise((resolve, reject) => {
       getClientWithAuth()
         .mutate({
-          variables: { input: userM },
-          mutation: usersQL.mutationUpdateUserLegacy
+          mutation: QL.mutationUpdateUserLegacy,
+          variables: { input: userM }
         })
-        .then(response => {
+        .then((response) => {
           if (response.data.updateUserLegacy) {
             resolve(response.data.updateUserLegacy);
           } else {

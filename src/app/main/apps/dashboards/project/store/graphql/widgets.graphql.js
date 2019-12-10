@@ -64,12 +64,15 @@ export const queryTotalListingsByCategory = gql`
 `;
 
 export const queryGetAllCategories = gql`
-  query getCategoriesLegacy {
-    getCategoriesLegacy {
+  query getCategories {
+    getCategories {
       itemName
       subCategories {
-        listSettingsParentId
-        itemName
+        id
+        subCategory{
+          id
+          itemName
+        }
       }
     }
   }
