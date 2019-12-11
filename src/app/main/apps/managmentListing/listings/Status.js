@@ -25,15 +25,10 @@ export const statuses = [
 ];
 
 function Status(props) {
+  const status = _.find(statuses, { name: props.name })
   return (
     <Tooltip title={props.tooltip || ''}>
-      <div
-        {...props}
-        className={clsx(
-          'inline text-12 p-4 rounded truncate',
-          _.find(statuses, { name: props.name }).color
-        )}
-      >
+      <div {...props} className={status && clsx('inline text-12 p-4 rounded truncate', status.color)}>
         {props.name}
       </div>
     </Tooltip>
