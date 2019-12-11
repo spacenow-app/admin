@@ -9,6 +9,7 @@ export const queryGetAllUsersLegacy = gql`
         emailConfirmed
         userBanStatus
         provider
+        voucherCode
         profile {
           profileId
           firstName

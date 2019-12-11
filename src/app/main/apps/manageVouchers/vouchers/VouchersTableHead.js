@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   TableHead,
   TableSortLabel,
@@ -9,61 +10,38 @@ import {
 
 const rows = [
   {
-    id: 'avatar',
-    align: 'left',
-    disablePadding: true,
-    label: '',
-    sort: false
-  },
-  {
-    id: 'profileId',
+    id: 'code',
     align: 'left',
     disablePadding: false,
-    label: 'Profile ID',
+    label: 'Code',
     sort: true
   },
   {
-    id: 'firstName',
+    id: 'type',
     align: 'left',
     disablePadding: false,
-    label: 'First name',
+    label: 'Type',
     sort: true
   },
   {
-    id: 'lastName',
+    id: 'value',
     align: 'left',
     disablePadding: false,
-    label: 'Last name',
-    sort: true
-  },
-
-  {
-    id: 'email',
-    align: 'left',
-    disablePadding: false,
-    label: 'Email',
-    sort: true
-  },
-
-  {
-    id: 'phoneNumber',
-    align: 'left',
-    disablePadding: false,
-    label: 'Phone',
+    label: 'Value',
     sort: true
   },
   {
-    id: 'createdAt',
+    id: 'usageCount',
     align: 'left',
     disablePadding: false,
-    label: 'Created At',
+    label: 'Usage Count',
     sort: true
   },
   {
-    id: 'voucherCode',
+    id: 'usageLimit',
     align: 'left',
     disablePadding: false,
-    label: 'Voucher',
+    label: 'Usage Limit',
     sort: true
   },
   {
@@ -74,26 +52,18 @@ const rows = [
     sort: true
   },
   {
-    id: 'provider',
+    id: 'edition',
     align: 'left',
     disablePadding: false,
-    label: 'Provider',
-    sort: true
-  },
-  {
-    id: 'emailConfirmed',
-    align: 'center',
-    disablePadding: false,
-    label: 'Email Confirmed',
-    sort: true
+    label: '',
+    sort: false
   }
 ];
 
-function UsersTableHead(props) {
+function VouchersTableHead(props) {
   const createSortHandler = (property) => (event) => {
     props.onRequestSort(event, property);
   };
-
   return (
     <TableHead>
       <TableRow className='h-64'>
@@ -132,4 +102,4 @@ function UsersTableHead(props) {
   );
 }
 
-export default UsersTableHead;
+export default VouchersTableHead;

@@ -6,12 +6,12 @@ class listingsService {
     return new Promise((resolve, reject) => {
       getClientWithAuth()
         .query({
-          query: QL.queryGetAllListings,
+          query: QL.queryGetAllPlainListings,
           fetchPolicy: 'network-only'
         })
         .then((response) => {
-          if (response.data.getAllListings) {
-            resolve(response.data.getAllListings);
+          if (response.data.getAllPlainListings) {
+            resolve(response.data.getAllPlainListings);
           } else {
             reject(response.data.error);
           }
