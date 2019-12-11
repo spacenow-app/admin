@@ -16,7 +16,9 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Button
+  Button,
+  TextField,
+  Tooltip
 } from '@material-ui/core';
 import moment from 'moment';
 import { SpacenowScrollbars, SpacenowUtils } from '@spacenow';
@@ -43,6 +45,15 @@ function UsersTable(props) {
     status: 0,
     msg: '',
     warning: ''
+  });
+  const [confirmRemovingVoucher, setConfirmRemovingVoucher] = useState({
+    open: false,
+    user: {}
+  });
+  const [defineNewVoucher, setDefineNewVoucher] = useState({
+    open: false,
+    user: {},
+    voucherCode: null
   });
 
   useEffect(() => {
@@ -84,10 +95,10 @@ function UsersTable(props) {
     e.preventDefault();
     if (user.userBanStatus === e.target.value) return;
     let msgOne = `Do you confirm the activation of the user ${user.email}?`;
-    let msgWarn = `All listings of this user will be activate but not published.`
+    let msgWarn = `All listings of this user will be activate but not published.`;
     if (e.target.value == 1) {
       msgOne = `Are you sure you want to ban the user ${user.email}?`;
-      msgWarn = `All listing of this user will be disabled as well.`
+      msgWarn = `All listing of this user will be disabled as well.`;
     }
     setConfirmUserBan({
       open: true,
@@ -106,6 +117,41 @@ function UsersTable(props) {
       })
     );
     setConfirmUserBan({ open: false, user: {} });
+  }
+
+  function handleRemoveVoucher(user) {
+    setConfirmRemovingVoucher({ open: true, user });
+  }
+
+  function handleConfirmRemoveVoucher() {
+    dispatch(
+      Actions.updateUser({
+        ...confirmRemovingVoucher.user,
+        voucherCode: null
+      })
+    );
+    setConfirmRemovingVoucher({ open: false, user: {} });
+  }
+
+  function handleAddNewVoucher(user) {
+    setDefineNewVoucher({ open: true, voucherCode: null, user });
+  }
+
+  const handleValue = (event) => {
+    setDefineNewVoucher((o) => {
+      return { ...o, voucherCode: event.target.value };
+    });
+    event.persist();
+  };
+
+  function handleConfirmAddVoucher() {
+    dispatch(
+      Actions.updateUser({
+        ...defineNewVoucher.user,
+        voucherCode: defineNewVoucher.voucherCode
+      })
+    );
+    setDefineNewVoucher({ open: false, voucherCode: null, user: {} });
   }
 
   return (
@@ -137,6 +183,83 @@ function UsersTable(props) {
           </Button>
           <Button
             onClick={handleConfirmUserBanUpdate}
+            variant='outlined'
+            color='default'
+          >
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* Dialog to confirm remove a voucher */}
+      <Dialog
+        open={confirmRemovingVoucher.open}
+        onClose={() => setConfirmRemovingVoucher({ open: false, user: {} })}
+        aria-labelledby='form-dialog-title'
+        fullWidth
+      >
+        <DialogTitle id='form-dialog-title'>
+          {confirmRemovingVoucher.user.email}
+        </DialogTitle>
+        <DialogContent fullWidth>
+          <DialogContentText id='form-dialog-title'>
+            {`Do you confirm to remove this voucher?`}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setConfirmRemovingVoucher({ open: false, user: {} })}
+            variant='outlined'
+            color='default'
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleConfirmRemoveVoucher}
+            variant='outlined'
+            color='default'
+          >
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* Dialog to add a new voucher */}
+      <Dialog
+        open={defineNewVoucher.open}
+        onClose={() => setDefineNewVoucher({ open: false, user: {} })}
+        aria-labelledby='form-dialog-title'
+        fullWidth
+      >
+        <DialogTitle id='form-dialog-title'>
+          {defineNewVoucher.user.email}
+        </DialogTitle>
+        <DialogContent fullWidth>
+          <DialogContentText id='form-dialog-title'>
+            {`Adding a new Voucher`}
+          </DialogContentText>
+          <FormControl fullWidth>
+            <TextField
+              margin='dense'
+              id='voucherCode'
+              label='Voucher Code'
+              type='text'
+              value={defineNewVoucher.voucherCode}
+              onChange={handleValue}
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              autoFocus
+            />
+          </FormControl>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setDefineNewVoucher({ open: false, user: {} })}
+            variant='outlined'
+            color='default'
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleConfirmAddVoucher}
             variant='outlined'
             color='default'
           >
@@ -209,6 +332,29 @@ function UsersTable(props) {
                       <TableCell component='th' scope='row'>
                         {n.profile &&
                           moment(n.profile.createdAt).format('DD/MM/YYYY')}
+                      </TableCell>
+                      <TableCell component='th' scope='row'>
+                        {n.voucherCode ? (
+                          <Tooltip title='Click to remove'>
+                            <Button
+                              size='small'
+                              variant='outlined'
+                              color='inherit'
+                              onClick={() => handleRemoveVoucher(n)}
+                            >
+                              {n.voucherCode}
+                            </Button>
+                          </Tooltip>
+                        ) : (
+                          <Button
+                            size='small'
+                            variant='outlined'
+                            color='secondary'
+                            onClick={() => handleAddNewVoucher(n)}
+                          >
+                            Add
+                          </Button>
+                        )}
                       </TableCell>
                       <TableCell component='th' scope='row'>
                         <FormControl>

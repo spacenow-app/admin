@@ -53,10 +53,17 @@ const rows = [
     sort: true
   },
   {
-    id: 'createdDate',
+    id: 'createdAt',
     align: 'left',
     disablePadding: false,
     label: 'Created At',
+    sort: true
+  },
+  {
+    id: 'voucherCode',
+    align: 'left',
+    disablePadding: false,
+    label: 'Voucher',
     sort: true
   },
   {
