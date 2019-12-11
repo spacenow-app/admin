@@ -149,6 +149,27 @@ class widgetsService extends SpacenowUtils.EventEmitter {
     });
   };
 
+  getListingsCategories = () => {
+
+    return new Promise((resolve, reject) => {
+      getClientWithAuth()
+        .query({
+          query: widgetsQL.queryGetListingsCategories
+        })
+        .then(response => {
+          console.log("RESPONSE GET LISTINGS CAT", response)
+          if (response.data.getListingsCategories) {
+            resolve(response.data.getListingsCategories);
+          } else {
+            reject(response.data.error);
+          }
+        })
+        .catch(error => {
+          reject(error)
+        });
+    });
+  };
+
 }
 
 const instance = new widgetsService();

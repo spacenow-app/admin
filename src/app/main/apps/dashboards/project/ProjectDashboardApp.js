@@ -34,6 +34,7 @@ const ProjectDashboardApp = props => {
     dispatch(Actions.getTotalBookingsByDate());
     dispatch(Actions.getTotalListingsByDate(10000));
     dispatch(Actions.getAllCategories());
+    dispatch(Actions.getListingsCategories());
   }, [dispatch]);
 
   const _handleUsersByDate = (days) => {
@@ -117,7 +118,6 @@ const ProjectDashboardApp = props => {
             className="w-full border-b-1 px-24"
           >
             <Tab className="text-14 font-600 normal-case" label="Listings By Category" />
-            <Tab className="text-14 font-600 normal-case" label="Listings By Country" />
           </Tabs>
           {tabValue === 0 &&
             (
@@ -128,22 +128,10 @@ const ProjectDashboardApp = props => {
                 }}
               >
                 <div className="widget flex w-full p-12">
-                  <WidgetListingTable title={"Listings By Category"} columns={columns} />
+                  <WidgetListingTable title={"Listings By Category"} columns={columns} widget={widgets.listingsCategories} />
                 </div>
               </SpacenowAnimateGroup>
             )}
-          {tabValue === 1 && (
-            <SpacenowAnimateGroup
-              className="flex flex-wrap"
-              enter={{
-                animation: "transition.slideUpBigIn"
-              }}
-            >
-              <div className="widget flex w-full p-12">
-                <WidgetListingTable title={"Listings By Country"} columns={columns} />
-              </div>
-            </SpacenowAnimateGroup>
-          )}
         </div>
       }
     />

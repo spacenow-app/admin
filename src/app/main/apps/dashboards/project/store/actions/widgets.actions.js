@@ -15,6 +15,9 @@ export const GET_TOTAL_LISTINGS_CATEGORY_FAILURE = "[PROJECT DASHBOARD APP] GET 
 export const GET_ALL_CATEGORY_REQUEST = "[PROJECT DASHBOARD APP] GET ALL CATEGORY REQUEST";
 export const GET_ALL_CATEGORY_SUCCESS = "[PROJECT DASHBOARD APP] GET ALL CATEGORY SUCCESS";
 export const GET_ALL_CATEGORY_FAILURE = "[PROJECT DASHBOARD APP] GET ALL CATEGORY FAILURE";
+export const GET_LISTINGS_CATEGORIES_REQUEST = "[PROJECT DASHBOARD APP] GET LISTINGS CATEGORIES REQUEST";
+export const GET_LISTINGS_CATEGORIES_SUCCESS = "[PROJECT DASHBOARD APP] GET LISTINGS CATEGORIES SUCCESS";
+export const GET_LISTINGS_CATEGORIES_FAILURE = "[PROJECT DASHBOARD APP] GET LISTINGS CATEGORIES FAILURE";
 
 export const getTotalUsers = () => {
 
@@ -151,6 +154,27 @@ export const getAllCategories = () => {
       .catch(error => {
         dispatch({
           type: GET_ALL_CATEGORY_FAILURE,
+          payload: error
+        });
+      });
+}
+
+export const getListingsCategories = () => {
+
+  const request = widgetsService.getListingsCategories();
+
+  return dispatch =>
+    request
+      .then(response => {
+        console.log("RESPONSE GET LISTINGS CAT", response)
+        dispatch({
+          type: GET_LISTINGS_CATEGORIES_SUCCESS,
+          payload: response
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: GET_LISTINGS_CATEGORIES_FAILURE,
           payload: error
         });
       });

@@ -21,6 +21,11 @@ const initialState = {
     data: null,
     error: null,
   },
+  listingsCategories: {
+    isLoading: true,
+    data: null,
+    error: null,
+  },
   bookings: {
     isLoading: false,
     data: null,
@@ -28,7 +33,7 @@ const initialState = {
   }
 };
 
-const widgetsReducer = function(state = initialState, action) {
+const widgetsReducer = function (state = initialState, action) {
   switch (action.type) {
     case Actions.GET_ALL_CATEGORY_REQUEST:
       return {
@@ -141,6 +146,27 @@ const widgetsReducer = function(state = initialState, action) {
         ...state,
         ...state.listingsCategory,
         listingsCategory: {
+          isLoading: false,
+          error: action.payload
+        }
+      };
+    case Actions.GET_LISTINGS_CATEGORIES_REQUEST:
+      return {
+        ...state,
+        ...state.listingsCategories
+      };
+    case Actions.GET_LISTINGS_CATEGORIES_SUCCESS:
+      return {
+        ...state,
+        listingsCategories: {
+          isLoading: false,
+          data: action.payload
+        }
+      };
+    case Actions.GET_LISTINGS_CATEGORIES_FAILURE:
+      return {
+        ...state,
+        listingsCategories: {
           isLoading: false,
           error: action.payload
         }

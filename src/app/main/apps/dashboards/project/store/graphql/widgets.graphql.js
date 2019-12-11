@@ -77,3 +77,17 @@ export const queryGetAllCategories = gql`
     }
   }
 `
+
+export const queryGetListingsCategories = gql`
+  query getListingsCategories {
+    getListingsCategories {
+      category
+      count {
+        all
+        active
+        deleted
+        published
+      }
+    }
+  }
+`

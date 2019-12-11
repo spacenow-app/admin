@@ -26,8 +26,6 @@ function WidgetListings(props) {
     if (props.widget.isLoading || props.categories.isLoading)
         return null
 
-    console.log(props.categories.data)
-
     return (
         props.widget.data && props.categories.data &&
         <Paper className="w-full rounded-8 shadow-none border-1">
