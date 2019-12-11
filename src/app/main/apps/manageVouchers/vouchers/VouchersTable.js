@@ -177,9 +177,6 @@ const VouchersTable = () => {
                         {n.usageLimit}
                       </TableCell>
                       <TableCell component='th' scope='row'>
-                        {moment(n.expireAt).format('DD/MM/YYYY')}
-                      </TableCell>
-                      <TableCell component='th' scope='row'>
                         {statusContainer(n.status)}
                       </TableCell>
                       <TableCell component='th' scope='row'>

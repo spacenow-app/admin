@@ -37,20 +37,11 @@ const rows = [
     label: 'Usage Count',
     sort: true
   },
-
   {
     id: 'usageLimit',
     align: 'left',
     disablePadding: false,
     label: 'Usage Limit',
-    sort: true
-  },
-
-  {
-    id: 'expireAt',
-    align: 'left',
-    disablePadding: false,
-    label: 'Expire At',
     sort: true
   },
   {

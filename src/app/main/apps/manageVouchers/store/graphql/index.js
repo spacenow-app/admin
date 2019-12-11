@@ -10,7 +10,6 @@ export const queryGetVouchers = gql`
       value
       usageCount
       usageLimit
-      expireAt
       status
     }
   }
@@ -31,13 +30,11 @@ export const mutateCreateVoucher = gql`
     $type: String!
     $value: Float!
     $usageLimit: Int!
-    $expireAt: String!
   ) {
     createVoucher(
       type: $type
       value: $value
       usageLimit: $usageLimit
-      expireAt: $expireAt
     ) {
       __typename
       id

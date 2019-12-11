@@ -24,8 +24,7 @@ const VOUCHER_INIT = {
   code: '',
   type: 'percentual',
   value: 0,
-  usageLimit: 1,
-  expireAt: new Date()
+  usageLimit: 1
 };
 
 function Header() {
@@ -70,13 +69,6 @@ function Header() {
     event.persist();
   };
 
-  const handleExpire = (event) => {
-    setVoucherObj((o) => {
-      return { ...o, expireAt: event.target.value };
-    });
-    event.persist();
-  };
-
   return (
     <>
       {/* Dialog to create a new voucher */}
@@ -117,16 +109,6 @@ function Header() {
               type='number'
               value={voucherObj.usageLimit}
               onChange={handleLimit}
-              fullWidth
-              InputLabelProps={{ shrink: true }}
-            />
-            <TextField
-              margin='dense'
-              id='expireAt'
-              label='Expire At'
-              type='date'
-              value={voucherObj.expireAt}
-              onChange={handleExpire}
               fullWidth
               InputLabelProps={{ shrink: true }}
             />
