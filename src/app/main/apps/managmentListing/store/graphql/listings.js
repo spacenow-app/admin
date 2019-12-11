@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost';
 
-export const queryGetAllListings = gql`
-  query getAllListings {
-    getAllListings {
+export const queryGetAllPlainListings = gql`
+  query getAllPlainListings {
+    getAllPlainListings {
       id
       title
       status
