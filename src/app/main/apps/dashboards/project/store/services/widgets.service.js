@@ -3,10 +3,9 @@ import { getClientWithAuth } from "@graphql/apolloClient";
 import * as widgetsQL from "../graphql/widgets.graphql";
 
 class widgetsService extends SpacenowUtils.EventEmitter {
-  init = () => { };
+  init = () => {};
 
   getTotalUsers = () => {
-
     return new Promise((resolve, reject) => {
       getClientWithAuth()
         .query({
@@ -20,13 +19,12 @@ class widgetsService extends SpacenowUtils.EventEmitter {
           }
         })
         .catch(error => {
-          reject(error)
+          reject(error);
         });
     });
   };
 
-  getTotalUsersByDate = (days) => {
-
+  getTotalUsersByDate = days => {
     return new Promise((resolve, reject) => {
       getClientWithAuth()
         .query({
@@ -41,13 +39,12 @@ class widgetsService extends SpacenowUtils.EventEmitter {
           }
         })
         .catch(error => {
-          reject(error)
+          reject(error);
         });
     });
   };
 
-  getTotalBookingsByDate = (days) => {
-
+  getTotalBookingsByDate = days => {
     return new Promise((resolve, reject) => {
       getClientWithAuth()
         .query({
@@ -62,13 +59,12 @@ class widgetsService extends SpacenowUtils.EventEmitter {
           }
         })
         .catch(error => {
-          reject(error)
+          reject(error);
         });
     });
   };
 
   getTotalListings = () => {
-
     return new Promise((resolve, reject) => {
       getClientWithAuth()
         .query({
@@ -82,13 +78,12 @@ class widgetsService extends SpacenowUtils.EventEmitter {
           }
         })
         .catch(error => {
-          reject(error)
+          reject(error);
         });
     });
   };
 
   getTotalListingsByDate = (days, category) => {
-
     return new Promise((resolve, reject) => {
       getClientWithAuth()
         .query({
@@ -103,13 +98,12 @@ class widgetsService extends SpacenowUtils.EventEmitter {
           }
         })
         .catch(error => {
-          reject(error)
+          reject(error);
         });
     });
   };
 
-  getTotalListingsByCategory = (category) => {
-
+  getTotalListingsByCategory = category => {
     return new Promise((resolve, reject) => {
       getClientWithAuth()
         .query({
@@ -124,13 +118,12 @@ class widgetsService extends SpacenowUtils.EventEmitter {
           }
         })
         .catch(error => {
-          reject(error)
+          reject(error);
         });
     });
   };
 
   getAllCategories = () => {
-
     return new Promise((resolve, reject) => {
       getClientWithAuth()
         .query({
@@ -144,20 +137,18 @@ class widgetsService extends SpacenowUtils.EventEmitter {
           }
         })
         .catch(error => {
-          reject(error)
+          reject(error);
         });
     });
   };
 
   getListingsCategories = () => {
-
     return new Promise((resolve, reject) => {
       getClientWithAuth()
         .query({
           query: widgetsQL.queryGetListingsCategories
         })
         .then(response => {
-          console.log("RESPONSE GET LISTINGS CAT", response)
           if (response.data.getListingsCategories) {
             resolve(response.data.getListingsCategories);
           } else {
@@ -165,11 +156,10 @@ class widgetsService extends SpacenowUtils.EventEmitter {
           }
         })
         .catch(error => {
-          reject(error)
+          reject(error);
         });
     });
   };
-
 }
 
 const instance = new widgetsService();
