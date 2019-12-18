@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { List, ListSubheader, ListItem, ListItemText, Switch, ListItemSecondaryAction, Button, Tab, Tabs, TextField, InputAdornment, Icon, Typography, Paper, InputBase, IconButton, Divider, FormControl, InputLabel, Select, OutlinedInput } from '@material-ui/core';
+import { List, ListItem, ListItemText, Switch, ListItemSecondaryAction, Button, Tab, Tabs, TextField, InputAdornment, Icon, Typography, Paper, InputBase, IconButton, Divider, FormControl, InputLabel, Select, OutlinedInput } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { orange } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/styles';
-import { SpacenowAnimate, SpacenowPageCarded, SpacenowChipSelect, SpacenowUtils } from '@spacenow';
+import { SpacenowAnimate, SpacenowPageCarded, SpacenowUtils } from '@spacenow';
 import { useForm } from '@spacenow/hooks';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import _ from '@lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import withReducer from 'app/store/withReducer';
-import LabelsMenu from './toolbar/LabelsMenu';
 import * as Actions from '../../store/actions';
 import reducer from '../../store/reducers';
 
