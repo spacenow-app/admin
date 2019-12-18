@@ -7,6 +7,10 @@ export const ListingConfig = {
   },
   routes: [
     {
+      path: "/apps/listing/:id",
+      component: React.lazy(() => import("./spacenow/detail/Listing"))
+    },
+    {
       path: "/apps/listings/spacenow",
       component: React.lazy(() => import("./spacenow/Listings"))
     },

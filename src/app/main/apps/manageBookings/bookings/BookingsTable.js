@@ -121,52 +121,58 @@ function BookingsTable(props) {
                     selected={isSelected}
                     onClick={() => handleClick(n)}
                   >
-                    <TableCell component="th" scope="row">
+                    <TableCell className='truncate' component="th" scope="row">
                       {n.bookingId}
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell className='truncate' component="th" scope="row">
                       {n.listingId}
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell className='truncate' component="th" scope="row">
+                      {`${n.listing.title} | ${n.listing.location.address1}, ${n.listing.location.city}`}
+                    </TableCell>
+                    <TableCell className='truncate' component="th" scope="row">
                       <span>$</span>
                       {n.totalPrice}
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell className='truncate' component="th" scope="row">
                       {n.bookingType}
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell className='truncate' component="th" scope="row">
                       <span>$</span>
                       {n.basePrice}
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell className='truncate' component="th" scope="row">
                       {n.bookingState}
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell className='truncate' component="th" scope="row">
                       {n.priceType}
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell className='truncate' component="th" scope="row">
                       <BookingsStatus name={n.paymentState} />
                     </TableCell>
-                    <TableCell component="th" scope="row">
-                      {n.guestId}
+                    <TableCell className='truncate' component="th" scope="row">
+                      {n.guest.email}
                     </TableCell>
-                    <TableCell component="th" scope="row">
-                      {n.hostId}
+                    <TableCell className='truncate' component="th" scope="row">
+                      {n.host.email}
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell className='truncate' component="th" scope="row">
                       {n.chargeId}
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell className='truncate' component="th" scope="row">
                       {n.checkIn &&
                         moment(n.checkIn).format(
-                          "DD-MM-YYYY",moment.HTML5_FMT.DATE
+                          "DD/MM/YYYY", moment.HTML5_FMT.DATE
                         )}
                     </TableCell>
-                    <TableCell component="th" scope="row">
+                    <TableCell className='truncate' component="th" scope="row">
                       {n.checkOut &&
                         moment(n.checkOut).format(
-                          "DD-MM-YYYY",moment.HTML5_FMT.DATE
+                          "DD/MM/YYYY", moment.HTML5_FMT.DATE
                         )}
+                    </TableCell>
+                    <TableCell className='truncate' component="th" scope="row">
+                      {n.createdAt}
                     </TableCell>
                     {/* <TableCell
                       component="th"

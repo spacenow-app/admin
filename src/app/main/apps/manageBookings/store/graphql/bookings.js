@@ -17,6 +17,20 @@ export const queryGetAllBookings = gql`
       chargeId
       checkIn
       checkOut
+      createdAt
+      guest {
+        email
+      }
+      host {
+        email
+      }
+      listing {
+        title
+        location {
+          address1
+          city
+        }
+      }
     }
   }
 `;

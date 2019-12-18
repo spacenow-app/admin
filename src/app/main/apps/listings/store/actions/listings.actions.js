@@ -1,5 +1,9 @@
+import { SpacenowUtils } from '@spacenow';
 import listingsService from '../services/listings';
+import { showMessage } from 'app/store/actions/spacenow';
 
+export const GET_LISTING = '[MANAGMENT APP] GET LISTING';
+export const SAVE_LISTING = '[MANAGMENT APP] SAVE LISTING';
 export const GET_LISTINGS = '[MANAGMENT APP] GET LISTINGS';
 export const GET_EXTERNAL_USERS_BY_PROVIDER =
   '[MANAGMENT APP] GET EXTERNAL USERS BY PROVIDER';
@@ -9,8 +13,20 @@ export const SET_LISTINGS_SEARCH_TEXT =
   '[MANAGMENT APP] SET LISTINGS SEARCH TEXT';
 export const SET_EXTERNAL_LISTINGS_CLICK_BY_USER_SEARCH_TEXT =
   '[MANAGMENT APP] SET EXTERNAL LISTINGS SEARCH TEXT';
-export const OPEN_DIALOG = '[DIALOG] OPEN';
-export const CLOSE_DIALOG = '[DIALOG] CLOSE';
+
+export function getListingById(id) {
+
+  const request = listingsService.getListingById(id);
+
+  return (dispatch) =>
+    request.then((response) => {
+      dispatch({
+        type: GET_LISTING,
+        payload: response
+      });
+    });
+}
+
 
 export function getListings() {
   const request = listingsService.getListings();
@@ -55,14 +71,45 @@ export const getExternalClicksByUser = (userId) => async (dispatch) => {
   }
 };
 
-export function openDialog(options) {
-  return {
-    type: OPEN_DIALOG,
-    options
-  };
+export const saveListing = (data) => async (dispatch) => {
+
+  try {
+    const response = await listingsService.mutationListing(data);
+    dispatch(showMessage({ message: 'Listing Saved' }));
+    dispatch({
+      type: SAVE_LISTING,
+      payload: response
+    });
+  } catch (err) {
+    console.error('ERROR ===>>> ', err);
+  }
 }
-export function closeDialog() {
-  return {
-    type: CLOSE_DIALOG
+
+export const newListing = () => {
+  const data = {
+    id: SpacenowUtils.generateGUID,
+    name: '',
+    handle: '',
+    description: '',
+    categories: [],
+    tags: [],
+    images: [],
+    priceTaxExcl: 0,
+    priceTaxIncl: 0,
+    taxRate: 0,
+    comparedPrice: 0,
+    quantity: 0,
+    sku: '',
+    width: '',
+    height: '',
+    depth: '',
+    weight: '',
+    extraShippingFee: 0,
+    active: true
   };
+
+  return {
+    type: GET_LISTING,
+    payload: data
+  }
 }

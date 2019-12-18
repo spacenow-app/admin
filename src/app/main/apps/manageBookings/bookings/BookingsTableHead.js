@@ -12,28 +12,35 @@ const rows = [
     id: "bookingId",
     align: "left",
     disablePadding: false,
-    label: "Booking Id",
+    label: "Id",
     sort: true
   },
   {
     id: "listingId",
     align: "left",
     disablePadding: false,
-    label: "Listing Id",
+    label: "Listing",
+    sort: true
+  },
+  {
+    id: "listing",
+    align: "left",
+    disablePadding: false,
+    label: "Title",
     sort: true
   },
   {
     id: "totalPrice",
     align: "left",
     disablePadding: false,
-    label: "Total Price",
+    label: "Total",
     sort: true
   },
   {
     id: "bookingType",
     align: "left",
     disablePadding: false,
-    label: "Booking Type",
+    label: "Type",
     sort: true
   },
 
@@ -41,7 +48,7 @@ const rows = [
     id: "basePrice",
     align: "left",
     disablePadding: false,
-    label: "Base Price",
+    label: "Price",
     sort: true
   },
 
@@ -49,56 +56,63 @@ const rows = [
     id: "bookingState",
     align: "left",
     disablePadding: false,
-    label: "Booking State",
+    label: "State",
     sort: true
   },
   {
     id: "priceType",
     align: "left",
     disablePadding: false,
-    label: "Price Type",
+    label: "Period",
     sort: true
   },
   {
     id: "paymentState",
     align: "left",
     disablePadding: false,
-    label: "Payment State",
+    label: "State",
     sort: true
   },
   {
-    id: "guestId",
+    id: "guest",
     align: "left",
     disablePadding: false,
-    label: "Guest Id",
+    label: "Guest",
     sort: true
   },
   {
-    id: "hostId",
+    id: "host",
     align: "left",
     disablePadding: false,
-    label: "Host Id",
+    label: "Host",
     sort: true
   },
   {
     id: "chargeId",
     align: "left",
     disablePadding: false,
-    label: "Charge Id",
+    label: "Charge",
     sort: true
   },
   {
     id: "checkIn",
     align: "left",
     disablePadding: false,
-    label: "Check In",
+    label: "Check-In",
     sort: true
   },
   {
     id: "checkOut",
     align: "left",
     disablePadding: false,
-    label: "Check Out",
+    label: "Check-Out",
+    sort: true
+  },
+  {
+    id: "transactionDate",
+    align: "left",
+    disablePadding: false,
+    label: "Transaction Date",
     sort: true
   }
 ];

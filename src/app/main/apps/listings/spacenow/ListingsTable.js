@@ -21,6 +21,7 @@ import { SpacenowScrollbars } from '@spacenow';
 import { withRouter } from 'react-router-dom';
 import _ from '@lodash';
 import ListingsTableHead from './ListingsTableHead';
+import * as AppActions from 'app/store/actions';
 import * as Actions from '../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -51,8 +52,8 @@ function ListingsTable(props) {
       searchText.length === 0
         ? listings
         : _.filter(listings, (item) =>
-            item.id.toLowerCase().includes(searchText.toLowerCase())
-          )
+          item.id.toLowerCase().includes(searchText.toLowerCase())
+        )
     );
   }, [listings, searchText]);
 
@@ -76,7 +77,7 @@ function ListingsTable(props) {
 
   function handleChangePublishListingData(event, item) {
     dispatch(Actions.getListings());
-    dispatch(Actions.closeDialog());
+    dispatch(AppActions.closeDialog());
   }
   function handleChangePage(event, page) {
     setPage(page);
@@ -135,13 +136,13 @@ function ListingsTable(props) {
                           alt={n.name}
                         />
                       ) : (
-                        <img
-                          className='rounded'
-                          style={{ width: '50px', maxWidth: '50px' }}
-                          src='assets/images/avatars/spacenow.svg'
-                          alt={n.name}
-                        />
-                      )}
+                          <img
+                            className='rounded'
+                            style={{ width: '50px', maxWidth: '50px' }}
+                            src='assets/images/avatars/spacenow.svg'
+                            alt={n.name}
+                          />
+                        )}
                     </TableCell>
 
                     <TableCell component='th' scope='row'>
@@ -219,7 +220,7 @@ function ListingsTable(props) {
                       <IconButton
                         onClick={() =>
                           dispatch(
-                            Actions.openDialog({
+                            AppActions.openDialog({
                               children: (
                                 <React.Fragment>
                                   <DialogTitle id='alert-dialog-title'>
@@ -233,7 +234,7 @@ function ListingsTable(props) {
                                   <DialogActions>
                                     <Button
                                       onClick={() =>
-                                        dispatch(Actions.closeDialog())
+                                        dispatch(AppActions.closeDialog())
                                       }
                                       size='small'
                                       color='primary'

@@ -5,6 +5,23 @@ import * as listingsQL from '../graphql/listings';
 // import * as mock from "./mock.json";
 
 class listingsService {
+  getListingById = ({ id }) => {
+    return new Promise((resolve, reject) => {
+      getClientWithAuth()
+        .query({
+          query: listingsQL.queryGetListingById,
+          variables: { id: parseInt(id, 10) }
+        })
+        .then((response) => {
+          if (response.data.getListingById) {
+            resolve(response.data.getListingById);
+          } else {
+            reject(response.data.error);
+          }
+        })
+    });
+  };
+
   getListings = () => {
     return new Promise((resolve, reject) => {
       getClientWithAuth()
@@ -54,6 +71,24 @@ class listingsService {
         });
     });
   };
+
+  mutationListing = (input) => {
+    return new Promise((resolve, reject) => {
+      getClientWithAuth()
+        .mutate({
+          mutation: listingsQL.mutationListing,
+          variables: input
+        })
+        .then((response) => {
+          if (response.data.matationListing) {
+            resolve(response.data.mutationListing);
+          } else {
+            reject(response.data.error);
+          }
+        });
+    });
+  };
+
 }
 
 const instance = new listingsService();
