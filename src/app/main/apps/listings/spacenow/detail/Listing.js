@@ -87,7 +87,7 @@ const Listing = (props) => {
     const [tabValue, setTabValue] = useState(0);
     const [checkedRules, setCheckedRules] = React.useState([]);
     const [checkedAmenities, setCheckedAmenities] = React.useState([]);
-    const [handleBookingPeriod, setHandleBookingPeriod] = React.useState(false);
+    // const [handleBookingPeriod, setHandleBookingPeriod] = React.useState(false);
     const { form, handleChange, setForm } = useForm(null);
 
     useEffect(() => {
@@ -151,9 +151,9 @@ const Listing = (props) => {
         setCheckedAmenities(newChecked);
     };
 
-    function handleChipChange(value, name) {
-        setForm(_.set({ ...form }, name, value.map(item => item.value)));
-    }
+    // function handleChipChange(value, name) {
+    //     setForm(_.set({ ...form }, name, value.map(item => item.value)));
+    // }
 
     function setFeaturedImage(id) {
         setForm(_.set({ ...form }, 'featuredImageId', id));
@@ -192,10 +192,10 @@ const Listing = (props) => {
         );
     }
 
-    const _toggleLabel = (labelId) => {
-        console.log(labelId);
-        // setInForm('idLabels', _.xor(cardForm.idLabels, [labelId]));
-    }
+    // const _toggleLabel = (labelId) => {
+    //     console.log(labelId);
+    //     // setInForm('idLabels', _.xor(cardForm.idLabels, [labelId]));
+    // }
 
     return (
         <SpacenowPageCarded
