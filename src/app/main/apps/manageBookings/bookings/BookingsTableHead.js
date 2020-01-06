@@ -109,7 +109,7 @@ const rows = [
     sort: true
   },
   {
-    id: "transactionDate",
+    id: "createdAt",
     align: "left",
     disablePadding: false,
     label: "Transaction Date",
