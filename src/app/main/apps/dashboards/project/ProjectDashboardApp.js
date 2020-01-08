@@ -67,13 +67,13 @@ const ProjectDashboardApp = props => {
       'title': 'Active'
     },
     {
+      'id': 'deleted',
+      'title': 'Deleted'
+    },
+    {
       'id': 'published',
       'title': 'Published'
     },
-    {
-      'id': 'deleted',
-      'title': 'Deleted'
-    }
   ]
 
   const columnsLocation = [{
