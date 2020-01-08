@@ -26,6 +26,11 @@ const initialState = {
     data: null,
     error: null,
   },
+  listingsLocations: {
+    isLoading: true,
+    data: null,
+    error: null,
+  },
   bookings: {
     isLoading: false,
     data: null,
@@ -167,6 +172,27 @@ const widgetsReducer = function (state = initialState, action) {
       return {
         ...state,
         listingsCategories: {
+          isLoading: false,
+          error: action.payload
+        }
+      };
+    case Actions.GET_LISTINGS_LOCATIONS_REQUEST:
+      return {
+        ...state,
+        ...state.listingsLocations
+      };
+    case Actions.GET_LISTINGS_LOCATIONS_SUCCESS:
+      return {
+        ...state,
+        listingsLocations: {
+          isLoading: false,
+          data: action.payload
+        }
+      };
+    case Actions.GET_LISTINGS_LOCATIONS_FAILURE:
+      return {
+        ...state,
+        listingsLocations: {
           isLoading: false,
           error: action.payload
         }

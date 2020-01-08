@@ -3,7 +3,7 @@ import { getClientWithAuth } from "@graphql/apolloClient";
 import * as widgetsQL from "../graphql/widgets.graphql";
 
 class widgetsService extends SpacenowUtils.EventEmitter {
-  init = () => {};
+  init = () => { };
 
   getTotalUsers = () => {
     return new Promise((resolve, reject) => {
@@ -151,6 +151,25 @@ class widgetsService extends SpacenowUtils.EventEmitter {
         .then(response => {
           if (response.data.getListingsCategories) {
             resolve(response.data.getListingsCategories);
+          } else {
+            reject(response.data.error);
+          }
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  };
+
+  getListingsLocations = () => {
+    return new Promise((resolve, reject) => {
+      getClientWithAuth()
+        .query({
+          query: widgetsQL.queryGetListingsLocations
+        })
+        .then(response => {
+          if (response.data.getLocationsCountListings) {
+            resolve(response.data.getLocationsCountListings);
           } else {
             reject(response.data.error);
           }

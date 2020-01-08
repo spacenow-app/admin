@@ -91,3 +91,17 @@ export const queryGetListingsCategories = gql`
     }
   }
 `
+
+export const queryGetListingsLocations = gql`
+  query getListingsLocations {
+    getLocationsCountListings {
+      state
+      count {
+        all
+        active
+        deleted
+        published
+      }
+    }
+  }
+`

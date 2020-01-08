@@ -10,6 +10,7 @@ import reducer from "./store/reducers";
 import WidgetUsers from "./widgets/WidgetUsers";
 import WidgetListings from "./widgets/WidgetListings";
 import WidgetListingTable from "./widgets/WidgetListingTable";
+import WidgetListingTableLocation from "./widgets/WidgetListingTableLocation";
 // import WidgetListingsCategory from "./widgets/WidgetListingsCategory";
 import WidgetBookings from "./widgets/WidgetBookings";
 
@@ -35,6 +36,7 @@ const ProjectDashboardApp = props => {
     dispatch(Actions.getTotalListingsByDate(10000));
     dispatch(Actions.getAllCategories());
     dispatch(Actions.getListingsCategories());
+    dispatch(Actions.getListingsLocations());
   }, [dispatch]);
 
   const _handleUsersByDate = (days) => {
@@ -118,6 +120,7 @@ const ProjectDashboardApp = props => {
             className="w-full border-b-1 px-24"
           >
             <Tab className="text-14 font-600 normal-case" label="Listings By Category" />
+            <Tab className="text-14 font-600 normal-case" label="Listings By Locations" />
           </Tabs>
           {tabValue === 0 &&
             (
@@ -129,6 +132,19 @@ const ProjectDashboardApp = props => {
               >
                 <div className="widget flex w-full p-12">
                   <WidgetListingTable title={"Listings By Category"} columns={columns} widget={widgets.listingsCategories} />
+                </div>
+              </SpacenowAnimateGroup>
+            )}
+          {tabValue === 1 &&
+            (
+              <SpacenowAnimateGroup
+                className="flex flex-wrap"
+                enter={{
+                  animation: "transition.slideUpBigIn"
+                }}
+              >
+                <div className="widget flex w-full p-12">
+                  <WidgetListingTableLocation title={"Listings By Location"} columns={columns} widget={widgets.listingsLocations} />
                 </div>
               </SpacenowAnimateGroup>
             )}

@@ -36,6 +36,12 @@ export const GET_LISTINGS_CATEGORIES_SUCCESS =
   "[PROJECT DASHBOARD APP] GET LISTINGS CATEGORIES SUCCESS";
 export const GET_LISTINGS_CATEGORIES_FAILURE =
   "[PROJECT DASHBOARD APP] GET LISTINGS CATEGORIES FAILURE";
+export const GET_LISTINGS_LOCATIONS_REQUEST =
+  "[PROJECT DASHBOARD APP] GET LISTINGS LOCATIONS REQUEST";
+export const GET_LISTINGS_LOCATIONS_SUCCESS =
+  "[PROJECT DASHBOARD APP] GET LISTINGS LOCATIONS SUCCESS";
+export const GET_LISTINGS_LOCATIONS_FAILURE =
+  "[PROJECT DASHBOARD APP] GET LISTINGS LOCATIONS FAILURE";
 
 export const getTotalUsers = () => {
   const request = widgetsService.getTotalUsers();
@@ -184,6 +190,25 @@ export const getListingsCategories = () => {
       .catch(error => {
         dispatch({
           type: GET_LISTINGS_CATEGORIES_FAILURE,
+          payload: error
+        });
+      });
+};
+
+export const getListingsLocations = () => {
+  const request = widgetsService.getListingsLocations();
+
+  return dispatch =>
+    request
+      .then(response => {
+        dispatch({
+          type: GET_LISTINGS_LOCATIONS_SUCCESS,
+          payload: response
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: GET_LISTINGS_LOCATIONS_FAILURE,
           payload: error
         });
       });
