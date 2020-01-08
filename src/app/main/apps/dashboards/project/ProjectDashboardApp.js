@@ -59,10 +59,6 @@ const ProjectDashboardApp = props => {
 
   const columns = [
     {
-      'id': 'category',
-      'title': 'Category'
-    },
-    {
       'id': 'total-listings',
       'title': 'Total Listings'
     },
@@ -79,6 +75,16 @@ const ProjectDashboardApp = props => {
       'title': 'Deleted'
     }
   ]
+
+  const columnsLocation = [{
+    'id': 'location',
+    'title': 'Location'
+  }].concat(columns)
+
+  const columnsCategory = [{
+    'id': 'category',
+    'title': 'Category'
+  }].concat(columns)
 
   if (!widgets) {
     return null;
@@ -131,7 +137,7 @@ const ProjectDashboardApp = props => {
                 }}
               >
                 <div className="widget flex w-full p-12">
-                  <WidgetListingTable title={"Listings By Category"} columns={columns} widget={widgets.listingsCategories} />
+                  <WidgetListingTable title={"Listings By Category"} columns={columnsCategory} widget={widgets.listingsCategories} />
                 </div>
               </SpacenowAnimateGroup>
             )}
@@ -144,7 +150,7 @@ const ProjectDashboardApp = props => {
                 }}
               >
                 <div className="widget flex w-full p-12">
-                  <WidgetListingTableLocation title={"Listings By Location"} columns={columns} widget={widgets.listingsLocations} />
+                  <WidgetListingTableLocation title={"Listings By Location"} columns={columnsLocation} widget={widgets.listingsLocations} />
                 </div>
               </SpacenowAnimateGroup>
             )}
