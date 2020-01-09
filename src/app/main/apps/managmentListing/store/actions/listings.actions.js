@@ -6,9 +6,9 @@ export const UPDATE_LISTING = '[MANAGMENT APP] UPDATE LISTING';
 export const OPEN_DIALOG = '[DIALOG] OPEN';
 export const CLOSE_DIALOG = '[DIALOG] CLOSE';
 
-export function getListings() {
+export function getListings(page = 0, limit = 10) {
   return (dispatch) =>
-    listingsService.getListings().then((response) => {
+    listingsService.getListings(page, limit).then((response) => {
       dispatch({
         type: GET_LISTINGS,
         payload: response
