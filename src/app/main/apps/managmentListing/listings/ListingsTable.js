@@ -26,7 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 function ListingsTable(props) {
   const dispatch = useDispatch();
 
-  const listings = useSelector(({ managmentListing }) => managmentListing.listings.data);
+  const { data: listings, count: totalListings } = useSelector(({ managmentListing }) => managmentListing.listings);
   const searchText = useSelector(({ managmentListing }) => managmentListing.listings.searchText);
 
   const [selected] = useState([]);
@@ -36,8 +36,8 @@ function ListingsTable(props) {
   const [order, setOrder] = useState({ direction: 'asc', id: null });
 
   useEffect(() => {
-    dispatch(Actions.getListings());
-  }, [dispatch]);
+    dispatch(Actions.getListings(page, rowsPerPage));
+  }, [dispatch, page, rowsPerPage]);
 
   useEffect(() => {
     setData(
@@ -97,7 +97,6 @@ function ListingsTable(props) {
               ],
               [order.direction]
             )
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(n => {
                 const isSelected = selected.indexOf(n.id) !== -1;
                 return (
@@ -218,7 +217,7 @@ function ListingsTable(props) {
       </SpacenowScrollbars>
       <TablePagination
         component='div'
-        count={data.length}
+        count={totalListings}
         rowsPerPage={rowsPerPage}
         page={page}
         backIconButtonProps={{

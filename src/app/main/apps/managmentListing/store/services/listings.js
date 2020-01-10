@@ -2,11 +2,12 @@ import { getClientWithAuth } from '@graphql/apolloClient';
 import * as QL from '../graphql/listings';
 
 class listingsService {
-  getListings = () => {
+  getListings = (page, limit) => {
     return new Promise((resolve, reject) => {
       getClientWithAuth()
         .query({
           query: QL.queryGetAllPlainListings,
+          variables: { page, limit },
           fetchPolicy: 'network-only'
         })
         .then((response) => {

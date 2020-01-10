@@ -1,26 +1,29 @@
 import { gql } from 'apollo-boost';
 
 export const queryGetAllPlainListings = gql`
-  query getAllPlainListings {
-    getAllPlainListings {
-      id
-      title
-      status
-      user {
-        email
-        profile {
-          firstName
-          lastName
+  query getAllPlainListings($page: Int!, $limit: Int!) {
+    getAllPlainListings(page: $page, limit: $limit) {
+      count
+      rows {
+        id
+        title
+        status
+        user {
+          email
+          profile {
+            firstName
+            lastName
+          }
         }
+        location {
+          city
+          state
+          country
+        }
+        isPublished
+        isReady
+        createdAt
       }
-      location {
-        city
-        state
-        country
-      }
-      isPublished
-      isReady
-      createdAt
     }
   }
 `;

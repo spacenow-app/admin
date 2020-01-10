@@ -6,13 +6,13 @@ const initialState = {
   searchText: ''
 };
 
-const listingsReducer = function(state = initialState, action) {
+const listingsReducer = function (state = initialState, action) {
   switch (action.type) {
     case Actions.GET_LISTINGS: {
       return {
         ...state,
-        data: action.payload,
-        count: action.payload.length
+        data: action.payload.rows,
+        count: action.payload.count
       };
     }
     case Actions.SET_LISTINGS_SEARCH_TEXT: {
@@ -25,7 +25,7 @@ const listingsReducer = function(state = initialState, action) {
       return {
         ...state,
         data: state.data.map((item) => {
-          if (item.id === action.payload.id) 
+          if (item.id === action.payload.id)
             return action.payload;
           return item;
         })
