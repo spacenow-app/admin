@@ -16,7 +16,7 @@ const rows = [
     sort: false
   },
   {
-    id: 'profileId',
+    id: 'id',
     align: 'left',
     disablePadding: false,
     label: 'Profile ID',
