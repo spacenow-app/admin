@@ -4,8 +4,11 @@ import {
   TableSortLabel,
   TableCell,
   TableRow,
-  Tooltip
+  Tooltip,
+  Input
 } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import * as Actions from "../store/actions";
 
 const rows = [
   {
@@ -118,6 +121,7 @@ const rows = [
 ];
 
 function UsersTableHead(props) {
+  const dispatch = useDispatch();
   const createSortHandler = property => event => {
     props.onRequestSort(event, property);
   };
@@ -152,6 +156,13 @@ function UsersTableHead(props) {
                   </TableSortLabel>
                 </Tooltip>
               )}
+              <Input
+                placeholder="Filter"
+                style={{font: 'caption'}}
+                disableUnderline
+                fullWidth
+                onChange={ev => dispatch(Actions.setBookingsSearchValues(row.id, ev.target.value))}
+              />
             </TableCell>
           );
         }, this)}

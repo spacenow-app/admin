@@ -59,6 +59,37 @@ class SpacenowUtils {
         });
     };
 
+    static filterObjectByProps(mainArr, objProps) {
+        return mainArr.filter(itemObj => {
+            return this.searchByPropInObj(itemObj, objProps)
+        });
+    };
+
+    static searchByPropInObj(itemObj, objProps) {
+        for (const k in objProps) {
+            if (!objProps.hasOwnProperty(k) || !itemObj.hasOwnProperty(k) || k === "") {
+                continue;
+            }
+            const searchText = objProps[k].toLowerCase();
+            const value = itemObj[k];
+
+            if (Array.isArray(value)) {
+                if (!this.searchInArray(value, searchText)) {
+                    return;
+                }
+            } else if (typeof value === 'object') {
+                if (!this.searchInObj(value, searchText)) {
+                    return;
+                }
+            } else {
+                if (!this.searchInString(value, searchText)) {
+                    return;
+                }
+            }
+        }
+        return true;
+    }
+
     static searchInObj(itemObj, searchText) {
         for (const prop in itemObj) {
             if (!itemObj.hasOwnProperty(prop)) {
@@ -67,20 +98,16 @@ class SpacenowUtils {
 
             const value = itemObj[prop];
 
-            if (typeof value === 'string') {
-                if (this.searchInString(value, searchText)) {
-                    return true;
-                }
-            }
-
-            else if (Array.isArray(value)) {
+            if (Array.isArray(value)) {
                 if (this.searchInArray(value, searchText)) {
                     return true;
                 }
-            }
-
-            if (typeof value === 'object') {
+            } else if (typeof value === 'object') {
                 if (this.searchInObj(value, searchText)) {
+                    return true;
+                }
+            } else {
+                if (this.searchInString(value, searchText)) {
                     return true;
                 }
             }
@@ -104,7 +131,7 @@ class SpacenowUtils {
     }
 
     static searchInString(value, searchText) {
-        return value.toLowerCase().includes(searchText);
+        return value.toString().toLowerCase().includes(searchText);
     }
 
     static generateGUID() {

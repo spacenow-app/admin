@@ -20,8 +20,8 @@ function BookingsTable(props) {
   const bookings = useSelector(
     ({ manageBookings }) => manageBookings.bookings.data
   );
-  const searchText = useSelector(
-    ({ manageBookings }) => manageBookings.bookings.searchText
+  const searchValues = useSelector(
+    ({ manageBookings }) => manageBookings.bookings.searchValues
   );
 
   const [selected, setSelected] = useState([]);
@@ -39,11 +39,11 @@ function BookingsTable(props) {
 
   useEffect(() => {
     setData(
-      searchText.length === 0
-        ? bookings
-        : SpacenowUtils.filterArrayByString(bookings, searchText)
+      searchValues
+        ? SpacenowUtils.filterObjectByProps(bookings, searchValues)
+        : bookings
     );
-  }, [bookings, searchText]);
+  }, [bookings, searchValues]);
 
   function handleRequestSort(event, property) {
     const id = property;
