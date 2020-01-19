@@ -2,7 +2,7 @@ import * as Actions from "../actions";
 
 const initialState = {
   data: [],
-  searchText: ""
+  searchValues: null
 };
 
 const bookingsReducer = function(state = initialState, action) {
@@ -14,10 +14,10 @@ const bookingsReducer = function(state = initialState, action) {
       };
     }
 
-    case Actions.SET_BOOKINGS_SEARCH_TEXT: {
+    case Actions.SET_BOOKINGS_SEARCH_VALUES: {
       return {
         ...state,
-        searchText: action.searchText
+        searchValues: {...state.searchValues, [action.id]: action.searchValue}
       };
     }
 

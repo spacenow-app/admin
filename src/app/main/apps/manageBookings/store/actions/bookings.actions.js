@@ -1,8 +1,8 @@
 import bookingsService from "../services/bookings";
 
 export const GET_BOOKINGS = "[MANAGMENT APP] GET BOOKINGS";
-export const SET_BOOKINGS_SEARCH_TEXT =
-  "[MANAGMENT APP] SET BOOKINGS SEARCH TEXT";
+export const SET_BOOKINGS_SEARCH_VALUES =
+  "[MANAGMENT APP] SET BOOKINGS SEARCH FILTERS";
 
 export function getBookings() {
   const request = bookingsService.getBookings();
@@ -16,9 +16,10 @@ export function getBookings() {
     });
 }
 
-export function setBookingsSearchText(event) {
+export function setBookingsSearchValues(id, searchValue) {
   return {
-    type: SET_BOOKINGS_SEARCH_TEXT,
-    searchText: event.target.value
+    type: SET_BOOKINGS_SEARCH_VALUES,
+    id: id,
+    searchValue: searchValue
   };
 }
