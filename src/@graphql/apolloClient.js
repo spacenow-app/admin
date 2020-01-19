@@ -3,12 +3,10 @@ import { from } from 'apollo-link'
 import { InMemoryCache, ApolloClient } from 'apollo-client-preset'
 import { createUploadLink } from 'apollo-upload-client'
 import { setContext } from 'apollo-link-context'
-import { createHttpLink } from 'apollo-link-http'
 
 import apisConfig from 'app/spacenow-configs/apisConfig'
 
 const uploadLink = createUploadLink({ uri: apisConfig.graphQlHost })
-const httpLink = createHttpLink({ uri: apisConfig.graphQlHost })
 
 let apolloClientWithAuth
 const authLink = dispatch =>
@@ -31,7 +29,7 @@ export const getClientWithAuth = dispatch => {
     console.info('Creating a new connection with Authentication to Apollo GraphQL.')
     apolloClientWithAuth = new ApolloClient({
       cache: new InMemoryCache(),
-      link: from([authLink(dispatch), uploadLink, httpLink])
+      link: from([authLink(dispatch), uploadLink])
     })
   }
   return apolloClientWithAuth
@@ -41,7 +39,7 @@ let apolloClient
 export const getClient = () => {
   if (!apolloClient) {
     console.info('Creating a new connection to Apollo GraphQL.')
-    apolloClient = new ApolloClient({ cache: new InMemoryCache(), link: httpLink })
+    apolloClient = new ApolloClient({ cache: new InMemoryCache(), link: uploadLink })
   }
   return apolloClient
 }
