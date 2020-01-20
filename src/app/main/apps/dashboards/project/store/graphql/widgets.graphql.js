@@ -45,7 +45,12 @@ export const queryTotalListingsByDate = gql`
 export const queryTotalBookingsByDate = gql`
   query GetTotalBookingsByDate($days: Int) {
     getTotalBookingsByDate(days: $days) {
-      count
+      count {
+        all
+        approved
+        completed
+        cancelled
+      }
     }
   }
 `;

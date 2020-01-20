@@ -22,8 +22,13 @@ function WidgetBookings(props) {
             </div>
             <div className="text-center pt-12 pb-28">
                 <Typography
-                    className="text-72 leading-none text-orange">{props.widget.data.count}</Typography>
+                    className="text-72 leading-none text-orange">{props.widget.data.count.all}</Typography>
                 <Typography className="text-16" color="textSecondary">Total Bookings</Typography>
+            </div>
+            <div className="flex items-center justify-between p-16">
+                <Typography className="text-16" color="textSecondary">Approved: {props.widget.data.count.approved}</Typography>
+                <Typography className="text-16" color="textSecondary">Completed: {props.widget.data.count.completed}</Typography>
+                <Typography className="text-16" color="textSecondary">Cancelled: {props.widget.data.count.cancelled}</Typography>
             </div>
         </Paper>
     );
