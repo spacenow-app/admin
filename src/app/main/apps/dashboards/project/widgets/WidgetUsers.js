@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Icon, Typography, Select, Paper, IconButton, Menu, MenuList, MenuItem, ListItemText } from '@material-ui/core';
+import React from 'react';
+import { Typography, Select, Paper } from '@material-ui/core';
 
 function WidgetUsers(props) {
 
