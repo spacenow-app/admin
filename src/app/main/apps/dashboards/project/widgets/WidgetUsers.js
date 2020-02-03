@@ -3,27 +3,28 @@ import { Icon, Typography, Select, Paper, IconButton, Menu, MenuList, MenuItem, 
 
 function WidgetUsers(props) {
 
-    const [currentUser, setCurrentUser] = useState({
-        key: 'count',
-        value: 'Users'
-    });
-    const [selectedUserMenu, setSelectedUserMenu] = useState(null);
+    ////Used only if menu to select between users/guests/hosts
+    // const [currentUser, setCurrentUser] = useState({
+    //     key: 'count',
+    //     value: 'Users'
+    // });
+    // const [selectedUserMenu, setSelectedUserMenu] = useState(null);
 
-    function handleCurrentUser(key, value)
-    {
-        setCurrentUser({
-            key,
-            value
-        })
-    }
+    // function handleCurrentUser(key, value)
+    // {
+    //     setCurrentUser({
+    //         key,
+    //         value
+    //     })
+    // }
 
-    function openSelectedUserMenu(event) {
-        setSelectedUserMenu(event.currentTarget);
-    }
+    // function openSelectedUserMenu(event) {
+    //     setSelectedUserMenu(event.currentTarget);
+    // }
 
-    function closeSelectedUserMenu() {
-        setSelectedUserMenu(null);
-    }
+    // function closeSelectedUserMenu() {
+    //     setSelectedUserMenu(null);
+    // }
 
     if (props.widget.isLoading)
         return null
@@ -42,7 +43,7 @@ function WidgetUsers(props) {
                     <option key={3} value={30}>Month</option>
                 </Select>
 
-                <IconButton
+                {/* <IconButton
                     aria-owns={selectedUserMenu ? "selectedUserMenu" : null}
                     aria-haspopup="true"
                     onClick={openSelectedUserMenu}
@@ -66,20 +67,18 @@ function WidgetUsers(props) {
                             <ListItemText primary="Hosts" />
                         </MenuItem>
                     </MenuList>
-                </Menu>
+                </Menu> */}
             </div>
             <div className="text-center pt-12 pb-28">
                 <Typography
-                    className="text-72 leading-none text-orange">{props.widget.data[currentUser.key]}</Typography>
-                <Typography className="text-16" color="textSecondary">Total {currentUser.value}</Typography>
+                    className="text-72 leading-none text-orange">{props.widget.data.count}</Typography>
+                <Typography className="text-16" color="textSecondary">Total Users</Typography>
+
             </div>
-            {/*  <div className="flex items-center px-16 h-52 border-t-1">
-                <Typography className="text-15 flex w-full" color="textSecondary">
-                    <span className="truncate">{props.widget.data.extra.label}</span>
-                    :
-                    <b className="pl-8">{props.widget.data.extra.count}</b>
-                </Typography>
-            </div> */}
+            <div className="flex items-center justify-between p-16">
+                <Typography className="text-16" color="textSecondary">Hosts: {props.widget.data.hosts}</Typography>
+                <Typography className="text-16" color="textSecondary">Guests: {props.widget.data.guests}</Typography>
+            </div>
         </Paper>
     );
 }
