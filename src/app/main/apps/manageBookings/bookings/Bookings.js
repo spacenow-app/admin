@@ -1,17 +1,15 @@
 import React from "react";
-import { SpacenowPageCarded } from "@spacenow";
+import { SpacenowPageSimple } from "@spacenow";
 import withReducer from "app/store/withReducer";
 import BookingsTable from "./BookingsTable";
-import BookingsHeader from "./BookingsHeader";
 import reducer from "../store/reducers";
 
 const Bookings = () => (
-  <SpacenowPageCarded
+  <SpacenowPageSimple
     classes={{
       content: "flex",
       header: "min-h-72 h-72"
     }}
-    header={<BookingsHeader />}
     content={<BookingsTable />}
     innerScroll
   />

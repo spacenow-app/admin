@@ -59,6 +59,10 @@ a[role=button] {
     z-index: 999;
 }
 
+.table-wrapper {
+    max-height: calc(100vh - 6.4rem);
+}
+
 /* Medium Devices, Desktops Only */
 @media only screen and (min-width: 992px) {
     ::-webkit-scrollbar {

@@ -90,7 +90,7 @@ function ListingsTable(props) {
   }
 
   return (
-    <div className='w-full flex flex-col'>
+    <div className='w-full flex flex-col table-wrapper'>
       <SpacenowScrollbars className='flex-grow overflow-x-auto'>
         <Table className='min-w-xl' aria-labelledby='tableTitle'>
           <ListingsTableHead
