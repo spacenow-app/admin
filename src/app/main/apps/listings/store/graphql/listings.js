@@ -276,6 +276,14 @@ export const queryGetExternalClicksByUser = gql`
   }
 `;
 
+export const publishListing = gql`
+  mutation publishListing($input: Int!, $status: Boolean!) {
+    publish(listingId: $listingId, status: $status) {
+      isPublished
+    }
+  }
+`;
+
 export const mutationListing = gql`
   mutation Listing($input: LisitingInput) {
     Listing(input: $input) {

@@ -5,8 +5,11 @@ import {
   TableSortLabel,
   TableCell,
   TableRow,
-  Tooltip
+  Tooltip,
+  Input
 } from '@material-ui/core';
+import { useDispatch } from "react-redux";
+import * as Actions from "../store/actions";
 
 const rows = [
   {
@@ -38,7 +41,7 @@ const rows = [
     sort: true
   },
   {
-    id: 'ownerEmail',
+    id: 'user',
     align: 'left',
     disablePadding: false,
     label: 'Owner Email',
@@ -89,6 +92,7 @@ const rows = [
 ];
 
 function ListingsTableHead(props) {
+  const dispatch = useDispatch();
   const createSortHandler = (property) => (event) => {
     props.onRequestSort(event, property);
   };
@@ -123,6 +127,13 @@ function ListingsTableHead(props) {
                   </TableSortLabel>
                 </Tooltip>
               )}
+              <Input
+                placeholder="Filter"
+                style={{font: 'caption'}}
+                disableUnderline
+                fullWidth
+                onChange={ev => dispatch(Actions.setListingsSearchValues(row.id, ev.target.value))}
+              />
             </TableCell>
           );
         }, this)}

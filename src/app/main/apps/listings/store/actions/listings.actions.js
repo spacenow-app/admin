@@ -85,6 +85,19 @@ export const saveListing = (data) => async (dispatch) => {
   }
 }
 
+export const publishListing = (listingID, status) => async (dispatch) => {
+
+  try {
+    const response = await listingsService.publishListing(listingID, status);
+    dispatch({
+      type: GET_LISTING,
+      payload: response
+    });
+  } catch (err) {
+    console.error('ERROR ===>>> ', err);
+  }
+}
+
 export const newListing = () => {
   const data = {
     id: SpacenowUtils.generateGUID,

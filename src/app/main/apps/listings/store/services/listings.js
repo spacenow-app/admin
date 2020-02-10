@@ -72,6 +72,23 @@ class listingsService {
     });
   };
 
+  publishListing = (listingId, status) => {
+    return new Promise((resolve, reject) => {
+      getClientWithAuth()
+        .query({
+          query: listingsQL.publishListing,
+          variables: { listingId, status }
+        })
+        .then((response) => {
+          if (response.data.getExternalClicksByUser) {
+            resolve(response.data.getExternalClicksByUser);
+          } else {
+            reject(response.data.error);
+          }
+        });
+    });
+  }
+
   mutationListing = (input) => {
     return new Promise((resolve, reject) => {
       getClientWithAuth()

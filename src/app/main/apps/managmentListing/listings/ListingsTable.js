@@ -27,7 +27,7 @@ function ListingsTable(props) {
   const dispatch = useDispatch();
 
   const { data: listings, count: totalListings } = useSelector(({ managmentListing }) => managmentListing.listings);
-  const searchText = useSelector(({ managmentListing }) => managmentListing.listings.searchText);
+  const searchValues = useSelector(({ managmentListing }) => managmentListing.listings.searchValues);
 
   const [selected] = useState([]);
   const [data, setData] = useState(listings);
@@ -41,11 +41,11 @@ function ListingsTable(props) {
 
   useEffect(() => {
     setData(
-      searchText.length === 0
-        ? listings
-        : SpacenowUtils.filterArrayByString(listings, searchText)
+      searchValues
+      ? SpacenowUtils.filterObjectByProps(listings, searchValues)
+      : listings
     );
-  }, [listings, searchText]);
+  }, [listings, searchValues]);
 
   function handleRequestSort(event, property) {
     const id = property;
@@ -54,6 +54,13 @@ function ListingsTable(props) {
       direction = 'asc';
     }
     setOrder({ direction, id });
+  }
+
+  function handleChangePublishListingData(event, listingId, status, isReady) {
+    event.preventDefault();
+    if (isReady) {
+      dispatch(Actions.publishListing(listingId, !status));
+    }
   }
 
   function handleChangePage(event, page) {
@@ -207,7 +214,20 @@ function ListingsTable(props) {
                       {n.isReady ? "YES" : "NO"}
                     </TableCell>
                     <TableCell component='th' scope='row'>
-                      {n.isPublished ? 'Publish' : 'Unpublished'}
+                      <Button
+                        onClick={ (event) => handleChangePublishListingData(event, n.id, n.isPublished, n.isReady)}
+                        size='small'
+                        variant='contained'
+                        className={
+                          n.isPublished
+                            ? 'bg-green text-white'
+                            : (n.isReady
+                              ? 'bg-red text-white'
+                              : 'bg-gray text-white')
+                        }
+                      >
+                        {n.isPublished ? 'Published' : 'Unpublished'}
+                      </Button>
                     </TableCell>
                   </TableRow>
                 );

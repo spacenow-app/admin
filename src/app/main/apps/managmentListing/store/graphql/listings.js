@@ -52,3 +52,28 @@ export const mutationChangeListingStatus = gql`
     }
   }
 `;
+
+export const publishListing = gql`
+  mutation publishListing($listingId: Int!, $status: Boolean!) {
+    publish(listingId: $listingId, status: $status) {
+      id
+      title
+      status
+      user {
+        email
+        profile {
+          firstName
+          lastName
+        }
+      }
+      location {
+        city
+        state
+        country
+      }
+      isPublished
+      isReady
+      createdAt
+    }
+  }
+`;

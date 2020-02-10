@@ -66,19 +66,23 @@ class SpacenowUtils {
     };
 
     static searchByPropInObj(itemObj, objProps) {
+        console.log(itemObj);
         for (const k in objProps) {
-            if (!objProps.hasOwnProperty(k) || !itemObj.hasOwnProperty(k) || k === "") {
-                continue;
+            if (!objProps.hasOwnProperty(k) || k === "") continue;
+
+            if (typeof value === 'object') {
+                if (!this.searchInObj(value, searchText)) {
+                    return;
+                }
             }
+
+            if (!itemObj.hasOwnProperty(k)) continue;
+
             const searchText = objProps[k].toLowerCase();
             const value = itemObj[k];
 
             if (Array.isArray(value)) {
                 if (!this.searchInArray(value, searchText)) {
-                    return;
-                }
-            } else if (typeof value === 'object') {
-                if (!this.searchInObj(value, searchText)) {
                     return;
                 }
             } else {
