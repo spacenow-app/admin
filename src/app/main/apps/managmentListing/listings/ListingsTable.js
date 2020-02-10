@@ -19,12 +19,15 @@ import moment from "moment";
 import { SpacenowScrollbars, SpacenowUtils } from "@spacenow";
 import { withRouter } from "react-router-dom";
 import _ from "@lodash";
+import apisConfig from "app/spacenow-configs/apisConfig";
 import ListingsTableHead from "./ListingsTableHead";
 import * as Actions from "../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 function ListingsTable(props) {
   const dispatch = useDispatch();
+
+  const appUrl = apisConfig.appHost;
 
   const { data: listings, count: totalListings } = useSelector(({ managmentListing }) => managmentListing.listings);
   const searchValues = useSelector(({ managmentListing }) => managmentListing.listings.searchValues);
@@ -56,15 +59,24 @@ function ListingsTable(props) {
     setOrder({ direction, id });
   }
 
-  function handleChangePublishListingData(event, listingId, status, isReady) {
+  function handleChangePublishListingData(event, listingId, pubStatus, isReady) {
     event.preventDefault();
     if (isReady) {
-      dispatch(Actions.publishListing(listingId, !status));
+      dispatch(Actions.publishListing(listingId, !pubStatus));
     }
   }
 
   function handleChangePage(event, page) {
     setPage(page);
+  }
+
+  function handleOpenListingPage(event, listingId, pubStatus) {
+    event.preventDefault();
+    if (pubStatus) {
+      window.open(appUrl + "space/" + listingId);
+    } else {
+      window.open(appUrl + "listing/preview/" + listingId);
+    }
   }
 
   function handleChangeRowsPerPage(event) {
@@ -114,6 +126,7 @@ function ListingsTable(props) {
                     tabIndex={-1}
                     key={n.id}
                     selected={isSelected}
+                    onClick={ (event) => handleOpenListingPage(event, n.id, n.isPublished) }
                   >
                     <TableCell component='th' scope='row'>
                       {n.id}
