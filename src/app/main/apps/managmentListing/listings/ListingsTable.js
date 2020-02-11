@@ -60,7 +60,7 @@ function ListingsTable(props) {
   }
 
   function handleChangePublishListingData(event, listingId, pubStatus, isReady) {
-    event.preventDefault();
+    event.stopPropagation();
     if (isReady) {
       dispatch(Actions.publishListing(listingId, !pubStatus));
     }
@@ -71,7 +71,7 @@ function ListingsTable(props) {
   }
 
   function handleOpenListingPage(event, listingId, pubStatus) {
-    event.preventDefault();
+    event.stopPropagation();
     if (pubStatus) {
       window.open(appUrl + "space/" + listingId);
     } else {
@@ -84,9 +84,9 @@ function ListingsTable(props) {
   }
 
   function handleChangeListingStatus(event, listingId, status) {
+    event.stopPropagation();
     dispatch(Actions.changeListingStatus(listingId, status));
     dispatch(Actions.closeDialog());
-    event.preventDefault();
   }
 
   return (
@@ -144,7 +144,7 @@ function ListingsTable(props) {
                             ? 'Click here to disable this listing'
                             : 'Click here to activate this listing'
                         }
-                        onClick={() =>
+                        onClick={(e) => e.stopPropagation() ||
                           dispatch(
                             Actions.openDialog({
                               children: (
@@ -232,11 +232,12 @@ function ListingsTable(props) {
                         size='small'
                         variant='contained'
                         className={
-                          n.isPublished
+                          "inline text-12 p-4 rounded truncate " +
+                          (n.isPublished
                             ? 'bg-green text-white'
                             : (n.isReady
                               ? 'bg-red text-white'
-                              : 'bg-gray text-white')
+                              : 'bg-gray text-white'))
                         }
                       >
                         {n.isPublished ? 'Published' : 'Unpublished'}
