@@ -73,9 +73,9 @@ function ListingsTable(props) {
   function handleOpenListingPage(event, listingId, pubStatus) {
     event.stopPropagation();
     if (pubStatus) {
-      window.open(appUrl + "space/" + listingId);
+      window.open(appUrl + "/space/" + listingId);
     } else {
-      window.open(appUrl + "listing/preview/" + listingId);
+      window.open(appUrl + "/listing/preview/" + listingId);
     }
   }
 

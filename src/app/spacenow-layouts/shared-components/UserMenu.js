@@ -12,6 +12,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import * as authActions from 'app/auth/store/actions';
 import { Link } from 'react-router-dom';
+import apisConfig from "app/spacenow-configs/apisConfig";
 
 function UserMenu(props) {
   const dispatch = useDispatch();
@@ -26,6 +27,11 @@ function UserMenu(props) {
   const userMenuClose = () => {
     setUserMenu(null);
   };
+
+  const openLink = (path) => {
+    userMenuClose();
+    window.open(apisConfig.appHost + path);
+  }
 
   return (
     <React.Fragment>
@@ -83,17 +89,13 @@ function UserMenu(props) {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <MenuItem
-              component={Link}
-              to='/pages/profile'
-              onClick={userMenuClose}
-            >
+            <MenuItem onClick={() => openLink('/account/profile')}>
               <ListItemIcon className='min-w-40'>
                 <Icon>account_circle</Icon>
               </ListItemIcon>
               <ListItemText className='pl-0' primary='My Profile' />
             </MenuItem>
-            <MenuItem component={Link} to='/apps/mail' onClick={userMenuClose}>
+            <MenuItem onClick={() => openLink('/account/messages')}>
               <ListItemIcon className='min-w-40'>
                 <Icon>mail</Icon>
               </ListItemIcon>
