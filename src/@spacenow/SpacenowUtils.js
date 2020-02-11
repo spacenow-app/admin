@@ -67,18 +67,17 @@ class SpacenowUtils {
 
     static searchByPropInObj(itemObj, objProps) {
         for (const k in objProps) {
-            if (!objProps.hasOwnProperty(k) || k === "") continue;
+            if (!objProps.hasOwnProperty(k) || !itemObj.hasOwnProperty(k) || k === "") continue;
         
             const searchText = objProps[k].toLowerCase();
             const value = itemObj[k];
+
 
             if (typeof value === 'object') {
                 if (!this.searchInObj(value, searchText)) {
                     return;
                 }
-            }
-
-            if (Array.isArray(value)) {
+            }else if (Array.isArray(value)) {
                 if (!this.searchInArray(value, searchText)) {
                     return;
                 }
