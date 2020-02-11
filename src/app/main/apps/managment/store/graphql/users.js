@@ -10,6 +10,7 @@ export const queryGetAllUsersLegacy = gql`
         userBanStatus
         provider
         voucherCode
+        role
         profile {
           profileId
           firstName

@@ -374,6 +374,22 @@ function UsersTable(props) {
                       <TableCell component='th' scope='row'>
                         <FormControl>
                           <Select
+                            value={n.role}
+                            name='role'
+                            className='w-full'
+                            onChange={(event) =>
+                              handleChangeUserData(event, n)
+                            }
+                          >
+                            <MenuItem value={'user'}>User</MenuItem>
+                            <MenuItem value={'host'}>Host</MenuItem>
+                            <MenuItem value={'admin'}>Admin</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </TableCell>
+                      <TableCell component='th' scope='row'>
+                        <FormControl>
+                          <Select
                             value={n.provider}
                             name='provider'
                             className='w-full'
