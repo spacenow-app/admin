@@ -74,6 +74,13 @@ const rows = [
     sort: true
   },
   {
+    id: 'role',
+    align: 'left',
+    disablePadding: false,
+    label: 'Type',
+    sort: true
+  },
+  {
     id: 'provider',
     align: 'left',
     disablePadding: false,
