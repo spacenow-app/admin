@@ -14,6 +14,7 @@ import * as Actions from "../store/actions";
 const rows = [
   {
     id: 'id',
+    ref: 'id',
     align: 'left',
     disablePadding: false,
     label: 'ID',
@@ -21,6 +22,7 @@ const rows = [
   },
   {
     id: 'title',
+    ref: 'title',
     align: 'left',
     disablePadding: false,
     label: 'Title',
@@ -28,6 +30,7 @@ const rows = [
   },
   {
     id: 'status',
+    ref: 'status',
     align: 'left',
     disablePadding: false,
     label: 'Status',
@@ -35,6 +38,7 @@ const rows = [
   },
   {
     id: 'ownerName',
+    ref: 'user>profile>firstName',
     align: 'left',
     disablePadding: false,
     label: 'Owner',
@@ -42,6 +46,7 @@ const rows = [
   },
   {
     id: 'user',
+    ref: 'user>email',
     align: 'left',
     disablePadding: false,
     label: 'Owner Email',
@@ -49,6 +54,7 @@ const rows = [
   },
   {
     id: 'city',
+    ref: 'location>city',
     align: 'left',
     disablePadding: false,
     label: 'City',
@@ -56,6 +62,7 @@ const rows = [
   },
   {
     id: 'state',
+    ref: 'location>state',
     align: 'left',
     disablePadding: false,
     label: 'State',
@@ -63,6 +70,7 @@ const rows = [
   },
   {
     id: 'country',
+    ref: 'location>country',
     align: 'left',
     disablePadding: false,
     label: 'Country',
@@ -70,6 +78,7 @@ const rows = [
   },
   {
     id: 'createdDate',
+    ref: 'createdAt',
     align: 'left',
     disablePadding: false,
     label: 'Created At',
@@ -77,6 +86,7 @@ const rows = [
   },
   {
     id: 'ready',
+    ref: 'isReady',
     align: 'left',
     disablePadding: false,
     label: 'Ready',
@@ -84,6 +94,7 @@ const rows = [
   },
   {
     id: 'publish',
+    ref: 'isPublish',
     align: 'left',
     disablePadding: false,
     label: 'Publish',
@@ -132,7 +143,7 @@ function ListingsTableHead(props) {
                 style={{font: 'caption'}}
                 disableUnderline
                 fullWidth
-                onChange={ev => dispatch(Actions.setListingsSearchValues(row.id, ev.target.value))}
+                onChange={ev => dispatch(Actions.setListingsSearchValues(row.ref, ev.target.value))}
               />
             </TableCell>
           );
