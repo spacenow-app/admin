@@ -106,13 +106,13 @@ const ProjectDashboardApp = props => {
               animation: "transition.slideUpBigIn"
             }}
           >
-            <div className="widget flex w-full sm:w-1/2 md:w-1/4 p-12">
+            <div className="widget flex w-full sm:w-1/2 md:w-1/3 p-12">
               {widgets.users && <WidgetUsers widget={widgets.users} handleChangeRange={(days) => _handleUsersByDate(days)} />}
             </div>
-            <div className="widget flex w-full sm:w-1/2 md:w-1/4 p-12">
+            <div className="widget flex w-full sm:w-1/2 md:w-1/3 p-12">
               {widgets.bookings && <WidgetBookings widget={widgets.bookings} handleChangeRange={(days) => _handleBookingsByDate(days)} />}
             </div>
-            <div className="widget flex w-full sm:w-1/2 md:w-1/4 p-12">
+            <div className="widget flex w-full sm:w-1/2 md:w-1/3 p-12">
               {widgets.listings && widgets.categories && <WidgetListings categories={widgets.categories} widget={widgets.listings} handleChangeRange={({ days, category }) => _handleListingsByDate({ days, category })} />}
             </div>
           </SpacenowAnimateGroup>
