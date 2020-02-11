@@ -144,7 +144,7 @@ function ListingsTable(props) {
                             ? 'Click here to disable this listing'
                             : 'Click here to activate this listing'
                         }
-                        onClick={(e) => e.stopPropagation() ||
+                        onClick={(e) => !e.stopPropagation() &&
                           dispatch(
                             Actions.openDialog({
                               children: (
