@@ -3,7 +3,7 @@ import * as Actions from '../actions';
 const initialState = {
   count: 0,
   data: [],
-  searchText: ''
+  searchValues: {}
 };
 
 const listingsReducer = function (state = initialState, action) {

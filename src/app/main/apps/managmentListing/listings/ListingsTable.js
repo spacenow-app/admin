@@ -39,8 +39,8 @@ function ListingsTable(props) {
   const [order, setOrder] = useState({ direction: 'asc', id: null });
 
   useEffect(() => {
-    dispatch(Actions.getListings(page, rowsPerPage));
-  }, [dispatch, page, rowsPerPage]);
+    dispatch(Actions.getListings(page, rowsPerPage, searchValues));
+  }, [dispatch, page, rowsPerPage, searchValues]);
 
   useEffect(() => {
     setData(
