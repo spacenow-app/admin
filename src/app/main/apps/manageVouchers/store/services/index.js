@@ -39,12 +39,13 @@ class VoucherService {
     });
   };
 
-  createVoucher = (type, value, usageLimit) => {
+  createVoucher = (code, type, value, usageLimit, expireAt) => {
+    console.log("EXPIRE AT ===>>>", expireAt)
     return new Promise((resolve, reject) => {
       getClientWithAuth()
         .mutate({
           mutation: QL.mutateCreateVoucher,
-          variables: { type, value, usageLimit }
+          variables: { code, type, value, usageLimit, expireAt }
         })
         .then((res) => {
           if (res.data.createVoucher) {

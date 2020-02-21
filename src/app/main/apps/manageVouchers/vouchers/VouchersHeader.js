@@ -1,3 +1,4 @@
+import 'date-fns';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -18,13 +19,21 @@ import {
   Typography
 } from '@material-ui/core';
 
+import DateFnsUtils from '@date-io/date-fns';
+
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
 import { SpacenowAnimate } from '@spacenow';
 
 const VOUCHER_INIT = {
   code: '',
   type: 'percentual',
   value: 0,
-  usageLimit: 1
+  usageLimit: 1,
+  expireAt: new Date()
 };
 
 function Header() {
@@ -62,9 +71,23 @@ function Header() {
     event.persist();
   };
 
+  const handleCode = (event) => {
+    setVoucherObj((o) => {
+      return { ...o, code: event.target.value };
+    });
+    event.persist();
+  };
+
   const handleLimit = (event) => {
     setVoucherObj((o) => {
       return { ...o, usageLimit: parseInt(event.target.value, 10) };
+    });
+    event.persist();
+  };
+
+  const handleDateChange = (event) => {
+    setVoucherObj((o) => {
+      return { ...o, expireAt: new Date(event.target.value).toISOString() };
     });
     event.persist();
   };
@@ -81,6 +104,7 @@ function Header() {
         <DialogTitle id='form-dialog-title'>Voucher</DialogTitle>
         <DialogContent>
           <FormControl fullWidth>
+          
             <InputLabel id='select-type'>Type</InputLabel>
             <Select
               id='select-type'
@@ -92,6 +116,16 @@ function Header() {
               <MenuItem value={'zerofee'}>Zero Fee</MenuItem>
               <MenuItem value={'value'}>Value</MenuItem>
             </Select>
+            <TextField
+              margin='dense'
+              id='code'
+              label='Code'
+              type='text'
+              value={voucherObj.code}
+              onChange={handleCode}
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+            />
             <TextField
               margin='dense'
               id='value'
@@ -112,6 +146,32 @@ function Header() {
               fullWidth
               InputLabelProps={{ shrink: true }}
             />
+            <TextField
+              id="expireAt"
+              label="Expire At"
+              type="date"
+              defaultValue={voucherObj.expireAt}
+              onChange={handleDateChange}
+              // className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+            {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="expireAt"
+                label="Expire At"
+                value={voucherObj.expireAt}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+            </MuiPickersUtilsProvider> */}
           </FormControl>
         </DialogContent>
         <DialogActions>

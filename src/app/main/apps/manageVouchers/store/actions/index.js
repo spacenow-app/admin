@@ -17,9 +17,9 @@ export function desactiveVoucher(voucherCode) {
       .catch((err) => dispatch({ type: FAILURE_VOUCHERS, error: err }));
 }
 
-export function createVoucher({ type, value, usageLimit }) {
+export function createVoucher({ code, type, value, usageLimit, expireAt }) {
   return (dispatch) =>
-    Service.createVoucher(type, value, usageLimit)
+    Service.createVoucher(code, type, value, usageLimit, expireAt)
       .then((data) => dispatch({ type: GET_VOUCHERS, payload: data }))
       .catch((err) => dispatch({ type: FAILURE_VOUCHERS, error: err }));
 }
