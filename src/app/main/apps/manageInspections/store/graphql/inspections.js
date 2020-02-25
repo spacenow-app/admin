@@ -2,35 +2,15 @@
 import { gql } from "apollo-boost";
 
 export const queryGetAllInspections = gql`
-  query GetAllBookings {
-    getAllBookings {
-      bookingId
+  query GetAllInspections {
+    getInspections{
+      id
       listingId
-      totalPrice
-      bookingType
-      basePrice
-      bookingState
-      priceType
-      paymentState
       guestId
-      hostId
-      chargeId
-      checkIn
-      checkOut
+      date
+      time
+      status
       createdAt
-      guest {
-        email
-      }
-      host {
-        email
-      }
-      listing {
-        title
-        location {
-          address1
-          city
-        }
-      }
     }
   }
 `;

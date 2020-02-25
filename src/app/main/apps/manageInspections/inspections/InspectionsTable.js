@@ -10,7 +10,7 @@ import { SpacenowScrollbars, SpacenowUtils } from "@spacenow";
 import { withRouter } from "react-router-dom";
 import _ from "@lodash";
 import InspectionsTableHead from "./InspectionsTableHead";
-import InspectionsStatus from "../inspection/InspectionsStatus";
+import InspectionStatus from "../inspection/InspectionStatus";
 import * as Actions from "../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
@@ -80,7 +80,7 @@ function InspectionsTable(props) {
   }
 
   return (
-    <div className='w-full flex flex-col table-wrapper'>
+    <div className='w-full flex flex-col table-wrapper' style={{ marginTop: '60px' }}>
       <SpacenowScrollbars className="flex-grow overflow-x-auto">
         <Table className="min-w-xl" aria-labelledby="tableTitle">
           <InspectionsTableHead
@@ -117,59 +117,30 @@ function InspectionsTable(props) {
                     role="checkbox"
                     aria-checked={isSelected}
                     tabIndex={-1}
-                    key={n.inspectionId}
+                    key={n.id}
                     selected={isSelected}
-                    onClick={() => handleClick(n)}
+                  // onClick={() => handleClick(n)}
                   >
                     <TableCell className='truncate' component="th" scope="row">
-                      {n.inspectionId}
+                      {n.id}
                     </TableCell>
                     <TableCell className='truncate' component="th" scope="row">
                       {n.listingId}
                     </TableCell>
                     <TableCell className='truncate' component="th" scope="row">
-                      {`${n.listing.title} | ${n.listing.location.address1}, ${n.listing.location.city}`}
+                      {n.guestId}
                     </TableCell>
                     <TableCell className='truncate' component="th" scope="row">
-                      <span>$</span>
-                      {n.totalPrice}
+                      <InspectionStatus name={n.status} />
                     </TableCell>
                     <TableCell className='truncate' component="th" scope="row">
-                      {n.bookingType}
-                    </TableCell>
-                    <TableCell className='truncate' component="th" scope="row">
-                      <span>$</span>
-                      {n.basePrice}
-                    </TableCell>
-                    <TableCell className='truncate' component="th" scope="row">
-                      {n.bookingState}
-                    </TableCell>
-                    <TableCell className='truncate' component="th" scope="row">
-                      {n.priceType}
-                    </TableCell>
-                    <TableCell className='truncate' component="th" scope="row">
-                      <InspectionsStatus name={n.paymentState} />
-                    </TableCell>
-                    <TableCell className='truncate' component="th" scope="row">
-                      {n.guest.email}
-                    </TableCell>
-                    <TableCell className='truncate' component="th" scope="row">
-                      {n.host.email}
-                    </TableCell>
-                    <TableCell className='truncate' component="th" scope="row">
-                      {n.chargeId}
-                    </TableCell>
-                    <TableCell className='truncate' component="th" scope="row">
-                      {n.checkIn &&
-                        moment(n.checkIn).format(
+                      {n.date &&
+                        moment(n.date).format(
                           "DD/MM/YYYY", moment.HTML5_FMT.DATE
                         )}
                     </TableCell>
                     <TableCell className='truncate' component="th" scope="row">
-                      {n.checkOut &&
-                        moment(n.checkOut).format(
-                          "DD/MM/YYYY", moment.HTML5_FMT.DATE
-                        )}
+                      {n.time}
                     </TableCell>
                     <TableCell className='truncate' component="th" scope="row">
                       {n.createdAt}

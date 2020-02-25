@@ -12,7 +12,7 @@ import * as Actions from "../store/actions";
 
 const rows = [
   {
-    id: "bookingId",
+    id: "id",
     align: "left",
     disablePadding: false,
     label: "Id",
@@ -26,96 +26,38 @@ const rows = [
     sort: true
   },
   {
-    id: "listing",
-    align: "left",
-    disablePadding: false,
-    label: "Title",
-    sort: true
-  },
-  {
-    id: "totalPrice",
-    align: "left",
-    disablePadding: false,
-    label: "Total",
-    sort: true
-  },
-  {
-    id: "bookingType",
-    align: "left",
-    disablePadding: false,
-    label: "Type",
-    sort: true
-  },
-
-  {
-    id: "basePrice",
-    align: "left",
-    disablePadding: false,
-    label: "Price",
-    sort: true
-  },
-
-  {
-    id: "bookingState",
-    align: "left",
-    disablePadding: false,
-    label: "State",
-    sort: true
-  },
-  {
-    id: "priceType",
-    align: "left",
-    disablePadding: false,
-    label: "Period",
-    sort: true
-  },
-  {
-    id: "paymentState",
-    align: "left",
-    disablePadding: false,
-    label: "State",
-    sort: true
-  },
-  {
-    id: "guest",
+    id: "guestId",
     align: "left",
     disablePadding: false,
     label: "Guest",
     sort: true
   },
   {
-    id: "host",
+    id: "status",
     align: "left",
     disablePadding: false,
-    label: "Host",
+    label: "Status",
     sort: true
   },
   {
-    id: "chargeId",
+    id: "date",
     align: "left",
     disablePadding: false,
-    label: "Charge",
+    label: "Requested date",
     sort: true
   },
   {
-    id: "checkIn",
+    id: "time",
     align: "left",
     disablePadding: false,
-    label: "Check-In",
-    sort: true
-  },
-  {
-    id: "checkOut",
-    align: "left",
-    disablePadding: false,
-    label: "Check-Out",
+    label: "Requested time",
     sort: true
   },
   {
     id: "createdAt",
     align: "left",
     disablePadding: false,
-    label: "Transaction Date",
+    label: "Created At",
     sort: true
   }
 ];
@@ -158,7 +100,7 @@ function UsersTableHead(props) {
               )}
               <Input
                 placeholder="Filter"
-                style={{font: 'caption'}}
+                style={{ font: 'caption' }}
                 disableUnderline
                 fullWidth
                 onChange={ev => dispatch(Actions.setInspectionsSearchValues(row.id, ev.target.value))}

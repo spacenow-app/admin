@@ -4,8 +4,8 @@ export const GET_INSPECTIONS = "[MANAGMENT APP] GET INSPECTIONS";
 export const SET_INSPECTIONS_SEARCH_VALUES =
   "[MANAGMENT APP] SET INSPECTIONS SEARCH FILTERS";
 
-export function getBookings() {
-  const request = inspectionsService.getBookings();
+export function getInspections() {
+  const request = inspectionsService.getInspections();
 
   return dispatch =>
     request.then(response => {

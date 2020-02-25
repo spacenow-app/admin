@@ -11,8 +11,8 @@ class inspectionsService {
           query: inspectionsQL.queryGetAllInspections
         })
         .then(response => {
-          if (response.data.getAllInspections) {
-            resolve(response.data.getAllInspections);
+          if (response.data.getInspections) {
+            resolve(response.data.getInspections);
           } else {
             reject(response.data.error);
           }
