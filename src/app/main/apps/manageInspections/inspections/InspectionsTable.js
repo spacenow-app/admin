@@ -67,9 +67,9 @@ function InspectionsTable(props) {
     setSelected([]);
   }
 
-  function handleClick(item) {
-    props.history.push("/apps/managment/inspections/" + item.inspectionId);
-  }
+  // function handleClick(item) {
+  //   props.history.push("/apps/managment/inspections/" + item.inspectionId);
+  // }
 
   function handleChangePage(event, page) {
     setPage(page);
