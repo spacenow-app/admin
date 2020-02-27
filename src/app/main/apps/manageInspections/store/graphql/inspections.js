@@ -10,6 +10,9 @@ export const queryGetAllInspections = gql`
       date
       time
       status
+      messages {
+        content
+      }
       createdAt
     }
   }

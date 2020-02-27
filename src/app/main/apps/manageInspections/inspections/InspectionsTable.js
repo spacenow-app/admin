@@ -78,7 +78,6 @@ function InspectionsTable(props) {
   function handleChangeRowsPerPage(event) {
     setRowsPerPage(event.target.value);
   }
-
   return (
     <div className='w-full flex flex-col table-wrapper' style={{ marginTop: '60px' }}>
       <SpacenowScrollbars className="flex-grow overflow-x-auto">
@@ -129,6 +128,9 @@ function InspectionsTable(props) {
                     </TableCell>
                     <TableCell className='truncate' component="th" scope="row">
                       {n.guestId}
+                    </TableCell>
+                    <TableCell className='truncate' component="th" scope="row">
+                      {n.messages && n.messages[0] && n.messages[0].content}
                     </TableCell>
                     <TableCell className='truncate' component="th" scope="row">
                       <InspectionStatus name={n.status} />
