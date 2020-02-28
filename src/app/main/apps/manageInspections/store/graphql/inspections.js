@@ -1,19 +1,21 @@
 /* eslint-disable no-console */
-import { gql } from "apollo-boost";
+import { gql } from 'apollo-boost'
 
 export const queryGetAllInspections = gql`
   query GetAllInspections {
-    getInspections{
+    getInspections {
       id
       listingId
       guestId
       date
       time
       status
-      messages {
-        content
+      message {
+        messages {
+          content
+        }
       }
       createdAt
     }
   }
-`;
+`
