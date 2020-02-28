@@ -5,6 +5,7 @@ import { ServiceFeeAppConfig } from '../apps/managmentFee/project/ServiceFeeAppC
 import { ManagmentListingConfig } from '../apps/managmentListing/ManagmentListingConfig';
 import { ListingConfig } from '../apps/listings/ListingConfig';
 import { ManageVouchersConfig } from './../apps/manageVouchers/ManageVouchersConfig';
+import { ManageInspectionsConfig } from '../apps/manageInspections/ManageInspectionsConfig';
 
 export const appsConfigs = [
   ProjectDashboardAppConfig,
@@ -13,5 +14,6 @@ export const appsConfigs = [
   ServiceFeeAppConfig,
   ManagmentListingConfig,
   ListingConfig,
-  ManageVouchersConfig
+  ManageVouchersConfig,
+  ManageInspectionsConfig
 ];
