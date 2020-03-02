@@ -1,7 +1,7 @@
 import React from 'react';
 import { Paper, Chip, Typography, TextField, MenuItem } from '@material-ui/core';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
-import Creatable from 'react-select/creatable';
+import { Creatable } from 'react-select';
 import Select from 'react-select';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
