@@ -18,6 +18,7 @@ import {
 } from '@material-ui/core';
 
 import _ from '@lodash';
+import moment from 'moment';
 import { SpacenowScrollbars } from '@spacenow';
 
 import VouchersTableHead from './VouchersTableHead';
@@ -121,7 +122,7 @@ const VouchersTable = () => {
       </Dialog>
 
       {/* Vouchers table */}
-      <div className='w-full flex flex-col'>
+      <div className='w-full flex flex-col table-wrapper'>
         <SpacenowScrollbars className='flex-grow overflow-x-auto'>
           <Table className='min-w-xl' aria-labelledby='tableTitle'>
             <VouchersTableHead
@@ -174,6 +175,13 @@ const VouchersTable = () => {
                       </TableCell>
                       <TableCell component='th' scope='row'>
                         {n.usageLimit}
+                      </TableCell>
+                      <TableCell component='th' scope='row'>
+                        {n.expireAt &&
+                        moment(n.expireAt).format(
+                          'DD/MM/YYYY',
+                          moment.HTML5_FMT.DATE
+                        )}
                       </TableCell>
                       <TableCell component='th' scope='row'>
                         {statusContainer(n.status)}

@@ -1,24 +1,18 @@
 import React from 'react';
-import { SpacenowPageCarded } from '@spacenow';
+import { SpacenowPageSimple } from '@spacenow';
 import withReducer from 'app/store/withReducer';
 import UsersTable from './UsersTable';
-import UsersHeader from './UsersHeader';
 import reducer from '../store/reducers';
 
 
 function Users() {
     return (
-        <SpacenowPageCarded
+        <SpacenowPageSimple
             classes={{
                 content: "flex",
                 header: "min-h-72 h-72 sm:h-136 sm:min-h-136"
             }}
-            header={
-                <UsersHeader />
-            }
-            content={
-                <UsersTable />
-            }
+            content={<UsersTable />}
             innerScroll
         />
     );

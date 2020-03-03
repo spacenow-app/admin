@@ -2,12 +2,12 @@ import { getClientWithAuth } from '@graphql/apolloClient';
 import * as QL from '../graphql/listings';
 
 class listingsService {
-  getListings = (page, limit) => {
+  getListings = (page, limit, filter) => {
     return new Promise((resolve, reject) => {
       getClientWithAuth()
         .query({
           query: QL.queryGetAllPlainListings,
-          variables: { page, limit },
+          variables: { page, limit, filter },
           fetchPolicy: 'network-only'
         })
         .then((response) => {
@@ -19,6 +19,23 @@ class listingsService {
         });
     });
   };
+
+  publishListing = (listingId, status) => {
+    return new Promise((resolve, reject) => {
+      getClientWithAuth()
+        .mutate({
+          mutation: QL.publishListing,
+          variables: { listingId, status }
+        })
+        .then((response) => {
+          if (response.data.publish) {
+            resolve(response.data.publish);
+          } else {
+            reject(response.data.error);
+          }
+        });
+    });
+  }
 
   changeListingStatus = (listingId, status) => {
     return new Promise((resolve, reject) => {

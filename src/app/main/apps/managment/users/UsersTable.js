@@ -268,7 +268,7 @@ function UsersTable(props) {
         </DialogActions>
       </Dialog>
       {/* Users */}
-      <div className='w-full flex flex-col'>
+      <div className='w-full flex flex-col table-wrapper'>
         <SpacenowScrollbars className='flex-grow overflow-x-auto'>
           <Table className='min-w-xl' aria-labelledby='tableTitle'>
             <UsersTableHead
@@ -368,6 +368,22 @@ function UsersTable(props) {
                           >
                             <MenuItem value={0}>Active</MenuItem>
                             <MenuItem value={1}>Banned</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </TableCell>
+                      <TableCell component='th' scope='row'>
+                        <FormControl>
+                          <Select
+                            value={n.role}
+                            name='role'
+                            className='w-full'
+                            onChange={(event) =>
+                              handleChangeUserData(event, n)
+                            }
+                          >
+                            <MenuItem value={'user'}>User</MenuItem>
+                            <MenuItem value={'host'}>Host</MenuItem>
+                            <MenuItem value={'admin'}>Admin</MenuItem>
                           </Select>
                         </FormControl>
                       </TableCell>

@@ -44,6 +44,7 @@ function WidgetListings(props) {
                     aria-owns={selectedCategoryMenu ? "selectedCategoryMenu" : null}
                     aria-haspopup="true"
                     onClick={openSelectedCategoryMenu}
+                    className="p-0"
                 >
                     <Icon>more_vert</Icon>
                 </IconButton>

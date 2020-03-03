@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import _ from '@lodash';
-import Tooltip from '@material-ui/core/Tooltip';
+import { Button, Tooltip} from '@material-ui/core';
 
 export const statuses = [
   {
@@ -28,9 +28,9 @@ function Status(props) {
   const status = _.find(statuses, { name: props.name })
   return (
     <Tooltip title={props.tooltip || ''}>
-      <div {...props} className={status && clsx('inline text-12 p-4 rounded truncate', status.color)}>
+      <Button {...props} className={status && clsx('inline text-12 p-4 rounded truncate', status.color)}>
         {props.name}
-      </div>
+      </Button>
     </Tooltip>
   );
 }

@@ -29,6 +29,14 @@ const navigationConfig = [
         exact: true
       },
       {
+        id: 'inspections',
+        title: 'Inspections',
+        type: 'item',
+        icon: 'person',
+        url: '/apps/managment/inspections',
+        exact: true
+      },
+      {
         id: 'vouchers',
         title: 'Vouchers',
         type: 'item',

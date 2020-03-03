@@ -3,7 +3,7 @@ import * as Actions from '../actions';
 const initialState = {
   count: 0,
   data: [],
-  searchText: ''
+  searchValues: {}
 };
 
 const listingsReducer = function (state = initialState, action) {
@@ -15,10 +15,10 @@ const listingsReducer = function (state = initialState, action) {
         count: action.payload.count
       };
     }
-    case Actions.SET_LISTINGS_SEARCH_TEXT: {
+    case Actions.SET_LISTINGS_SEARCH_VALUES: {
       return {
         ...state,
-        searchText: action.searchText
+        searchValues: {...state.searchValues, [action.id]: action.searchValue}
       };
     }
     case Actions.UPDATE_LISTING: {

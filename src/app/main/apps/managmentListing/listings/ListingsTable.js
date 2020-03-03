@@ -19,6 +19,7 @@ import moment from "moment";
 import { SpacenowScrollbars, SpacenowUtils } from "@spacenow";
 import { withRouter } from "react-router-dom";
 import _ from "@lodash";
+import apisConfig from "app/spacenow-configs/apisConfig";
 import ListingsTableHead from "./ListingsTableHead";
 import * as Actions from "../store/actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,8 +27,10 @@ import { useDispatch, useSelector } from "react-redux";
 function ListingsTable(props) {
   const dispatch = useDispatch();
 
+  const appUrl = apisConfig.appHost;
+
   const { data: listings, count: totalListings } = useSelector(({ managmentListing }) => managmentListing.listings);
-  const searchText = useSelector(({ managmentListing }) => managmentListing.listings.searchText);
+  const searchValues = useSelector(({ managmentListing }) => managmentListing.listings.searchValues);
 
   const [selected] = useState([]);
   const [data, setData] = useState(listings);
@@ -36,16 +39,16 @@ function ListingsTable(props) {
   const [order, setOrder] = useState({ direction: 'asc', id: null });
 
   useEffect(() => {
-    dispatch(Actions.getListings(page, rowsPerPage));
-  }, [dispatch, page, rowsPerPage]);
+    dispatch(Actions.getListings(page, rowsPerPage, searchValues));
+  }, [dispatch, page, rowsPerPage, searchValues]);
 
   useEffect(() => {
     setData(
-      searchText.length === 0
-        ? listings
-        : SpacenowUtils.filterArrayByString(listings, searchText)
+      searchValues
+      ? SpacenowUtils.filterObjectByProps(listings, searchValues)
+      : listings
     );
-  }, [listings, searchText]);
+  }, [listings, searchValues]);
 
   function handleRequestSort(event, property) {
     const id = property;
@@ -56,8 +59,24 @@ function ListingsTable(props) {
     setOrder({ direction, id });
   }
 
+  function handleChangePublishListingData(event, listingId, pubStatus, isReady) {
+    event.stopPropagation();
+    if (isReady) {
+      dispatch(Actions.publishListing(listingId, !pubStatus));
+    }
+  }
+
   function handleChangePage(event, page) {
     setPage(page);
+  }
+
+  function handleOpenListingPage(event, listingId, pubStatus) {
+    event.stopPropagation();
+    if (pubStatus) {
+      window.open(appUrl + "/space/" + listingId);
+    } else {
+      window.open(appUrl + "/listing/preview/" + listingId);
+    }
   }
 
   function handleChangeRowsPerPage(event) {
@@ -65,13 +84,13 @@ function ListingsTable(props) {
   }
 
   function handleChangeListingStatus(event, listingId, status) {
+    event.stopPropagation();
     dispatch(Actions.changeListingStatus(listingId, status));
     dispatch(Actions.closeDialog());
-    event.preventDefault();
   }
 
   return (
-    <div className='w-full flex flex-col'>
+    <div className='w-full flex flex-col table-wrapper'>
       <SpacenowScrollbars className='flex-grow overflow-x-auto'>
         <Table className='min-w-xl' aria-labelledby='tableTitle'>
           <ListingsTableHead
@@ -107,6 +126,7 @@ function ListingsTable(props) {
                     tabIndex={-1}
                     key={n.id}
                     selected={isSelected}
+                    onClick={ (event) => handleOpenListingPage(event, n.id, n.isPublished) }
                   >
                     <TableCell component='th' scope='row'>
                       {n.id}
@@ -124,7 +144,7 @@ function ListingsTable(props) {
                             ? 'Click here to disable this listing'
                             : 'Click here to activate this listing'
                         }
-                        onClick={() =>
+                        onClick={(e) => !e.stopPropagation() &&
                           dispatch(
                             Actions.openDialog({
                               children: (
@@ -207,7 +227,21 @@ function ListingsTable(props) {
                       {n.isReady ? "YES" : "NO"}
                     </TableCell>
                     <TableCell component='th' scope='row'>
-                      {n.isPublished ? 'Publish' : 'Unpublished'}
+                      <Button
+                        onClick={ (event) => handleChangePublishListingData(event, n.id, n.isPublished, n.isReady)}
+                        size='small'
+                        variant='contained'
+                        className={
+                          "inline text-12 p-4 rounded truncate " +
+                          (n.isPublished
+                            ? 'bg-green text-white'
+                            : (n.isReady
+                              ? 'bg-red text-white'
+                              : 'bg-gray text-white'))
+                        }
+                      >
+                        {n.isPublished ? 'Published' : 'Unpublished'}
+                      </Button>
                     </TableCell>
                   </TableRow>
                 );

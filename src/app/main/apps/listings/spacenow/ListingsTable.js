@@ -75,9 +75,8 @@ function ListingsTable(props) {
     props.history.push('/apps/managment/users');
   }
 
-  function handleChangePublishListingData(event, item) {
-    dispatch(Actions.getListings());
-    dispatch(AppActions.closeDialog());
+  function handleChangePublishListingData(item) {
+    dispatch(Actions.publishListing(item.id, !item.isPublished));
   }
   function handleChangePage(event, page) {
     setPage(page);
@@ -95,7 +94,6 @@ function ListingsTable(props) {
             numSelected={selected.length}
             order={order}
             onRequestSort={handleRequestSort}
-            rowCount={data.length}
           />
 
           <TableBody>
@@ -195,15 +193,15 @@ function ListingsTable(props) {
                         onClick={(event) => handleChangePublishListingData(n)}
                         size='small'
                         variant='contained'
-                        color={n.isPublished ? 'bg-red' : 'bg-red'}
                         className={
                           n.isPublished
                             ? 'bg-green text-white'
                             : 'bg-red text-white'
                         }
                       >
-                        {n.isPublished ? 'Publish' : 'Unpublished'}
+                        {n.isPublished ? 'Published' : 'Unpublished'}
                       </Button>
+                      {n.isPublished}
                     </TableCell>
                     <TableCell component='th' scope='row' align='center'>
                       <Button
@@ -273,7 +271,6 @@ function ListingsTable(props) {
 
       <TablePagination
         component='div'
-        count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         backIconButtonProps={{

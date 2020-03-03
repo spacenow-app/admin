@@ -45,6 +45,13 @@ const rows = [
     sort: true
   },
   {
+    id: 'expireAt',
+    align: 'left',
+    disablePadding: false,
+    label: 'Expire At',
+    sort: true
+  },
+  {
     id: 'status',
     align: 'left',
     disablePadding: false,
