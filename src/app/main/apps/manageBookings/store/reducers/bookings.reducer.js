@@ -1,9 +1,12 @@
-import * as Actions from "../actions";
+import * as Actions from '../actions'
 
 const initialState = {
   data: [],
   searchValues: null
-};
+  // approve: {
+  //   status: false
+  // }
+}
 
 const bookingsReducer = function(state = initialState, action) {
   switch (action.type) {
@@ -11,20 +14,29 @@ const bookingsReducer = function(state = initialState, action) {
       return {
         ...state,
         data: action.payload
-      };
+      }
     }
 
     case Actions.SET_BOOKINGS_SEARCH_VALUES: {
       return {
         ...state,
-        searchValues: {...state.searchValues, [action.id]: action.searchValue}
-      };
+        searchValues: { ...state.searchValues, [action.id]: action.searchValue }
+      }
+    }
+
+    case Actions.ACCEPT_BOOKING: {
+      return {
+        ...state
+        // approve: {
+        //   status: action.payload.status
+        // }
+      }
     }
 
     default: {
-      return state;
+      return state
     }
   }
-};
+}
 
-export default bookingsReducer;
+export default bookingsReducer

@@ -1,130 +1,129 @@
-import React from "react";
-import {
-  TableHead,
-  TableSortLabel,
-  TableCell,
-  TableRow,
-  Tooltip,
-  Input
-} from "@material-ui/core";
-import { useDispatch } from "react-redux";
-import * as Actions from "../store/actions";
+import React from 'react'
+import { TableHead, TableSortLabel, TableCell, TableRow, Tooltip, Input } from '@material-ui/core'
+import { useDispatch } from 'react-redux'
+import * as Actions from '../store/actions'
 
 const rows = [
   {
-    id: "bookingId",
-    align: "left",
+    id: 'bookingId',
+    align: 'left',
     disablePadding: false,
-    label: "Id",
+    label: 'Id',
     sort: true
   },
   {
-    id: "listingId",
-    align: "left",
+    id: 'listingId',
+    align: 'left',
     disablePadding: false,
-    label: "Listing",
+    label: 'Listing',
     sort: true
   },
   {
-    id: "listing",
-    align: "left",
+    id: 'listing',
+    align: 'left',
     disablePadding: false,
-    label: "Title",
+    label: 'Title',
     sort: true
   },
   {
-    id: "totalPrice",
-    align: "left",
+    id: 'totalPrice',
+    align: 'left',
     disablePadding: false,
-    label: "Total",
+    label: 'Total',
     sort: true
   },
   {
-    id: "bookingType",
-    align: "left",
+    id: 'bookingType',
+    align: 'left',
     disablePadding: false,
-    label: "Type",
-    sort: true
-  },
-
-  {
-    id: "basePrice",
-    align: "left",
-    disablePadding: false,
-    label: "Price",
+    label: 'Type',
     sort: true
   },
 
   {
-    id: "bookingState",
-    align: "left",
+    id: 'basePrice',
+    align: 'left',
     disablePadding: false,
-    label: "State",
+    label: 'Price',
     sort: true
   },
   {
-    id: "priceType",
-    align: "left",
+    id: 'bookingState',
+    align: 'left',
     disablePadding: false,
-    label: "Period",
+    label: 'State',
     sort: true
   },
   {
-    id: "paymentState",
-    align: "left",
+    id: 'approve',
+    align: 'left',
     disablePadding: false,
-    label: "State",
+    label: 'Approve',
     sort: true
   },
   {
-    id: "guest",
-    align: "left",
+    id: 'priceType',
+    align: 'left',
     disablePadding: false,
-    label: "Guest",
+    label: 'Period',
     sort: true
   },
   {
-    id: "host",
-    align: "left",
+    id: 'paymentState',
+    align: 'left',
     disablePadding: false,
-    label: "Host",
+    label: 'State',
     sort: true
   },
   {
-    id: "chargeId",
-    align: "left",
+    id: 'guest',
+    align: 'left',
     disablePadding: false,
-    label: "Charge",
+    label: 'Guest',
     sort: true
   },
   {
-    id: "checkIn",
-    align: "left",
+    id: 'host',
+    align: 'left',
     disablePadding: false,
-    label: "Check-In",
+    label: 'Host',
     sort: true
   },
   {
-    id: "checkOut",
-    align: "left",
+    id: 'chargeId',
+    align: 'left',
     disablePadding: false,
-    label: "Check-Out",
+    label: 'Charge',
     sort: true
   },
   {
-    id: "createdAt",
-    align: "left",
+    id: 'checkIn',
+    align: 'left',
     disablePadding: false,
-    label: "Transaction Date",
+    label: 'Check-In',
+    sort: true
+  },
+  {
+    id: 'checkOut',
+    align: 'left',
+    disablePadding: false,
+    label: 'Check-Out',
+    sort: true
+  },
+  {
+    id: 'createdAt',
+    align: 'left',
+    disablePadding: false,
+    label: 'Transaction Date',
     sort: true
   }
-];
+]
 
 function UsersTableHead(props) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const createSortHandler = property => event => {
-    props.onRequestSort(event, property);
-  };
+    props.onRequestSort(event, property)
+  }
 
   return (
     <TableHead>
@@ -134,17 +133,13 @@ function UsersTableHead(props) {
             <TableCell
               key={row.id}
               align={row.align}
-              padding={row.disablePadding ? "none" : "default"}
-              sortDirection={
-                props.order.id === row.id ? props.order.direction : false
-              }
+              padding={row.disablePadding ? 'none' : 'default'}
+              sortDirection={props.order.id === row.id ? props.order.direction : false}
             >
               {row.sort && (
                 <Tooltip
                   title="Sort"
-                  placement={
-                    row.align === "right" ? "bottom-end" : "bottom-start"
-                  }
+                  placement={row.align === 'right' ? 'bottom-end' : 'bottom-start'}
                   enterDelay={300}
                 >
                   <TableSortLabel
@@ -158,17 +153,17 @@ function UsersTableHead(props) {
               )}
               <Input
                 placeholder="Filter"
-                style={{font: 'caption'}}
+                style={{ font: 'caption' }}
                 disableUnderline
                 fullWidth
                 onChange={ev => dispatch(Actions.setBookingsSearchValues(row.id, ev.target.value))}
               />
             </TableCell>
-          );
+          )
         }, this)}
       </TableRow>
     </TableHead>
-  );
+  )
 }
 
-export default UsersTableHead;
+export default UsersTableHead

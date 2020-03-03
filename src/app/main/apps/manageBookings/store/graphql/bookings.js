@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { gql } from "apollo-boost";
+import { gql } from 'apollo-boost'
 
 export const queryGetAllBookings = gql`
   query GetAllBookings {
@@ -33,4 +33,12 @@ export const queryGetAllBookings = gql`
       }
     }
   }
-`;
+`
+
+export const mutationAcceptBooking = gql`
+  mutation acceptBooking($bookingId: String!) {
+    acceptBooking(bookingId: $bookingId) {
+      status
+    }
+  }
+`
