@@ -4,8 +4,11 @@ import {
   TableSortLabel,
   TableCell,
   TableRow,
-  Tooltip
+  Tooltip,
+  Input
 } from '@material-ui/core';
+import { useDispatch } from "react-redux";
+import * as Actions from "../store/actions";
 
 const rows = [
   {
@@ -17,6 +20,7 @@ const rows = [
   },
   {
     id: 'id',
+    ref: 'profile>profileId',
     align: 'left',
     disablePadding: false,
     label: 'Profile ID',
@@ -24,6 +28,7 @@ const rows = [
   },
   {
     id: 'firstName',
+    ref: 'profile>firstName',
     align: 'left',
     disablePadding: false,
     label: 'First name',
@@ -31,6 +36,7 @@ const rows = [
   },
   {
     id: 'lastName',
+    ref: 'profile>lastName',
     align: 'left',
     disablePadding: false,
     label: 'Last name',
@@ -39,6 +45,7 @@ const rows = [
 
   {
     id: 'email',
+    ref: 'email',
     align: 'left',
     disablePadding: false,
     label: 'Email',
@@ -47,6 +54,7 @@ const rows = [
 
   {
     id: 'phoneNumber',
+    ref: 'user>profile>phoneNumber',
     align: 'left',
     disablePadding: false,
     label: 'Phone',
@@ -54,6 +62,7 @@ const rows = [
   },
   {
     id: 'createdAt',
+    ref: 'user>profile>createdAt',
     align: 'left',
     disablePadding: false,
     label: 'Created At',
@@ -61,6 +70,7 @@ const rows = [
   },
   {
     id: 'voucherCode',
+    ref: 'voucherCode',
     align: 'left',
     disablePadding: false,
     label: 'Voucher',
@@ -68,6 +78,7 @@ const rows = [
   },
   {
     id: 'status',
+    ref: 'userBanStatus',
     align: 'left',
     disablePadding: false,
     label: 'Status',
@@ -75,6 +86,7 @@ const rows = [
   },
   {
     id: 'role',
+    ref: 'role',
     align: 'left',
     disablePadding: false,
     label: 'Type',
@@ -82,6 +94,7 @@ const rows = [
   },
   {
     id: 'provider',
+    ref: 'provider',
     align: 'left',
     disablePadding: false,
     label: 'Provider',
@@ -89,6 +102,7 @@ const rows = [
   },
   {
     id: 'emailConfirmed',
+    ref: 'emailConfirmed',
     align: 'center',
     disablePadding: false,
     label: 'Email Confirmed',
@@ -97,6 +111,7 @@ const rows = [
 ];
 
 function UsersTableHead(props) {
+  const dispatch = useDispatch();
   const createSortHandler = (property) => (event) => {
     props.onRequestSort(event, property);
   };
@@ -131,6 +146,13 @@ function UsersTableHead(props) {
                   </TableSortLabel>
                 </Tooltip>
               )}
+              <Input
+                placeholder="Filter"
+                style={{font: 'caption'}}
+                disableUnderline
+                fullWidth
+                onChange={ev => dispatch(Actions.setUsersSearchValues(row.ref, ev.target.value))}
+              />
             </TableCell>
           );
         }, this)}

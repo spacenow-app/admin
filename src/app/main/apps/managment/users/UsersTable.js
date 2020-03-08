@@ -32,7 +32,10 @@ function UsersTable(props) {
   const dispatch = useDispatch();
 
   const users = useSelector(({ managment }) => managment.users.data);
-  const searchText = useSelector(({ managment }) => managment.users.searchText);
+  // const searchText = useSelector(({ managment }) => managment.users.searchText);
+  const searchValues = useSelector(
+    ({ managment }) => managment.users.searchValues
+  );
 
   const [selected] = useState([]);
   const [data, setData] = useState(users);
@@ -60,13 +63,21 @@ function UsersTable(props) {
     dispatch(Actions.getUsers());
   }, [dispatch]);
 
+  // useEffect(() => {
+  //   setData(
+  //     searchText.length === 0
+  //       ? users
+  //       : SpacenowUtils.filterArrayByString(users, searchText)
+  //   );
+  // }, [users, searchText]);
+
   useEffect(() => {
     setData(
-      searchText.length === 0
-        ? users
-        : SpacenowUtils.filterArrayByString(users, searchText)
+      searchValues
+        ? SpacenowUtils.filterObjectByProps(users, searchValues)
+        : users
     );
-  }, [users, searchText]);
+  }, [users, searchValues]);
 
   function handleRequestSort(event, property) {
     const id = property;

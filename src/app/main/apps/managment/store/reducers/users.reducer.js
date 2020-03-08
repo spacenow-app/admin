@@ -4,7 +4,8 @@ const initialState = {
   data: [],
   count: 0,
   error: null,
-  searchText: ""
+  searchText: "",
+  searchValues: null
 };
 
 const usersReducer = function (state = initialState, action) {
@@ -37,6 +38,14 @@ const usersReducer = function (state = initialState, action) {
         searchText: action.searchText
       };
     }
+
+    case Actions.SET_USERS_SEARCH_VALUES: {
+      return {
+        ...state,
+        searchValues: {...state.searchValues, [action.id]: action.searchValue}
+      };
+    }
+
     default: {
       return state;
     }

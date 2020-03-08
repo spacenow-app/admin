@@ -5,6 +5,7 @@ export const GET_USERS = '[MANAGMENT APP] GET USERS';
 export const SET_USER_SUCCESS = '[MANAGMENT APP] SET USER SUCCESS';
 export const SET_USER_ERROR = '[MANAGMENT APP] SET USER ERROR';
 export const SET_USERS_SEARCH_TEXT = '[MANAGMENT APP] SET USERS SEARCH TEXT';
+export const SET_USERS_SEARCH_VALUES = "[MANAGMENT APP] SET USERS SEARCH FILTERS";
 
 export function getUsers() {
   const request = usersService.getUsers();
@@ -41,5 +42,13 @@ export function setUsersSearchText(event) {
   return {
     type: SET_USERS_SEARCH_TEXT,
     searchText: event.target.value
+  };
+}
+
+export function setUsersSearchValues(id, searchValue) {
+  return {
+    type: SET_USERS_SEARCH_VALUES,
+    id: id,
+    searchValue: searchValue
   };
 }
