@@ -106,7 +106,7 @@ const rows = [
     align: 'center',
     disablePadding: false,
     label: 'Email Confirmed',
-    sort: true
+    sort: false
   }
 ];
 
@@ -129,7 +129,8 @@ function UsersTableHead(props) {
                 props.order.id === row.id ? props.order.direction : false
               }
             >
-              {row.sort && (
+              {row.sort ? (
+                <>
                 <Tooltip
                   title='Sort'
                   placement={
@@ -145,14 +146,15 @@ function UsersTableHead(props) {
                     {row.label}
                   </TableSortLabel>
                 </Tooltip>
-              )}
-              <Input
-                placeholder="Filter"
-                style={{font: 'caption'}}
-                disableUnderline
-                fullWidth
-                onChange={ev => dispatch(Actions.setUsersSearchValues(row.ref, ev.target.value))}
-              />
+                <Input
+                  placeholder="Filter"
+                  style={{font: 'caption'}}
+                  disableUnderline
+                  fullWidth
+                  onChange={ev => dispatch(Actions.setUsersSearchValues(row.ref, ev.target.value))}
+                />
+                </>
+              ): row.label}
             </TableCell>
           );
         }, this)}
