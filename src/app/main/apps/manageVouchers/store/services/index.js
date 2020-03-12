@@ -1,6 +1,6 @@
-import { getClientWithAuth } from '@graphql/apolloClient';
+import { getClientWithAuth } from "@graphql/apolloClient";
 
-import * as QL from './../graphql';
+import * as QL from "./../graphql";
 
 class VoucherService {
   init = () => {};
@@ -10,9 +10,9 @@ class VoucherService {
       getClientWithAuth()
         .query({
           query: QL.queryGetVouchers,
-          fetchPolicy: 'network-only'
+          fetchPolicy: "network-only"
         })
-        .then((res) => {
+        .then(res => {
           if (res.data.getVouchers) {
             resolve(res.data.getVouchers);
           } else {
@@ -22,14 +22,14 @@ class VoucherService {
     });
   };
 
-  desactiveVoucher = (voucherCode) => {
+  desactiveVoucher = voucherCode => {
     return new Promise((resolve, reject) => {
       getClientWithAuth()
         .mutate({
           mutation: QL.mutateDesactiveVoucher,
           variables: { voucherCode }
         })
-        .then((res) => {
+        .then(res => {
           if (res.data.desactiveVoucher) {
             resolve(this.getVouchers());
           } else {
@@ -40,14 +40,13 @@ class VoucherService {
   };
 
   createVoucher = (code, type, value, usageLimit, expireAt) => {
-    console.log("EXPIRE AT ===>>>", expireAt)
     return new Promise((resolve, reject) => {
       getClientWithAuth()
         .mutate({
           mutation: QL.mutateCreateVoucher,
           variables: { code, type, value, usageLimit, expireAt }
         })
-        .then((res) => {
+        .then(res => {
           if (res.data.createVoucher) {
             resolve(this.getVouchers());
           } else {
