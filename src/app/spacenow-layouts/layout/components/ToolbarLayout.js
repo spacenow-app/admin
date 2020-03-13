@@ -47,11 +47,11 @@ function ToolbarLayout(props) {
 
                             <div className={classes.separator} />
 
-                        </Hidden> */}
+                        </Hidden>
 
                         <div className={classes.separator} />
 
-                        <QuickPanelToggleButton />
+                        <QuickPanelToggleButton /> */}
                     </div>
 
                     {config.navbar.display && config.navbar.position === 'right' && (
