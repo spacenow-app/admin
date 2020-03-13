@@ -27,6 +27,10 @@ function WidgetUsers(props) {
     //     setSelectedUserMenu(null);
     // }
 
+    function handleClickLink(q) {
+        window.location = ManagmentConfig.routes[0].path + '?' + q;
+    }
+
     if (props.widget.isLoading)
         return null
     return (
@@ -70,18 +74,16 @@ function WidgetUsers(props) {
                     </MenuList>
                 </Menu> */}
             </div>
-            <Link underline="none" href={ManagmentConfig.routes[0].path} className="hover:text-blue text-orange">
-            <div className="text-center pt-12 pb-28">
+            <div className="text-center pt-12 pb-28 hover:text-blue text-orange cursor-pointer" onClick={ () => handleClickLink() } >
                 <Typography
                     className="text-72 leading-none">{props.widget.data.count}</Typography>
                 <Typography className="text-16" color="textSecondary">Total Users</Typography>
 
             </div>
-            <div className="flex items-center justify-between p-16">
-                <Typography className="text-16" color="textSecondary">Hosts: {props.widget.data.hosts}</Typography>
-                <Typography className="text-16" color="textSecondary">Guests: {props.widget.data.guests}</Typography>
+            <div className="flex items-center justify-between p-16 cursor-pointer">
+                <Typography className="text-16 hover:text-blue" onClick={ () => handleClickLink("role=host") } color="textSecondary">Hosts: {props.widget.data.hosts}</Typography>
+                <Typography className="text-16 hover:text-blue" onClick={ () => handleClickLink("role=guest") } color="textSecondary">Guests: {props.widget.data.guests}</Typography>
             </div>
-            </Link>
         </Paper>
     );
 }

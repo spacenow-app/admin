@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   TableHead,
   TableSortLabel,
@@ -115,6 +115,16 @@ function UsersTableHead(props) {
   const createSortHandler = (property) => (event) => {
     props.onRequestSort(event, property);
   };
+
+  var filter = window.location.search.substring(1);
+
+  filter = filter.split("=");
+
+  useEffect(() => {
+    if (filter.length == 2) {
+      dispatch(Actions.setUsersSearchValues(filter[0], filter[1]))
+    }
+  }, []);
 
   return (
     <TableHead>

@@ -4,6 +4,7 @@ import { ManagmentListingConfig } from '../../../managmentListing/ManagmentListi
 
 function WidgetListings(props) {
 
+
     const [selectedCategoryMenu, setSelectedCategoryMenu] = useState(null);
     const [currentCategoryDay, setCurrentCategoryDay] = useState({
         days: 10000,
@@ -22,6 +23,10 @@ function WidgetListings(props) {
         setCurrentCategoryDay({ category, days })
         props.handleChangeRange({ category, days })
         closeSelectedCategoryMenu()
+    }
+
+    function handleClickLink(q) {
+        window.location = ManagmentListingConfig.routes[1].path + '?' + q;
     }
 
     if (props.widget.isLoading || props.categories.isLoading)
@@ -63,7 +68,7 @@ function WidgetListings(props) {
                             props.categories && props.categories.data.map((category) => (
                                 category.subCategories.map((item) => (
                                     <MenuItem key={item.id} onClick={() => _setCategoryDay(item.id, currentCategoryDay.days)}>
-                                        <ListItemText primary={`${category.itemName} -> ${item.subCategory.itemName}`} />
+                                        {/* <ListItemText primary={`${category.itemName} -> ${item.subCategory.itemName}`} /> */}
                                     </MenuItem>
                                 ))
                             ))
@@ -71,18 +76,16 @@ function WidgetListings(props) {
                     </MenuList>
                 </Menu>
             </div>
-            <Link underline="none" href={ManagmentListingConfig.routes[1].path} className="hover:text-blue text-orange">
-            <div className="text-center pt-12 pb-28">
+            <div className="text-center pt-12 pb-28 cursor-pointer hover:text-blue text-orange" onClick={ () => handleClickLink()}>
                 <Typography
                     className="text-72 leading-none">{props.widget.data.count.all}</Typography>
-                <Typography className="text-16" color="textSecondary">Total Listings </Typography>
+                <Typography className="text-16 text-grey-darker">Total Listings </Typography>
             </div>
-            <div className="flex items-center justify-between p-16">
-                <Typography className="text-16" color="textSecondary">Actives: {props.widget.data.count.active}</Typography>
-                <Typography className="text-16" color="textSecondary">Published: {props.widget.data.count.published}</Typography>
-                <Typography className="text-16" color="textSecondary">Deleted: {props.widget.data.count.deleted}</Typography>
+            <div className="flex items-center justify-between p-16 cursor-pointer">
+                <Typography onClick={ () => handleClickLink("status=active")} className="text-16 hover:text-blue" color="textSecondary">Actives: {props.widget.data.count.active}</Typography>
+                <Typography onClick={ () => handleClickLink("isPublished=true")} className="text-16 hover:text-blue" color="textSecondary">Published: {props.widget.data.count.published}</Typography>
+                <Typography onClick={ () => handleClickLink("status=deleted")} className="text-16 hover:text-blue" color="textSecondary">Deleted: {props.widget.data.count.deleted}</Typography>
             </div>
-            </Link>
         </Paper>
     );
 }

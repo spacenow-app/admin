@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import {
   TableHead,
@@ -94,7 +94,7 @@ const rows = [
   },
   {
     id: 'publish',
-    ref: 'isPublish',
+    ref: 'isPublished',
     align: 'left',
     disablePadding: false,
     label: 'Publish',
@@ -107,6 +107,15 @@ function ListingsTableHead(props) {
   const createSortHandler = (property) => (event) => {
     props.onRequestSort(event, property);
   };
+  var filter = window.location.search.substring(1);
+
+  filter = filter.split("=");
+
+  useEffect(() => {
+    if (filter.length == 2) {
+      dispatch(Actions.setListingsSearchValues(filter[0], filter[1]))
+    }
+  }, []);
 
   return (
     <TableHead>

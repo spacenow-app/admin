@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { TableHead, TableSortLabel, TableCell, TableRow, Tooltip, Input } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import * as Actions from '../store/actions'
@@ -124,6 +124,16 @@ function UsersTableHead(props) {
   const createSortHandler = property => event => {
     props.onRequestSort(event, property)
   }
+
+  var filter = window.location.search.substring(1);
+
+  filter = filter.split("=");
+
+  useEffect(() => {
+    if (filter.length == 2) {
+      dispatch(Actions.setBookingsSearchValues(filter[0], filter[1]))
+    }
+  }, []);
 
   return (
     <TableHead>

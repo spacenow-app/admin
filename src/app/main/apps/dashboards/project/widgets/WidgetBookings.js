@@ -5,6 +5,10 @@ import { ManageBookingsConfig } from '../../../manageBookings/ManageBookingsConf
 
 function WidgetBookings(props) {
 
+    function handleClickLink(q) {
+        window.location = ManageBookingsConfig.routes[0].path + '?' + q;
+    }
+
     if (props.widget.isLoading)
         return null
     return (
@@ -22,18 +26,16 @@ function WidgetBookings(props) {
                     <option key={3} value={30}>Month</option>
                 </Select>
             </div>
-            <Link underline="none" href={ManageBookingsConfig.routes[0].path} className="hover:text-blue text-orange">
-            <div className="text-center pt-12 pb-28">
+            <div className="text-center pt-12 pb-28 cursor-pointer hover:text-blue text-orange" onClick={ () => handleClickLink() }>
                 <Typography
-                    className="text-72 leading-none">{props.widget.data.count.all}</Typography>
+                    className="text-72 leading-none ">{props.widget.data.count.all}</Typography>
                 <Typography className="text-16" color="textSecondary">Total Bookings</Typography>
             </div>
-            <div className="flex items-center justify-between p-16">
+            <div className="flex items-center justify-between p-16 ">
                 <Typography className="text-16" color="textSecondary">Approved: {props.widget.data.count.approved}</Typography>
                 <Typography className="text-16" color="textSecondary">Completed: {props.widget.data.count.completed}</Typography>
                 <Typography className="text-16" color="textSecondary">Cancelled: {props.widget.data.count.cancelled}</Typography>
             </div>
-            </Link>
         </Paper>
     );
 }
