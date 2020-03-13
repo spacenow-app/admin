@@ -65,7 +65,7 @@ function InspectionsTable(props) {
     setRowsPerPage(event.target.value)
   }
   return (
-    <div className="w-full flex flex-col table-wrapper" style={{ marginTop: '60px' }}>
+    <div className="w-full flex flex-col table-wrapper">
       <SpacenowScrollbars className="flex-grow overflow-x-auto">
         <Table className="min-w-xl" aria-labelledby="tableTitle">
           <InspectionsTableHead
