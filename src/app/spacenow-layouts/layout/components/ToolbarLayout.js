@@ -39,7 +39,7 @@ function ToolbarLayout(props) {
 
                         <UserMenu />
 
-                        <div className={classes.separator} />
+                        {/* <div className={classes.separator} />
 
                         <SpacenowSearch />
 
@@ -47,7 +47,7 @@ function ToolbarLayout(props) {
 
                             <div className={classes.separator} />
 
-                        </Hidden>
+                        </Hidden> */}
 
                         <div className={classes.separator} />
 
