@@ -74,7 +74,7 @@ export const queryGetAllCategories = gql`
       itemName
       subCategories {
         id
-        subCategory{
+        subCategory {
           id
           itemName
         }
