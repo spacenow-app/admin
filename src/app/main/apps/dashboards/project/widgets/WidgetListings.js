@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Icon, Typography, Select, Paper, IconButton, Menu, MenuList, MenuItem, ListItemText } from '@material-ui/core';
+import { Icon, Typography, Select, Paper, IconButton, Menu, MenuList, MenuItem, ListItemText, Link } from '@material-ui/core';
+import { ManagmentListingConfig } from '../../../managmentListing/ManagmentListingConfig';
 
 function WidgetListings(props) {
 
@@ -62,7 +63,7 @@ function WidgetListings(props) {
                             props.categories && props.categories.data.map((category) => (
                                 category.subCategories.map((item) => (
                                     <MenuItem key={item.id} onClick={() => _setCategoryDay(item.id, currentCategoryDay.days)}>
-                                        <ListItemText primary={`${category.itemName} -> ${item.subCategory.itemName}`} />
+                                        {/* <ListItemText primary={`${category.itemName} -> ${item.subCategory.itemName}`} /> */}
                                     </MenuItem>
                                 ))
                             ))
@@ -70,9 +71,10 @@ function WidgetListings(props) {
                     </MenuList>
                 </Menu>
             </div>
+            <Link underline="none" href={ManagmentListingConfig.routes[1].path} className="hover:text-blue text-orange">
             <div className="text-center pt-12 pb-28">
                 <Typography
-                    className="text-72 leading-none text-orange">{props.widget.data.count.all}</Typography>
+                    className="text-72 leading-none">{props.widget.data.count.all}</Typography>
                 <Typography className="text-16" color="textSecondary">Total Listings </Typography>
             </div>
             <div className="flex items-center justify-between p-16">
@@ -80,6 +82,7 @@ function WidgetListings(props) {
                 <Typography className="text-16" color="textSecondary">Published: {props.widget.data.count.published}</Typography>
                 <Typography className="text-16" color="textSecondary">Deleted: {props.widget.data.count.deleted}</Typography>
             </div>
+            </Link>
         </Paper>
     );
 }

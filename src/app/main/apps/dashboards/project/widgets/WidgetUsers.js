@@ -1,5 +1,6 @@
 import React from 'react';
-import { Typography, Select, Paper } from '@material-ui/core';
+import { Typography, Select, Paper, Link } from '@material-ui/core';
+import { ManagmentConfig } from "../../../managment/ManagmentConfig";
 
 function WidgetUsers(props) {
 
@@ -69,9 +70,10 @@ function WidgetUsers(props) {
                     </MenuList>
                 </Menu> */}
             </div>
+            <Link underline="none" href={ManagmentConfig.routes[0].path} className="hover:text-blue text-orange">
             <div className="text-center pt-12 pb-28">
                 <Typography
-                    className="text-72 leading-none text-orange">{props.widget.data.count}</Typography>
+                    className="text-72 leading-none">{props.widget.data.count}</Typography>
                 <Typography className="text-16" color="textSecondary">Total Users</Typography>
 
             </div>
@@ -79,6 +81,7 @@ function WidgetUsers(props) {
                 <Typography className="text-16" color="textSecondary">Hosts: {props.widget.data.hosts}</Typography>
                 <Typography className="text-16" color="textSecondary">Guests: {props.widget.data.guests}</Typography>
             </div>
+            </Link>
         </Paper>
     );
 }
