@@ -1,5 +1,7 @@
 import React from 'react';
-import { Typography, Select, Paper } from '@material-ui/core';
+import { Typography, Select, Paper, Link } from '@material-ui/core';
+import { ManageBookingsConfig } from '../../../manageBookings/ManageBookingsConfig';
+
 
 function WidgetBookings(props) {
 
@@ -20,9 +22,10 @@ function WidgetBookings(props) {
                     <option key={3} value={30}>Month</option>
                 </Select>
             </div>
+            <Link underline="none" href={ManageBookingsConfig.routes[0].path} className="hover:text-blue text-orange">
             <div className="text-center pt-12 pb-28">
                 <Typography
-                    className="text-72 leading-none text-orange">{props.widget.data.count.all}</Typography>
+                    className="text-72 leading-none">{props.widget.data.count.all}</Typography>
                 <Typography className="text-16" color="textSecondary">Total Bookings</Typography>
             </div>
             <div className="flex items-center justify-between p-16">
@@ -30,6 +33,7 @@ function WidgetBookings(props) {
                 <Typography className="text-16" color="textSecondary">Completed: {props.widget.data.count.completed}</Typography>
                 <Typography className="text-16" color="textSecondary">Cancelled: {props.widget.data.count.cancelled}</Typography>
             </div>
+            </Link>
         </Paper>
     );
 }
